@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eco Mosaics — Habitat Restoration & Land Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;1,400&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    /* ── Design Tokens ─────────────────────────────────────── */
+    :root {
+      --bark:   #3b2a1a;
+      --moss:   #4a6741;
+      --sage:   #7a9e6e;
+      --water:  #4a7c8e;
+      --mist:   #c8dbd5;
+      --cream:  #f5f0e8;
+      --amber:  #c8864a;
+      --pale:   #e8f0ec;
+      --white:  #ffffff;
+      --radius: 12px;
+    }
+
+    /* ── Reset & Base ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Mono', monospace;
+      background: var(--cream);
+      color: var(--bark);
+      line-height: 1.6;
+    }
+    img { display: block; width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Typography helpers ────────────────────────────────── */
+    .label-tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--water);
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      line-height: 1.15;
+      color: var(--bark);
+    }
+    .section-lead {
+      font-size: 0.85rem;
+      color: #5a4a3a;
+      max-width: 52ch;
+      line-height: 1.8;
+      margin-top: 12px;
+    }
+
+    /* ── Buttons ───────────────────────────────────────────── */
+    .btn {
+      display: inline-block;
+      padding: 13px 28px;
+      border-radius: 6px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+    .btn-primary { background: var(--amber); color: white; }
+    .btn-primary:hover { background: #b5743a; }
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 1.5px solid rgba(255,255,255,0.6);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.12); }
+    .btn-moss { background: var(--moss); color: white; }
+    .btn-moss:hover { background: #3a5432; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--moss);
+      border: 1.5px solid var(--sage);
+      padding: 10px 20px;
+    }
+    .btn-ghost:hover { background: var(--pale); }
+
+    /* ── NAV ───────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--cream);
+      border-bottom: 1px solid var(--mist);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      color: var(--bark);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bark);
+      opacity: 0.75;
+      transition: opacity 0.15s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-links .nav-cta a { opacity: 1; color: var(--amber); }
+
+    /* ── HERO ──────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      /* Replace the Unsplash URL below with your chosen photo if this doesn't load */
+      background:
+        linear-gradient(160deg, rgba(30,50,30,0.65) 0%, rgba(74,103,65,0.5) 55%, rgba(74,124,142,0.45) 100%),
+        url('https://images.unsplash.com/photo-1745791268211-97071e7dcd08?w=1400&q=80') center/cover no-repeat;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 75% 40%, rgba(200,134,74,0.14) 0%, transparent 55%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+    }
+    .hero-tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mist);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      line-height: 1.1;
+      color: white;
+      margin-bottom: 22px;
+    }
+    .hero h1 em { font-style: italic; color: #d4e8c2; }
+    .hero-sub {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.82);
+      max-width: 48ch;
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.4);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-scroll::after {
+      content: '';
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,0.25);
+    }
+
+    /* ── MOSAIC APPROACH ───────────────────────────────────── */
+    .approach {
+      padding: 96px 0;
+    }
+    .approach-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+    .approach-image {
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--mist);
+      position: relative;
+    }
+    .approach-image img { height: 100%; object-fit: cover; }
+    .approach-image-badge {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      background: var(--moss);
+      color: white;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 4px;
+    }
+    .approach-text .label-tag { margin-bottom: 14px; }
+    /* Ecosystem type pills */
+    .ecosystem-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    .pill {
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 20px;
+      background: var(--pale);
+      color: var(--moss);
+      border: 1px solid var(--mist);
+    }
+    .approach-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 36px;
+      padding-top: 36px;
+      border-top: 1px solid var(--mist);
+    }
+    .approach-stat .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--moss);
+      line-height: 1;
+    }
+    .approach-stat .desc {
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #6a5a4a;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    /* ── SERVICES ──────────────────────────────────────────── */
+    .services {
+      padding: 80px 0;
+      background: var(--pale);
+    }
+    .services-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+    .services-header .label-tag { margin-bottom: 12px; }
+    .services-header .section-lead { margin: 12px auto 0; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .service-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      border: 1.5px solid var(--mist);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.09);
+      border-color: var(--sage);
+    }
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: var(--pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+    }
+    .service-card p {
+      font-size: 0.78rem;
+      color: #6a5a4a;
+      line-height: 1.75;
+    }
+    .service-note {
+      margin-top: 12px;
+      font-size: 0.7rem;
+      color: var(--water);
+      line-height: 1.6;
+      padding-top: 12px;
+      border-top: 1px solid var(--mist);
+    }
+    .service-card .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 20px;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--moss);
+    }
+    .service-card .service-link::after { content: '→'; }
+    .service-card .service-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .services-footer { text-align: center; margin-top: 40px; }
+
+    /* ── CASE STUDY ────────────────────────────────────────── */
+    .case-study { padding: 96px 0; }
+    .case-study-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .ba-photo {
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--mist);
+      position: relative;
+    }
+    .ba-photo img { height: 100%; object-fit: cover; }
+    .ba-label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .ba-label.before { background: #c0504a; color: white; }
+    .ba-label.after  { background: var(--moss); color: white; }
+    .case-meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 24px 0;
+    }
+    .case-tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: var(--pale);
+      color: var(--moss);
+    }
+    .case-study-text .label-tag { margin-bottom: 14px; }
+    .case-study-text h2 { margin-bottom: 8px; }
+    .case-quote {
+      margin: 28px 0;
+      padding: 20px 24px;
+      border-left: 3px solid var(--sage);
+      background: var(--pale);
+      border-radius: 0 10px 10px 0;
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--bark);
+      line-height: 1.7;
+    }
+    .case-quote cite {
+      display: block;
+      margin-top: 10px;
+      font-style: normal;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--water);
+    }
+
+    /* ── EDUCATION ─────────────────────────────────────────── */
+    .education {
+      padding: 88px 0;
+      background: var(--bark);
+      position: relative;
+      overflow: hidden;
+    }
+    .education::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 15% 60%, rgba(74,103,65,0.3) 0%, transparent 50%),
+        radial-gradient(circle at 85% 20%, rgba(74,124,142,0.2) 0%, transparent 45%);
+    }
+    .education-inner {
+      position: relative;
+      z-index: 1;
+    }
+    .education-header {
+      margin-bottom: 52px;
+    }
+    .education-header .label-tag { color: var(--mist); margin-bottom: 14px; }
+    .education-header .section-title { color: white; }
+    .education-header .section-lead { color: rgba(255,255,255,0.6); }
+    .education-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    /* Left column — learn from us */
+    .edu-panel {
+      border-radius: var(--radius);
+      padding: 36px 32px;
+    }
+    .edu-panel-learn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .edu-panel-do {
+      background: var(--moss);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .edu-panel-tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mist);
+      opacity: 0.7;
+      margin-bottom: 12px;
+    }
+    .edu-panel h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: white;
+      margin-bottom: 14px;
+      line-height: 1.25;
+    }
+    .edu-panel p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.62);
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+    .edu-items {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .edu-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .edu-item-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .edu-panel-do .edu-item-icon { background: rgba(255,255,255,0.15); }
+    .edu-item-text .edu-item-title {
+      font-size: 0.75rem;
+      color: white;
+      margin-bottom: 2px;
+    }
+    .edu-item-text .edu-item-desc {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.52);
+      line-height: 1.5;
+    }
+    .edu-cta {
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sage);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s;
+    }
+    .edu-cta::after { content: '→'; }
+    .edu-cta:hover { color: white; }
+    .edu-panel-do .edu-cta { color: rgba(255,255,255,0.7); }
+    .edu-panel-do .edu-cta:hover { color: white; }
+
+    /* ── TESTIMONIALS ──────────────────────────────────────── */
+    .testimonials { padding: 96px 0; }
+    .testimonials-header { text-align: center; margin-bottom: 52px; }
+    .testimonials-header .label-tag { margin-bottom: 12px; }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .testimonial-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 28px;
+      border: 1.5px solid var(--mist);
+    }
+    .testimonial-stars {
+      color: var(--amber);
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+    .testimonial-text {
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: #4a3a2a;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .author-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .author-name { font-size: 0.72rem; color: var(--bark); }
+    .author-role {
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--water);
+      margin-top: 2px;
+    }
+    .partners {
+      margin-top: 64px;
+      padding-top: 48px;
+      border-top: 1px solid var(--mist);
+      text-align: center;
+    }
+    .partners-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #9a8a7a;
+      margin-bottom: 28px;
+    }
+    .partners-list {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      opacity: 0.5;
+    }
+    .partner-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      color: var(--bark);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── NEWSLETTER ────────────────────────────────────────── */
+    .newsletter {
+      background: linear-gradient(135deg, #2a4a2a 0%, var(--moss) 50%, #1e3d4a 100%);
+      padding: 88px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .newsletter::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 80% 50%, rgba(200,134,74,0.18) 0%, transparent 55%),
+        radial-gradient(circle at 10% 80%, rgba(74,124,142,0.18) 0%, transparent 45%);
+    }
+    .newsletter-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 580px;
+      margin: 0 auto;
+    }
+    .newsletter .label-tag { color: var(--mist); margin-bottom: 16px; }
+    .newsletter h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: white;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .newsletter h2 em { font-style: italic; color: #d4e8c2; }
+    .newsletter p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.68);
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+    .newsletter-form { display: flex; gap: 10px; max-width: 440px; margin: 0 auto; }
+    .newsletter-form input {
+      flex: 1;
+      padding: 13px 16px;
+      border-radius: 6px;
+      border: none;
+      background: rgba(255,255,255,0.12);
+      color: white;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      outline: none;
+      transition: background 0.15s;
+    }
+    .newsletter-form input::placeholder { color: rgba(255,255,255,0.38); }
+    .newsletter-form input:focus { background: rgba(255,255,255,0.18); }
+    .newsletter-note {
+      margin-top: 14px;
+      font-size: 0.62rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── FOOTER ────────────────────────────────────────────── */
+    footer {
+      background: var(--bark);
+      color: rgba(255,255,255,0.6);
+      padding: 64px 0 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 52px;
+    }
+    .footer-brand .nav-logo { color: white; margin-bottom: 16px; display: block; }
+    .footer-tagline {
+      font-size: 0.75rem;
+      line-height: 1.7;
+      max-width: 26ch;
+      color: rgba(255,255,255,0.45);
+    }
+    .footer-col h4 {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.32);
+      margin-bottom: 16px;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-col a {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.52);
+      transition: color 0.15s;
+    }
+    .footer-col a:hover { color: white; }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.28);
+    }
+
+    /* ── Responsive ────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .approach-inner,
+      .case-study-inner,
+      .education-grid { grid-template-columns: 1fr; gap: 40px; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .newsletter-form { flex-direction: column; }
+      .hero-ctas { flex-direction: column; }
+      .approach-stats { flex-direction: column; gap: 20px; }
+      .services-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────────── -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Eco Mosaics</a>
+      <ul class="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li class="nav-cta"><a href="contact.html">Book a Visit →</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <p class="hero-tag">Habitat Restoration & Land Management — San Francisco Bay Area</p>
+      <h1>Taking Steps to Revitalize<br><em>California's Mosaic of Ecosystems.</em></h1>
+      <p class="hero-sub">
+        Healthy land isn't one thing — it's many ecosystems woven together.
+        We work with landowners, conservation organizations, and public agencies
+        to restore and steward that complexity, one landscape at a time.
+      </p>
+      <div class="hero-ctas">
+        <a href="contact.html" class="btn btn-primary">Book a Consultation</a>
+        <a href="learn.html" class="btn btn-outline">Learn About Restoration</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- ── THE MOSAIC APPROACH ───────────────────────────────────── -->
+<section class="approach">
+  <div class="container">
+    <div class="approach-inner">
+      <div class="approach-image">
+        <img
+          src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&q=80"
+          alt="Diverse native plant ecosystem in the San Francisco Bay Area"
+        >
+        <span class="approach-image-badge">Sonoma Coast, CA</span>
+      </div>
+      <div class="approach-text">
+        <p class="label-tag">The Mosaic Approach</p>
+        <h2 class="section-title">Every Ecosystem Is Part of a Larger Whole</h2>
+        <p class="section-lead">
+          Restoration that focuses on a single species or a single patch rarely
+          holds. We take a landscape-scale view — working across riparian zones,
+          coastal scrub, wetlands, grasslands, and oak woodland to rebuild the
+          connections that make ecosystems resilient.
+        </p>
+        <div class="ecosystem-pills">
+          <span class="pill">Riparian</span>
+          <span class="pill">Coastal Scrub</span>
+          <span class="pill">Wetland</span>
+          <span class="pill">Oak Woodland</span>
+          <span class="pill">Native Grassland</span>
+          <span class="pill">Riparian Forest</span>
+        </div>
+        <p class="label-tag" style="margin-top:36px; margin-bottom:8px;">Prior experience</p>
+        <div class="approach-stats" style="margin-top:0;">
+          <div class="approach-stat">
+            <div class="num">--</div>
+            <div class="desc">Acres<br>restored</div>
+          </div>
+          <div class="approach-stat">
+            <div class="num">--</div>
+            <div class="desc">Projects<br>completed</div>
+          </div>
+          <div class="approach-stat">
+            <div class="num">--</div>
+            <div class="desc">Ecosystem<br>types worked in</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES OVERVIEW ─────────────────────────────────────── -->
+<section class="services">
+  <div class="container">
+    <div class="services-header">
+      <p class="label-tag">Land Management Services</p>
+      <h2 class="section-title">What We Do</h2>
+      <p class="section-lead">
+        Each landscape is different. Our services are tailored to where you are,
+        what you're working with, and what the land needs most.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🌱</div>
+        <h3>Habitat Restoration</h3>
+        <p>
+          Site assessment, native planting plans, erosion control, riparian
+          revegetation, and long-term monitoring — designed to restore function
+          to degraded landscapes and support biodiversity at every layer.
+        </p>
+        <a href="services/restoration.html" class="service-link">Learn more</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌿</div>
+        <h3>Invasive Species Removal</h3>
+        <p>
+          Assessment, treatment, and follow-up monitoring to remove invasive
+          plants that crowd out native species and degrade habitat structure.
+          We focus on lasting removal, not just surface clearing.
+        </p>
+        <a href="services/invasives.html" class="service-link">Learn more</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🦫</div>
+        <h3>Beaver Coexistence</h3>
+        <p>
+          Understanding both beaver behavior and human land needs to find
+          solutions that work for both. Mitigating conflict through flow
+          devices, site modifications, and management strategies that keep
+          beavers on the landscape as the ecosystem engineers they are.
+        </p>
+        <a href="services/coexistence.html" class="service-link">Learn more</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📋</div>
+        <h3>Consulting & Assessments</h3>
+        <p>
+          Detailed site evaluations and written reports for landowners,
+          municipalities, conservation districts, and state agencies —
+          recommendations you can take to funders, boards, or contractors.
+        </p>
+        <a href="services/consulting.html" class="service-link">Learn more</a>
+      </div>
+    </div>
+    <div class="services-footer">
+      <a href="services.html" class="btn btn-moss">View All Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── LEARN & GET INVOLVED ──────────────────────────────────── -->
+<section class="education">
+  <div class="container">
+    <div class="education-inner">
+      <div class="education-header">
+        <p class="label-tag">Knowledge & Community</p>
+        <h2 class="section-title" style="color:white;">Ecosystem Health<br>Is Everyone's Work</h2>
+        <p class="section-lead">
+          Whether you manage 500 acres or a backyard, understanding how
+          ecosystems function — and what they need — changes how you see
+          and interact with the land around you.
+        </p>
+      </div>
+      <div class="education-grid">
+
+        <!-- Learn from us -->
+        <div class="edu-panel edu-panel-learn">
+          <p class="edu-panel-tag">Learn from us</p>
+          <h3>Field Notes & Resources</h3>
+          <p>
+            Practical writing from the field — restoration techniques, species
+            profiles, case studies, and guides written for landowners and
+            curious people alike. No jargon required.
+          </p>
+          <div class="edu-items">
+            <div class="edu-item">
+              <div class="edu-item-icon">✍️</div>
+              <div class="edu-item-text">
+                <div class="edu-item-title">Blog & Field Notes</div>
+                <div class="edu-item-desc">Dispatches from active restoration work across NorCal</div>
+              </div>
+            </div>
+            <div class="edu-item">
+              <div class="edu-item-icon">📄</div>
+              <div class="edu-item-text">
+                <div class="edu-item-title">Guides & Downloads</div>
+                <div class="edu-item-desc">Free and paid resources on native plants, invasives, and restoration basics</div>
+              </div>
+            </div>
+            <div class="edu-item">
+              <div class="edu-item-icon">📸</div>
+              <div class="edu-item-text">
+                <div class="edu-item-title">Case Studies</div>
+                <div class="edu-item-desc">Before/after project stories with photos and outcomes</div>
+              </div>
+            </div>
+          </div>
+          <a href="learn.html" class="edu-cta">Explore the Learn section</a>
+        </div>
+
+        <!-- What you can do -->
+        <div class="edu-panel edu-panel-do">
+          <p class="edu-panel-tag">What you can do</p>
+          <h3>Get Involved with Your Land</h3>
+          <p>
+            You don't need to be a professional to make a real difference.
+            Small actions — removing one invasive, planting one native, protecting
+            one riparian edge — add up across a landscape.
+          </p>
+          <div class="edu-items">
+            <div class="edu-item">
+              <div class="edu-item-icon">🌾</div>
+              <div class="edu-item-text">
+                <div class="edu-item-title">Plant Natives</div>
+                <div class="edu-item-desc">Choosing the right plants for your region supports insects, birds, and soil</div>
+              </div>
+            </div>
+            <div class="edu-item">
+              <div class="edu-item-icon">🪓</div>
+              <div class="edu-item-text">
+                <div class="edu-item-title">Remove Invasives</div>
+                <div class="edu-item-desc">Learn to identify and manage common invasive species on your property</div>
+              </div>
+            </div>
+            <div class="edu-item">
+              <div class="edu-item-icon">💧</div>
+              <div class="edu-item-text">
+                <div class="edu-item-title">Protect Riparian Areas</div>
+                <div class="edu-item-desc">Buffer zones and reduced grazing pressure do more than you might expect</div>
+              </div>
+            </div>
+          </div>
+          <a href="learn/get-involved.html" class="edu-cta">See how to get started</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEWSLETTER ────────────────────────────────────────────── -->
+<section class="newsletter">
+  <div class="container">
+    <div class="newsletter-inner">
+      <p class="label-tag">Stay Connected</p>
+      <h2>Notes from the Field,<br>Straight to Your <em>Inbox</em></h2>
+      <p>
+        Monthly writing on restoration work, native ecosystems, and practical
+        ways to engage with the land — whether you're managing a ranch or
+        just getting curious about the plants in your neighborhood.
+      </p>
+      <form class="newsletter-form" onsubmit="return false;">
+        <input type="email" placeholder="your@email.com" autocomplete="email">
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+      <p class="newsletter-note">No spam. Usually once a month. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">Eco Mosaics</a>
+        <p class="footer-tagline">
+          Habitat restoration and land management for a more resilient,
+          biodiverse San Francisco Bay Area.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services/restoration.html">Habitat Restoration</a></li>
+          <li><a href="services/invasives.html">Invasive Species Removal</a></li>
+          <li><a href="services/consulting.html">Consulting & Assessments</a></li>
+          <li><a href="contact.html">Book a Site Visit</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="learn/blog.html">Field Notes</a></li>
+          <li><a href="learn/case-studies.html">Case Studies</a></li>
+          <li><a href="learn/get-involved.html">Get Involved</a></li>
+          <li><a href="learn/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="about/mission.html">Our Mission</a></li>
+          <li><a href="about/team.html">The Team</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Eco Mosaics. All rights reserved.</span>
+      <span>San Francisco Bay Area.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

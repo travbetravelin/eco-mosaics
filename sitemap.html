@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Sitemap — Habitat Restoration & Beaver Coexistence</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bark: #3b2a1a;
+    --moss: #4a6741;
+    --sage: #7a9e6e;
+    --water: #4a7c8e;
+    --mist: #c8dbd5;
+    --cream: #f5f0e8;
+    --amber: #c8864a;
+    --pale: #e8f0ec;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    font-family: 'DM Mono', monospace;
+    color: var(--bark);
+    min-height: 100vh;
+    padding: 40px 20px 60px;
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(74,103,65,0.07) 0%, transparent 50%),
+      radial-gradient(circle at 90% 80%, rgba(74,124,142,0.07) 0%, transparent 50%);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    color: var(--bark);
+    line-height: 1.15;
+  }
+
+  header h1 em {
+    font-style: italic;
+    color: var(--moss);
+  }
+
+  header p {
+    margin-top: 10px;
+    font-size: 0.72rem;
+    color: var(--water);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .legend {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .dot-home { background: var(--amber); }
+  .dot-main { background: var(--moss); }
+  .dot-sub { background: var(--water); }
+  .dot-cta { background: #c0504a; }
+
+  /* ---- Tree layout ---- */
+  .tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* HOME node */
+  .node-home {
+    position: relative;
+    z-index: 2;
+  }
+  .node-home .card {
+    background: var(--amber);
+    color: white;
+  }
+
+  /* connector from home down */
+  .trunk {
+    width: 2px;
+    height: 36px;
+    background: var(--sage);
+  }
+
+  /* main pages row */
+  .main-row {
+    display: flex;
+    gap: 0;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .main-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 160px;
+    padding: 0 10px;
+    position: relative;
+  }
+
+  /* horizontal line across top of main row */
+  .h-line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 0;
+    height: 2px;
+    background: var(--sage);
+    transform: translateY(0);
+  }
+
+  .branch-down {
+    width: 2px;
+    height: 32px;
+    background: var(--sage);
+  }
+
+  /* connector across main cols */
+  .crossbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+
+  .crossbar-line {
+    height: 2px;
+    background: var(--sage);
+    position: absolute;
+    top: 0;
+  }
+
+  /* Cards */
+  .card {
+    border-radius: 10px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    min-width: 140px;
+    max-width: 180px;
+    user-select: none;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+  }
+  .card.active {
+    box-shadow: 0 0 0 3px var(--amber), 0 8px 24px rgba(0,0,0,0.14);
+  }
+
+  .card-main {
+    background: var(--moss);
+    color: white;
+  }
+  .card-sub {
+    background: white;
+    border: 1.5px solid var(--mist);
+    color: var(--bark);
+  }
+  .card-cta {
+    background: #c0504a;
+    color: white;
+  }
+
+  .card .icon { font-size: 1.3rem; margin-bottom: 4px; }
+  .card .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+  }
+  .card .badge {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.22);
+  }
+  .card-sub .badge {
+    background: var(--pale);
+    color: var(--moss);
+  }
+
+  /* sub-pages */
+  .sub-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin-top: 0;
+  }
+  .sub-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* detail panel */
+  .detail-panel {
+    margin: 40px auto 0;
+    max-width: 680px;
+    background: white;
+    border-radius: 14px;
+    border: 1.5px solid var(--mist);
+    padding: 24px 28px;
+    transition: opacity 0.25s ease;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .detail-panel.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .detail-panel h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .detail-panel .purpose {
+    font-size: 0.75rem;
+    color: var(--water);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .detail-panel .sections {
+    font-size: 0.78rem;
+    line-height: 1.9;
+    color: #555;
+  }
+  .detail-panel .sections strong {
+    color: var(--moss);
+  }
+  .detail-panel .tip {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: var(--pale);
+    border-left: 3px solid var(--sage);
+    font-size: 0.72rem;
+    color: var(--bark);
+    border-radius: 0 8px 8px 0;
+    line-height: 1.6;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 52px;
+    font-size: 0.65rem;
+    color: #aaa;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* SVG connector overlay */
+  #connector-svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .tree-wrapper {
+    position: relative;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Your Website Structure<br><em>Eco Mosaics</em></h1>
+  <p>Click any page to explore its content sections</p>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot dot-home"></div> Homepage</div>
+  <div class="legend-item"><div class="legend-dot dot-main"></div> Main Pages</div>
+  <div class="legend-item"><div class="legend-dot dot-sub"></div> Sub-pages</div>
+  <div class="legend-item"><div class="legend-dot dot-cta"></div> Conversion / CTA</div>
+</div>
+
+<div class="tree">
+
+  <!-- HOME -->
+  <div class="node-home">
+    <div class="card card-home" style="background:var(--amber);color:white;" onclick="showDetail('home')">
+      <div class="icon">🌿</div>
+      <div class="label">HOME</div>
+      <div class="badge">Landing Page</div>
+    </div>
+  </div>
+
+  <div class="trunk"></div>
+
+  <!-- MAIN ROW SVG CROSSBAR + COLUMNS -->
+  <div style="position:relative; width:100%;">
+    <div class="main-row" id="main-row" style="justify-content:center;">
+
+      <!-- About -->
+      <div class="main-col">
+        <div class="branch-down"></div>
+        <div class="card card-main" onclick="showDetail('about')">
+          <div class="icon">🌿</div>
+          <div class="label">About Us</div>
+          <div class="badge">Brand Story</div>
+        </div>
+        <div class="branch-down"></div>
+        <div class="sub-row">
+          <div class="sub-item">
+            <div class="card card-sub" onclick="showDetail('mission')">
+              <div class="label">Our Mission</div>
+            </div>
+            <div class="branch-down" style="height:16px;"></div>
+          </div>
+          <div class="sub-item">
+            <div class="card card-sub" onclick="showDetail('team')">
+              <div class="label">The Team</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div class="main-col">
+        <div class="branch-down"></div>
+        <div class="card card-main" onclick="showDetail('services')">
+          <div class="icon">🔧</div>
+          <div class="label">Services</div>
+          <div class="badge">What We Offer</div>
+        </div>
+        <div class="branch-down"></div>
+        <div class="sub-row">
+          <div class="sub-item">
+            <div class="card card-sub" onclick="showDetail('restoration')">
+              <div class="label">Habitat Restoration</div>
+            </div>
+            <div class="branch-down" style="height:16px;"></div>
+          </div>
+          <div class="sub-item">
+            <div class="card card-sub" onclick="showDetail('invasives')">
+              <div class="label">Invasive Species Removal</div>
+            </div>
+            <div class="branch-down" style="height:16px;"></div>
+          </div>
+          <div class="sub-item">
+            <div class="card card-sub" onclick="showDetail('coexistence')">
+              <div class="label">Beaver Coexistence</div>
+            </div>
+            <div class="branch-down" style="height:16px;"></div>
+          </div>
+          <div class="sub-item">
+            <div class="card card-sub" onclick="showDetail('consulting')">
+              <div class="label">Consulting & Assessments</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Learn -->
+      <div class="main-col">
+        <div class="branch-down"></div>
+        <div class="card card-main" onclick="showDetail('learn')">
+          <div class="icon">📖</div>
+          <div class="label">Learn</div>
+          <div class="badge">Education</div>
+        </div>
+        <div class="branch-down"></div>
+        <div class="sub-row">
+          <div class="sub-item">
+            <div class="card card-sub" onclick="showDetail('blog')">
+              <div class="label">Blog & Field Notes</div>
+            </div>
+            <div class="branch-down" style="height:16px;"></div>
+          </div>
+          <div class="sub-item">
+            <div class="card card-sub" onclick="showDetail('casestudies')">
+              <div class="label">Case Studies</div>
+            </div>
+            <div class="branch-down" style="height:16px;"></div>
+          </div>
+          <div class="sub-item">
+            <div class="card card-sub" onclick="showDetail('faq')">
+              <div class="label">FAQ</div>
+            </div>
+            <div class="branch-down" style="height:16px;"></div>
+          </div>
+          <div class="sub-item">
+            <div class="card card-sub" onclick="showDetail('getinvolved')">
+              <div class="label">How to Get Involved</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact / Book -->
+      <div class="main-col">
+        <div class="branch-down"></div>
+        <div class="card card-cta" onclick="showDetail('contact')">
+          <div class="icon">📅</div>
+          <div class="label">Book / Contact</div>
+          <div class="badge">CTA</div>
+        </div>
+        <div class="branch-down"></div>
+        <div class="sub-row">
+          <div class="sub-item">
+            <div class="card card-sub" onclick="showDetail('booking')">
+              <div class="label">Schedule a Site Visit</div>
+            </div>
+            <div class="branch-down" style="height:16px;"></div>
+          </div>
+          <div class="sub-item">
+            <div class="card card-sub" onclick="showDetail('inquiry')">
+              <div class="label">Project Inquiry Form</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main-row -->
+  </div>
+
+</div><!-- /tree -->
+
+<!-- Detail Panel -->
+<div class="detail-panel" id="detail-panel">
+  <div class="purpose" id="dp-purpose"></div>
+  <h3 id="dp-title"></h3>
+  <div class="sections" id="dp-sections"></div>
+  <div class="tip" id="dp-tip"></div>
+</div>
+
+<footer>Click any node to inspect · Eco Mosaics sitemap</footer>
+
+<script>
+const data = {
+  home: {
+    icon: '🌿', title: 'Homepage',
+    purpose: 'First impression + conversion hub',
+    sections: `
+      <strong>Hero</strong> — "Restoring California's Mosaic of Life" — two CTAs: Book a Consultation + Learn About Restoration<br>
+      <strong>The Mosaic Approach</strong> — Landscape-scale framing with ecosystem type pills (Riparian, Coastal Scrub, Wetland, Oak Woodland, Native Grassland, Riparian Forest) and stats: 120+ acres, 47 projects, 8 ecosystem types<br>
+      <strong>Services Overview</strong> — 4 cards in 2×2 grid: Habitat Restoration, Invasive Species Removal, Beaver Coexistence, Consulting & Assessments<br>
+      <strong>Education / Learn & Get Involved</strong> — Two panels: "Field Notes & Resources" (learn from us) + "Get Involved with Your Land" (what you can do)<br>
+      <strong>Newsletter</strong> — "Notes from the Field, Straight to Your Inbox"
+    `,
+    tip: '💡 Your homepage should answer three questions in 5 seconds: What do you do? Who is it for? What should I do next?'
+  },
+  about: {
+    icon: '🌿', title: 'About Us',
+    purpose: 'Build trust & convey your values',
+    sections: `
+      <strong>Origin Story</strong> — Why you started this work<br>
+      <strong>Philosophy</strong> — The mosaic approach: landscape-scale thinking across interconnected ecosystems<br>
+      <strong>Certifications / Affiliations</strong> — Partnerships with wildlife orgs, land trusts, conservation districts<br>
+      <strong>Photo Gallery</strong> — Field shots, before/afters, active restoration work
+    `,
+    tip: '💡 People hire people, not businesses. A personal story here goes a long way.'
+  },
+  mission: {
+    icon: '🌍', title: 'Our Mission',
+    purpose: 'Brand awareness & values alignment',
+    sections: `
+      <strong>Mission Statement</strong><br>
+      <strong>The Ecological Case</strong> — Why diverse, interconnected ecosystems matter for water, biodiversity, and resilience<br>
+      <strong>Impact Metrics</strong> — 120+ acres restored, 47 projects, 8 ecosystem types
+    `,
+    tip: '💡 Quantified impact (e.g. "120 acres restored") builds enormous credibility with funders and landowners alike.'
+  },
+  team: {
+    icon: '👥', title: 'The Team',
+    purpose: 'Humanize the business',
+    sections: `
+      <strong>Team Bios</strong> — Photo, name, role, and a personal "why I do this work" line<br>
+      <strong>Guest Experts / Collaborators</strong> — If applicable
+    `,
+    tip: '💡 Even a solo operation benefits from a team page — it shows professionalism.'
+  },
+  services: {
+    icon: '🔧', title: 'Services Overview',
+    purpose: 'Help visitors self-identify the right service',
+    sections: `
+      <strong>Service Cards</strong> — Brief description of each offering with pricing range or "from $X"<br>
+      <strong>Who Is This For?</strong> — Landowners, municipalities, conservation orgs, farms<br>
+      <strong>Process Overview</strong> — What does working with you look like? (Steps 1–4)<br>
+      <strong>CTA</strong> — "Not sure where to start? Book a free 20-min call"
+    `,
+    tip: '💡 A simple "Who is this for?" list dramatically reduces bounce rate — visitors immediately see themselves.'
+  },
+  restoration: {
+    icon: '🌊', title: 'Habitat Restoration',
+    purpose: 'Service detail page',
+    sections: `
+      <strong>What's Included</strong> — Site assessment, planting plans, dam analogs, monitoring<br>
+      <strong>Expected Outcomes</strong> — Water table, biodiversity, erosion control<br>
+      <strong>Pricing / Scoping</strong> — How you structure engagements<br>
+      <strong>Case Study Embed</strong> — One relevant project
+    `,
+    tip: '💡 Before/after photo pairs are your most powerful conversion tool on this page.'
+  },
+  coexistence: {
+    icon: '🦫', title: 'Beaver Coexistence',
+    purpose: 'Service detail page',
+    sections: `
+      <strong>The Problem You Solve</strong> — Flooding, culvert issues, property damage<br>
+      <strong>Coexistence Solutions</strong> — Flow devices, pond levelers, exclusion fencing<br>
+      <strong>Why Not Removal?</strong> — Ecological and economic argument<br>
+      <strong>Service Area Map</strong>
+    `,
+    tip: '💡 Many landowners arrive frustrated with beavers. Lead with empathy for their problem before explaining your approach.'
+  },
+  consulting: {
+    icon: '📋', title: 'Consulting & Assessments',
+    purpose: 'Service detail page',
+    sections: `
+      <strong>Site Assessment Process</strong><br>
+      <strong>Report Deliverables</strong><br>
+      <strong>Who Hires You</strong> — Municipalities, state agencies, conservation districts<br>
+      <strong>Booking CTA</strong>
+    `,
+    tip: '💡 Government and NGO clients often need a formal deliverable — emphasize your written reports here.'
+  },
+  invasives: {
+    icon: '🌿', title: 'Invasive Species Removal',
+    purpose: 'Service detail page',
+    sections: `
+      <strong>What's Included</strong> — Assessment, treatment planning, removal, follow-up monitoring<br>
+      <strong>Common Invasives</strong> — Giant reed, annual grasses, French broom, thistle, and others<br>
+      <strong>Approach</strong> — Lasting removal focused on habitat recovery, not just surface clearing<br>
+      <strong>Case Study Embed</strong> — One relevant project<br>
+      <strong>Booking CTA</strong>
+    `,
+    tip: '💡 Emphasize the difference between surface clearing and lasting removal — this is a common point of confusion for landowners.'
+  },
+  learn: {
+    icon: '📖', title: 'Learn Hub',
+    purpose: 'SEO + authority building + public engagement',
+    sections: `
+      <strong>Article categories</strong> — Restoration techniques, native species, ecosystem health, land stewardship<br>
+      <strong>Video embeds</strong> — Field footage, project documentation<br>
+      <strong>Search / filter</strong><br>
+      <strong>Sub-pages</strong>: Blog & Field Notes, Case Studies, FAQ, How to Get Involved
+    `,
+    tip: '💡 Educational content ranks on Google and brings in landowners, students, and conservation professionals for free.'
+  },
+  blog: {
+    icon: '✍️', title: 'Blog & Field Notes',
+    purpose: 'SEO + community building',
+    sections: `
+      <strong>Article listing page</strong><br>
+      <strong>Individual post template</strong> — Title, hero image, author, tags, related posts<br>
+      <strong>Email subscribe CTA</strong> at bottom of each post
+    `,
+    tip: '💡 "Field Notes" framing feels more authentic than "Blog" for environmental work — consider the naming.'
+  },
+  casestudies: {
+    icon: '📸', title: 'Case Studies',
+    purpose: 'Social proof + portfolio',
+    sections: `
+      <strong>Project cards</strong> — Location, challenge, solution, outcome<br>
+      <strong>Before/after photo gallery</strong><br>
+      <strong>Client quote</strong><br>
+      <strong>Link to book similar project</strong>
+    `,
+    tip: '💡 Case studies are your single most persuasive content type. Prioritize publishing at least 3.'
+  },
+  faq: {
+    icon: '❓', title: 'FAQ',
+    purpose: 'Reduce friction & answer objections',
+    sections: `
+      <strong>Restoration Process</strong> — "What does a site visit include?", "How long does a project take?"<br>
+      <strong>Invasive Species</strong> — "Will they come back?", "Do you use herbicides?"<br>
+      <strong>Services & Scope</strong> — "What size properties do you work on?", "Do you work with public agencies?"<br>
+      <strong>Search bar</strong> for the FAQ
+    `,
+    tip: '💡 FAQs also rank well in Google\'s "People also ask" boxes — write them in natural question format.'
+  },
+  getinvolved: {
+    icon: '🌾', title: 'How to Get Involved',
+    purpose: 'Public engagement + community building',
+    sections: `
+      <strong>DIY Stewardship Actions</strong> — Plant natives, remove invasives, protect riparian edges<br>
+      <strong>Volunteer Opportunities</strong> — Work parties, restoration days (future)<br>
+      <strong>Workshops</strong> — Upcoming and past field education events<br>
+      <strong>Newsletter CTA</strong> — Stay informed via Field Notes
+    `,
+    tip: '💡 This page serves the general public audience — keep the tone welcoming and the actions concrete and achievable.'
+  },
+  contact: {
+    icon: '📅', title: 'Book / Contact',
+    purpose: 'Primary conversion page',
+    sections: `
+      <strong>Booking widget</strong> — Calendly or equivalent for site visits / consultations<br>
+      <strong>Project Inquiry Form</strong> — Location, project type, acreage, urgency<br>
+      <strong>Service Area Map</strong><br>
+      <strong>Response time expectation</strong> — "We reply within 2 business days"
+    `,
+    tip: '💡 This page should be linked from EVERY other page. Make it impossible to miss.'
+  },
+  booking: {
+    icon: '🗓️', title: 'Schedule a Site Visit',
+    purpose: 'Appointment booking',
+    sections: `
+      <strong>Calendly / booking embed</strong><br>
+      <strong>"What to expect" prep notes</strong> — What to have ready before the visit<br>
+      <strong>Pricing transparency</strong> — "Site visits start at $X"
+    `,
+    tip: '💡 Setting expectations before the visit (what to prepare, what you\'ll assess) dramatically improves show-up rates.'
+  },
+  inquiry: {
+    icon: '📬', title: 'Project Inquiry Form',
+    purpose: 'Lead capture for larger projects',
+    sections: `
+      <strong>Form fields</strong> — Name, location, project type, acreage, description, photos upload<br>
+      <strong>Confirmation page</strong> — "We'll be in touch within 48 hours"<br>
+      <strong>Optional: attach photos / site map</strong>
+    `,
+    tip: '💡 An inquiry form with photo upload lets you pre-qualify leads before the first call, saving time on both sides.'
+  }
+};
+
+let activeCard = null;
+
+function showDetail(key) {
+  const d = data[key];
+  if (!d) return;
+
+  // deactivate old
+  if (activeCard) activeCard.classList.remove('active');
+
+  // find clicked card — look for the onclick matching
+  const allCards = document.querySelectorAll('.card');
+  allCards.forEach(c => {
+    if (c.getAttribute('onclick') === `showDetail('${key}')`) {
+      c.classList.add('active');
+      activeCard = c;
+    }
+  });
+
+  document.getElementById('dp-purpose').textContent = d.purpose;
+  document.getElementById('dp-title').innerHTML = `${d.icon} ${d.title}`;
+  document.getElementById('dp-sections').innerHTML = d.sections;
+  document.getElementById('dp-tip').innerHTML = d.tip;
+
+  const panel = document.getElementById('detail-panel');
+  panel.classList.add('visible');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+</script>
+</body>
+</html>
