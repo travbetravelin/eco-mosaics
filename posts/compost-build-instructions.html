@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compost System — Build Instructions · Eco Mosaics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;1,400&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .post-header {
+      padding: 64px 0 40px;
+      border-bottom: 1px solid var(--mist);
+    }
+    .post-header .label-tag { margin-bottom: 14px; }
+    .post-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.15;
+      color: var(--bark);
+      margin-bottom: 10px;
+    }
+    .post-header .post-meta {
+      font-size: 0.72rem;
+      color: #8a7a6a;
+      letter-spacing: 0.06em;
+    }
+
+    .post-body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px 24px 96px;
+    }
+
+    /* Markdown content styles */
+    .post-body h1, .post-body h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--bark);
+      line-height: 1.2;
+      margin-top: 2.4em;
+      margin-bottom: 0.6em;
+    }
+    .post-body h1 { font-size: 1.8rem; }
+    .post-body h2 {
+      font-size: 1.4rem;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--mist);
+    }
+    .post-body h3 {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--water);
+      margin-top: 2em;
+      margin-bottom: 0.8em;
+    }
+    .post-body p {
+      font-size: 0.85rem;
+      line-height: 1.85;
+      color: #4a3a2a;
+      margin-bottom: 1em;
+    }
+    .post-body strong { color: var(--bark); font-weight: 600; }
+    .post-body em { font-style: italic; color: #6a5a4a; }
+    .post-body hr {
+      border: none;
+      border-top: 1px solid var(--mist);
+      margin: 2em 0;
+    }
+
+    /* Tables */
+    .post-body table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin: 1.4em 0;
+    }
+    .post-body th {
+      text-align: left;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--water);
+      padding: 8px 12px;
+      border-bottom: 2px solid var(--mist);
+    }
+    .post-body td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--mist);
+      color: #4a3a2a;
+      line-height: 1.5;
+    }
+    .post-body tr:last-child td { border-bottom: none; }
+    .post-body tbody tr:hover { background: var(--pale); }
+
+    /* Images */
+    .post-body img {
+      width: 100%;
+      border-radius: var(--radius);
+      margin: 1.6em 0;
+      border: 1px solid var(--mist);
+    }
+
+    /* Code / inline */
+    .post-body code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82em;
+      background: var(--pale);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--moss);
+    }
+
+    /* Checkboxes / check list look for the check table */
+    .post-body .check-row td:first-child { color: var(--moss); }
+
+    @media (max-width: 600px) {
+      .post-body table { font-size: 0.72rem; }
+      .post-body th, .post-body td { padding: 6px 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────────── -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">Eco Mosaics</a>
+      <ul class="nav-links">
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../services.html">Services</a></li>
+        <li><a href="../learn.html">Learn</a></li>
+        <li class="nav-cta"><a href="../contact.html">Book a Visit →</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Open navigation"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── POST HEADER ───────────────────────────────────────────── -->
+<div class="post-header">
+  <div class="container">
+    <p class="label-tag">Build Documentation</p>
+    <h1>Compost System — Build Instructions</h1>
+    <p class="post-meta">12-bin system · 237" × 84" × 44.5"</p>
+  </div>
+</div>
+
+<!-- ── POST BODY ─────────────────────────────────────────────── -->
+<div class="container">
+  <div class="post-body" id="content">
+    <p style="color: var(--water); font-size: 0.78rem;">Loading…</p>
+  </div>
+</div>
+
+<!-- ── FOOTER ────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="nav-logo">Eco Mosaics</a>
+        <p class="footer-tagline">
+          Habitat restoration and land management for a more resilient,
+          biodiverse San Francisco Bay Area.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="../services/restoration.html">Habitat Restoration</a></li>
+          <li><a href="../services/invasives.html">Invasive Species Removal</a></li>
+          <li><a href="../services/coexistence.html">Beaver Coexistence</a></li>
+          <li><a href="../services/consulting.html">Consulting & Assessments</a></li>
+          <li><a href="../contact.html">Book a Site Visit</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="../learn/blog.html">Field Notes</a></li>
+          <li><a href="../learn/case-studies.html">Case Studies</a></li>
+          <li><a href="../learn/get-involved.html">Get Involved</a></li>
+          <li><a href="../learn/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../about/mission.html">Our Mission</a></li>
+          <li><a href="../about/team.html">The Team</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Eco Mosaics. All rights reserved.</span>
+      <span>San Francisco Bay Area.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks  = document.querySelector('.nav-links');
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navToggle.classList.remove('open');
+    navLinks.classList.remove('open');
+  }));
+
+  fetch('compost-build-instructions.md')
+    .then(r => {
+      if (!r.ok) throw new Error('Could not load file');
+      return r.text();
+    })
+    .then(text => {
+      document.getElementById('content').innerHTML = marked.parse(text);
+    })
+    .catch(() => {
+      document.getElementById('content').innerHTML =
+        '<p style="color:#c0504a;">Failed to load build instructions. Make sure you are serving this over HTTP, not opening the file directly.</p>';
+    });
+</script>
+</body>
+</html>
