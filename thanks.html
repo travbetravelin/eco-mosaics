@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Get in Touch — Eco Mosaics</title>
+  <title>Thanks — Eco Mosaics</title>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;1,400&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -24,79 +24,17 @@
   </div>
 </nav>
 
-<div class="container">
-  <div class="contact-layout">
-
-    <!-- Intro -->
-    <div class="contact-intro">
-      <p class="label-tag">Contact</p>
-      <h1 class="section-title">Get in Touch</h1>
-      <p class="section-lead">If you're facing a beaver conflict or want to restore your land, fill out the form and we'll follow up to see how we can help. We work with landowners, conservation organizations, and public entities across the Bay Area.</p>
+<section class="stub-section">
+  <div class="container">
+    <p class="label-tag">Message received</p>
+    <h1 class="section-title">We'll be in touch soon.</h1>
+    <p class="section-lead">Thanks for reaching out. We'll review your message and follow up within a few days.</p>
+    <div style="margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap;">
+      <a href="index.html" class="btn btn-primary">Back to Home</a>
+      <a href="services.html" class="btn btn-ghost">Explore Services</a>
     </div>
-
-    <!-- Form -->
-    <form action="https://formspree.io/f/mojkgkgw" method="POST">
-
-      <div class="form-row">
-        <div class="form-group">
-          <label for="first-name">First Name <span class="form-required">*</span></label>
-          <input type="text" id="first-name" name="first_name" required autocomplete="given-name">
-        </div>
-        <div class="form-group">
-          <label for="last-name">Last Name <span class="form-required">*</span></label>
-          <input type="text" id="last-name" name="last_name" required autocomplete="family-name">
-        </div>
-      </div>
-
-      <div class="form-row" style="margin-top: 20px;">
-        <div class="form-group">
-          <label for="email">Email <span class="form-required">*</span></label>
-          <input type="email" id="email" name="email" required autocomplete="email">
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone <span class="form-required">*</span></label>
-          <input type="tel" id="phone" name="phone" required autocomplete="tel">
-        </div>
-      </div>
-
-      <div class="form-group" style="margin-top: 20px;">
-        <label for="affiliation">Affiliation</label>
-        <select id="affiliation" name="affiliation">
-          <option value="" disabled selected>Select one…</option>
-          <option value="landowner">Land Owner</option>
-          <option value="public-entity">Public Entity</option>
-          <option value="conservation-org">Conservation Organization</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="help-type">What would you like help with?</label>
-        <select id="help-type" name="help_type">
-          <option value="" disabled selected>Select one…</option>
-          <option value="beaver-conflict">Beaver Conflict</option>
-          <option value="invasive-removal">Invasive Plant Removal</option>
-          <option value="backyard">What Can I Do in My Backyard</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="subject">Subject</label>
-        <input type="text" id="subject" name="subject">
-      </div>
-
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea id="message" name="message"></textarea>
-      </div>
-
-      <input type="hidden" name="_next" value="https://ecomosaicsrestoration.com/thanks.html">
-
-      <button type="submit" class="btn btn-primary">Send Message</button>
-
-    </form>
-
   </div>
-</div>
+</section>
 
 <footer>
   <div class="container">
