@@ -16,7 +16,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'DM Mono', monospace;
+  font-family: 'Inter', sans-serif;
   background: var(--cream);
   color: var(--bark);
   line-height: 1.6;
@@ -31,7 +31,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ── Typography helpers ────────────────────────────────── */
 .label-tag {
-  font-size: 0.68rem;
+  font-size: 1rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--water);
@@ -43,7 +43,7 @@ a { color: inherit; text-decoration: none; }
   color: var(--bark);
 }
 .section-lead {
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: #5a4a3a;
   max-width: 52ch;
   line-height: 1.8;
@@ -55,8 +55,8 @@ a { color: inherit; text-decoration: none; }
   display: inline-block;
   padding: 13px 28px;
   border-radius: 6px;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.78rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
@@ -108,7 +108,7 @@ nav {
   list-style: none;
 }
 .nav-links a {
-  font-size: 0.72rem;
+  font-size: 1rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--bark);
@@ -152,7 +152,7 @@ nav {
 .stub-badge {
   display: inline-block;
   margin-top: 32px;
-  font-size: 0.68rem;
+  font-size: 1rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 6px 14px;
@@ -168,7 +168,7 @@ nav {
   flex-wrap: wrap;
 }
 .sub-nav a {
-  font-size: 0.72rem;
+  font-size: 1rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--moss);
@@ -191,13 +191,13 @@ footer {
 }
 .footer-brand .nav-logo { color: white; margin-bottom: 16px; display: block; }
 .footer-tagline {
-  font-size: 0.75rem;
+  font-size: 1rem;
   line-height: 1.7;
   max-width: 26ch;
   color: rgba(255,255,255,0.45);
 }
 .footer-col h4 {
-  font-size: 0.65rem;
+  font-size: 1rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.32);
@@ -210,7 +210,7 @@ footer {
   gap: 10px;
 }
 .footer-col a {
-  font-size: 0.75rem;
+  font-size: 1rem;
   color: rgba(255,255,255,0.52);
   transition: color 0.15s;
 }
@@ -221,7 +221,7 @@ footer {
   align-items: center;
   padding-top: 28px;
   border-top: 1px solid rgba(255,255,255,0.08);
-  font-size: 0.65rem;
+  font-size: 1rem;
   letter-spacing: 0.08em;
   color: rgba(255,255,255,0.28);
 }
@@ -244,7 +244,7 @@ footer {
 .content-section.bg-pale { background: var(--pale); }
 .content-section .section-title { margin-bottom: 40px; }
 .content-section .col-label {
-  font-size: 0.68rem;
+  font-size: 1rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--water);
@@ -272,7 +272,7 @@ footer {
 .feature-list li {
   padding-left: 20px;
   position: relative;
-  font-size: 0.82rem;
+  font-size: 1rem;
   line-height: 1.75;
   color: #5a4a3a;
 }
@@ -301,7 +301,7 @@ footer {
   color: var(--bark);
 }
 .solution-card p {
-  font-size: 0.78rem;
+  font-size: 1rem;
   line-height: 1.75;
   color: #5a4a3a;
 }
@@ -326,7 +326,7 @@ footer {
   line-height: 1.2;
 }
 .process-text {
-  font-size: 0.82rem;
+  font-size: 1rem;
   line-height: 1.75;
   color: #5a4a3a;
   padding-top: 3px;
@@ -369,7 +369,7 @@ footer {
   margin-bottom: 20px;
 }
 .form-group label {
-  font-size: 0.68rem;
+  font-size: 1rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--water);
@@ -378,8 +378,8 @@ footer {
 .form-group input,
 .form-group select,
 .form-group textarea {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.82rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
   color: var(--bark);
   background: white;
   border: 1px solid var(--mist);
@@ -445,7 +445,7 @@ footer {
   }
   .nav-links.open { display: flex; }
   .nav-links li { border-bottom: 1px solid var(--mist); }
-  .nav-links a { display: block; padding: 14px 0; opacity: 1; font-size: 0.78rem; }
+  .nav-links a { display: block; padding: 14px 0; opacity: 1; font-size: 1rem; }
   .nav-links .nav-cta { border-bottom: none; }
   .nav-links .nav-cta a { color: var(--amber); padding-top: 18px; }
 }
