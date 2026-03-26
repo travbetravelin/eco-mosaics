@@ -451,4 +451,5 @@ footer {
 }
 @media (max-width: 600px) {
   .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
