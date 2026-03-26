@@ -53,26 +53,6 @@
       margin-bottom: 36px;
     }
     .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
-    .hero-scroll {
-      position: absolute;
-      bottom: 32px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255,255,255,0.4);
-      font-size: 1rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-    .hero-scroll::after {
-      content: '';
-      width: 1px;
-      height: 36px;
-      background: rgba(255,255,255,0.25);
-    }
 
     /* ── MOSAIC APPROACH ───────────────────────────────────── */
     .approach {
@@ -543,8 +523,6 @@
     @media (max-width: 600px) {
       .newsletter-form { flex-direction: column; }
       .hero-ctas { flex-direction: column; }
-      .hero-content { padding-bottom: 140px; }
-      .hero { min-height: 75vh; }
       .approach-stats { flex-direction: column; gap: 20px; }
       .services-grid { grid-template-columns: 1fr; }
     }
@@ -584,7 +562,6 @@
       </div>
     </div>
   </div>
-  <div class="hero-scroll">Scroll</div>
 </section>
 
 
@@ -799,7 +776,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Eco Mosaics. All rights reserved.</span>
+      <span>© 2026 Eco Mosaics Restoration LLC. All rights reserved.</span>
       <span>San Francisco Bay Area.</span>
     </div>
   </div>
