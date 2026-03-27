@@ -17,14 +17,15 @@
 
 ## Analytics
 - **Tool:** Umami (self-hosted, open source)
-- **App hosting:** Vercel
-- **Database:** Supabase (PostgreSQL)
-- **Status:** Setup in progress
+- **App hosting:** Railway (v2 branch of umami-software/umami fork)
+- **Database:** Supabase (PostgreSQL, session mode pooler)
+- **Instance URL:** https://umami-production-68ce.up.railway.app
+- **Status:** Live
 
 ## Services & Integrations
 | Service | Purpose | Plan |
 |---|---|---|
 | GitHub Pages | Site hosting | Free |
-| Vercel | Umami app hosting | Free tier |
+| Railway | Umami app hosting | Free tier |
 | Supabase | Umami database | Free tier |
 | Umami | Privacy-first analytics | Self-hosted |
