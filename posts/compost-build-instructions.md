@@ -48,10 +48,13 @@
 
 | Tool | Used in |
 | ---- | ------- |
-| Drill + 1⁄8" drill bit | Steps 2, 3, 6, 8, 9 |
-| Drill + 3⁄32" drill bit | Step 5 |
-| Impact driver + hex drive bit | Steps 3, 6, 8, 9 |
-| Impact driver + phillips/star/square drive bit | Steps 5, 8 |
+| 6.5" circular saw (2 batteries) | Step 1 |
+| Drill | Steps 2, 3, 5, 6, 8, 9 |
+| 1⁄8" drill bit | Steps 2, 3, 6, 8, 9 |
+| 3⁄32" drill bit | Step 5 |
+| Impact driver | Steps 3, 5, 6, 8, 9 |
+| Hex drive bit | Steps 3, 6, 8, 9 |
+| Phillips/star/square drive bit | Steps 5, 8 |
 | Staple gun | Steps 4, 7 |
 | Snips | Steps 4, 7 |
 
