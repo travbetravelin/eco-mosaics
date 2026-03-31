@@ -46,6 +46,15 @@
 
 ## Tools
 
+| Tool | Used in |
+| ---- | ------- |
+| Drill + 1⁄8" drill bit | Steps 2, 3, 6, 8, 9 |
+| Drill + 3⁄32" drill bit | Step 5 |
+| Impact driver + hex drive bit | Steps 3, 6, 8, 9 |
+| Impact driver + phillips/star/square drive bit | Steps 5, 8 |
+| Staple gun | Steps 4, 7 |
+| Snips | Steps 4, 7 |
+
 ## Setup Supplies
 - Work table - wood box and 4'x8' plywood sheet
 - Saw horses
