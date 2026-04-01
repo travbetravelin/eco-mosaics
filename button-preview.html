@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button Preview — CTA Band Options</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,600;1,400&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 0;
+    }
+    .preview-item {
+      background: var(--moss);
+      padding: 48px 36px;
+      text-align: center;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    .preview-label {
+      font-family: 'DM Mono', monospace, sans-serif;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 8px;
+    }
+    .preview-item .section-title {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+    .preview-item .section-lead {
+      font-size: 0.9rem;
+      margin-bottom: 28px;
+    }
+
+    /* Option buttons */
+    .btn-opt-amber-solid {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      background: var(--amber);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-opt-amber-solid:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+
+    .btn-opt-cream-solid {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      background: var(--cream);
+      color: var(--bark);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-opt-cream-solid:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+
+    .btn-opt-mist-solid {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      background: var(--mist);
+      color: var(--bark);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-opt-mist-solid:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+
+    .btn-opt-amber-outline {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      background: transparent;
+      color: var(--amber);
+      border: 1.5px solid var(--amber);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    .btn-opt-amber-outline:hover { background: rgba(200,134,74,0.12); transform: translateY(-2px); }
+
+    .btn-opt-mist-outline {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      background: transparent;
+      color: var(--mist);
+      border: 1.5px solid var(--mist);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    .btn-opt-mist-outline:hover { background: rgba(200,219,213,0.12); transform: translateY(-2px); }
+
+    /* Current option for comparison */
+    .btn-opt-current {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      background: transparent;
+      color: white;
+      border: 1.5px solid rgba(255,255,255,0.6);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    .btn-opt-current:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
+
+    .page-header {
+      background: var(--bark);
+      color: rgba(255,255,255,0.7);
+      padding: 24px 36px;
+      font-size: 0.85rem;
+      font-family: sans-serif;
+    }
+    .page-header strong { color: white; }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <strong>CTA Band Button Options</strong> — coexistence page secondary CTA preview. Hover each button to see hover state.
+</div>
+
+<div class="preview-grid">
+
+  <div class="preview-item">
+    <p class="preview-label">Current (for reference)</p>
+    <h2 class="section-title">Have a beaver situation on your land?</h2>
+    <p class="section-lead">Start with the California Beaver Help Desk — it's the gateway to the state program.</p>
+    <a href="#" class="btn-opt-current">Submit a Support Request</a>
+  </div>
+
+  <div class="preview-item">
+    <p class="preview-label">Option A — Amber solid</p>
+    <h2 class="section-title">Have a beaver situation on your land?</h2>
+    <p class="section-lead">Start with the California Beaver Help Desk — it's the gateway to the state program.</p>
+    <a href="#" class="btn-opt-amber-solid">Submit a Support Request</a>
+  </div>
+
+  <div class="preview-item">
+    <p class="preview-label">Option B — Cream solid</p>
+    <h2 class="section-title">Have a beaver situation on your land?</h2>
+    <p class="section-lead">Start with the California Beaver Help Desk — it's the gateway to the state program.</p>
+    <a href="#" class="btn-opt-cream-solid">Submit a Support Request</a>
+  </div>
+
+  <div class="preview-item">
+    <p class="preview-label">Option C — Mist solid</p>
+    <h2 class="section-title">Have a beaver situation on your land?</h2>
+    <p class="section-lead">Start with the California Beaver Help Desk — it's the gateway to the state program.</p>
+    <a href="#" class="btn-opt-mist-solid">Submit a Support Request</a>
+  </div>
+
+  <div class="preview-item">
+    <p class="preview-label">Option D — Amber outline</p>
+    <h2 class="section-title">Have a beaver situation on your land?</h2>
+    <p class="section-lead">Start with the California Beaver Help Desk — it's the gateway to the state program.</p>
+    <a href="#" class="btn-opt-amber-outline">Submit a Support Request</a>
+  </div>
+
+  <div class="preview-item">
+    <p class="preview-label">Option E — Mist outline</p>
+    <h2 class="section-title">Have a beaver situation on your land?</h2>
+    <p class="section-lead">Start with the California Beaver Help Desk — it's the gateway to the state program.</p>
+    <a href="#" class="btn-opt-mist-outline">Submit a Support Request</a>
+  </div>
+
+</div>
+
+</body>
+</html>
