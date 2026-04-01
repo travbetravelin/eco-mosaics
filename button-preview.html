@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button Preview — Coexistence Hero Options</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,600;1,400&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .sg-header {
+      background: var(--bark);
+      color: rgba(255,255,255,0.7);
+      padding: 28px 36px;
+    }
+    .sg-header strong { color: white; font-size: 1.1rem; }
+    .sg-header p { font-size: 0.85rem; margin-top: 4px; }
+
+    .option-wrap {
+      border-bottom: 3px solid var(--bark);
+    }
+    .option-label-bar {
+      background: var(--bark);
+      color: rgba(255,255,255,0.55);
+      padding: 10px 36px;
+      font-size: 0.72rem;
+      font-family: 'Inter', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .option-label-bar strong { color: white; font-size: 0.78rem; }
+
+    /* Replicate service-hero exactly */
+    .preview-hero {
+      padding: 80px 0 64px;
+      border-bottom: 1px solid var(--mist);
+      background: var(--cream);
+    }
+    .preview-hero .label-tag { margin-bottom: 14px; }
+    .preview-hero .section-title { margin-bottom: 20px; }
+    .preview-hero .section-lead { margin-bottom: 0; }
+    .preview-hero .btn-wrap {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    /* Option 1: amber outline secondary */
+    .btn-amber-outline {
+      display: inline-block;
+      padding: 13px 28px;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      background: transparent;
+      color: var(--amber);
+      border: 1.5px solid var(--amber);
+      text-decoration: none;
+    }
+    .btn-amber-outline:hover { background: rgba(200,134,74,0.08); transform: translateY(-2px); }
+
+    /* Option 4: bark/black outline secondary */
+    .btn-bark-outline {
+      display: inline-block;
+      padding: 13px 28px;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      background: transparent;
+      color: var(--bark);
+      border: 1.5px solid var(--bark);
+      text-decoration: none;
+    }
+    .btn-bark-outline:hover { background: rgba(59,42,26,0.06); transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+
+<div class="sg-header">
+  <strong>Coexistence Hero — Secondary CTA Options</strong>
+  <p>Full hero section at actual size. Primary button is always amber. Secondary CTA varies. Hover to see states.</p>
+</div>
+
+<!-- Option 1 -->
+<div class="option-wrap">
+  <div class="option-label-bar">
+    <strong>Option 1</strong> Primary: Amber &nbsp;·&nbsp; Secondary: Amber Outline
+  </div>
+  <section class="preview-hero">
+    <div class="container">
+      <p class="label-tag">Services — Beaver Coexistence</p>
+      <h1 class="section-title">Living with Ecosystem Engineers</h1>
+      <p class="section-lead">Finding solutions that work for both beaver and human land needs — keeping beavers on the landscape as the keystone species they are, through flow devices, site modifications, and thoughtful stewardship strategies. Our work is led by a <a href="#" style="color: var(--water); text-decoration: underline; text-underline-offset: 3px;">Beaver Institute BeaverCorps Professional</a>.</p>
+      <p class="section-lead" style="margin-top: 1.5rem;">If you're dealing with flooding, a blocked culvert, property damage, or felled trees, the first step is submitting a request through the California Beaver Help Desk — this connects you to the state program and makes sure you're set up for financial assistance before anything else begins.</p>
+      <div class="btn-wrap">
+        <a href="#" class="btn btn-primary">Submit a Support Request</a>
+        <a href="#" class="btn-amber-outline">Schedule Remote Assessment</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Option 2 -->
+<div class="option-wrap">
+  <div class="option-label-bar">
+    <strong>Option 2</strong> Primary: Amber &nbsp;·&nbsp; Secondary: Moss
+  </div>
+  <section class="preview-hero">
+    <div class="container">
+      <p class="label-tag">Services — Beaver Coexistence</p>
+      <h1 class="section-title">Living with Ecosystem Engineers</h1>
+      <p class="section-lead">Finding solutions that work for both beaver and human land needs — keeping beavers on the landscape as the keystone species they are, through flow devices, site modifications, and thoughtful stewardship strategies. Our work is led by a <a href="#" style="color: var(--water); text-decoration: underline; text-underline-offset: 3px;">Beaver Institute BeaverCorps Professional</a>.</p>
+      <p class="section-lead" style="margin-top: 1.5rem;">If you're dealing with flooding, a blocked culvert, property damage, or felled trees, the first step is submitting a request through the California Beaver Help Desk — this connects you to the state program and makes sure you're set up for financial assistance before anything else begins.</p>
+      <div class="btn-wrap">
+        <a href="#" class="btn btn-primary">Submit a Support Request</a>
+        <a href="#" class="btn btn-moss">Schedule Remote Assessment</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Option 3 -->
+<div class="option-wrap">
+  <div class="option-label-bar">
+    <strong>Option 3</strong> Primary: Amber &nbsp;·&nbsp; Secondary: Ghost (Moss Outline)
+  </div>
+  <section class="preview-hero">
+    <div class="container">
+      <p class="label-tag">Services — Beaver Coexistence</p>
+      <h1 class="section-title">Living with Ecosystem Engineers</h1>
+      <p class="section-lead">Finding solutions that work for both beaver and human land needs — keeping beavers on the landscape as the keystone species they are, through flow devices, site modifications, and thoughtful stewardship strategies. Our work is led by a <a href="#" style="color: var(--water); text-decoration: underline; text-underline-offset: 3px;">Beaver Institute BeaverCorps Professional</a>.</p>
+      <p class="section-lead" style="margin-top: 1.5rem;">If you're dealing with flooding, a blocked culvert, property damage, or felled trees, the first step is submitting a request through the California Beaver Help Desk — this connects you to the state program and makes sure you're set up for financial assistance before anything else begins.</p>
+      <div class="btn-wrap">
+        <a href="#" class="btn btn-primary">Submit a Support Request</a>
+        <a href="#" class="btn btn-ghost">Schedule Remote Assessment</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Option 4 -->
+<div class="option-wrap">
+  <div class="option-label-bar">
+    <strong>Option 4</strong> Primary: Amber &nbsp;·&nbsp; Secondary: Black Outline
+  </div>
+  <section class="preview-hero">
+    <div class="container">
+      <p class="label-tag">Services — Beaver Coexistence</p>
+      <h1 class="section-title">Living with Ecosystem Engineers</h1>
+      <p class="section-lead">Finding solutions that work for both beaver and human land needs — keeping beavers on the landscape as the keystone species they are, through flow devices, site modifications, and thoughtful stewardship strategies. Our work is led by a <a href="#" style="color: var(--water); text-decoration: underline; text-underline-offset: 3px;">Beaver Institute BeaverCorps Professional</a>.</p>
+      <p class="section-lead" style="margin-top: 1.5rem;">If you're dealing with flooding, a blocked culvert, property damage, or felled trees, the first step is submitting a request through the California Beaver Help Desk — this connects you to the state program and makes sure you're set up for financial assistance before anything else begins.</p>
+      <div class="btn-wrap">
+        <a href="#" class="btn btn-primary">Submit a Support Request</a>
+        <a href="#" class="btn-bark-outline">Schedule Remote Assessment</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+</body>
+</html>

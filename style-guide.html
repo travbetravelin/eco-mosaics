@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eco Mosaics — Style Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,600;1,400&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Guide Layout ── */
+    .sg-page { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
+
+    .sg-header {
+      background: var(--bark);
+      color: rgba(255,255,255,0.7);
+      padding: 28px 36px;
+      margin-bottom: 56px;
+    }
+    .sg-header strong { color: white; font-size: 1.1rem; }
+    .sg-header p { font-size: 0.85rem; margin-top: 4px; }
+
+    .sg-section { margin-bottom: 64px; }
+    .sg-section-label {
+      font-size: 0.7rem;
+      font-family: 'Inter', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--bark);
+      opacity: 0.4;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--mist);
+    }
+
+    /* ── Color Swatches ── */
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+    .swatch {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .swatch-color {
+      height: 72px;
+    }
+    .swatch-info {
+      background: white;
+      padding: 10px 12px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+    .swatch-name {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--bark);
+      font-family: 'Inter', monospace;
+    }
+    .swatch-hex {
+      font-size: 0.72rem;
+      color: var(--bark);
+      opacity: 0.45;
+      margin-top: 2px;
+    }
+    .swatch-use {
+      font-size: 0.7rem;
+      color: var(--bark);
+      opacity: 0.55;
+      margin-top: 5px;
+      line-height: 1.5;
+    }
+
+    /* ── Type specimens ── */
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0;
+    }
+    .type-item {
+      padding: 32px 28px;
+      border: 1px solid var(--mist);
+      background: var(--cream);
+    }
+    .type-meta {
+      font-size: 0.68rem;
+      font-family: 'Inter', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--bark);
+      opacity: 0.35;
+      margin-bottom: 14px;
+    }
+
+    /* ── Button grid ── */
+    .btn-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0;
+    }
+    .btn-item {
+      padding: 36px 28px;
+      border: 1px solid rgba(0,0,0,0.08);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .btn-meta {
+      font-size: 0.68rem;
+      font-family: 'Inter', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.4;
+      margin-bottom: 0;
+    }
+    .btn-context {
+      font-size: 0.72rem;
+      opacity: 0.5;
+      margin-top: -8px;
+    }
+
+    /* ── Link specimens ── */
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0;
+    }
+    .link-item {
+      padding: 28px 24px;
+      border: 1px solid rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* ── Background specimens ── */
+    .bg-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0;
+    }
+    .bg-item {
+      padding: 36px 28px;
+      border: 1px solid rgba(0,0,0,0.06);
+      min-height: 120px;
+    }
+    .bg-label {
+      font-size: 0.7rem;
+      font-family: 'Inter', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .bg-use {
+      font-size: 0.78rem;
+      margin-top: 6px;
+      opacity: 0.6;
+    }
+
+    /* ── Component specimens ── */
+    .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .comp-item {
+      border: 1px solid var(--mist);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .comp-label {
+      font-size: 0.68rem;
+      font-family: 'Inter', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--bark);
+      opacity: 0.4;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--mist);
+      background: white;
+    }
+    .comp-body {
+      padding: 24px 20px;
+      background: var(--cream);
+    }
+    .comp-body-pale { background: var(--pale); }
+    .comp-body-bark { background: var(--bark); }
+    .comp-body-white { background: white; }
+  </style>
+</head>
+<body>
+
+<div class="sg-header">
+  <strong>Eco Mosaics — Style Guide</strong>
+  <p>Visual reference for colors, typography, buttons, links, and UI components. Not linked from the live site.</p>
+</div>
+
+<div class="sg-page">
+
+  <!-- ── 1. Color Palette ── -->
+  <div class="sg-section">
+    <p class="sg-section-label">1 — Color Palette</p>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #3b2a1a;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">--bark</div>
+          <div class="swatch-hex">#3b2a1a</div>
+          <div class="swatch-use">Body text, headings, footer bg, nav logo</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #4a6741;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">--moss</div>
+          <div class="swatch-hex">#4a6741</div>
+          <div class="swatch-use">CTA band bg, btn-moss, sub-nav links</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #7a9e6e;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">--sage</div>
+          <div class="swatch-hex">#7a9e6e</div>
+          <div class="swatch-use">btn-ghost border, feature list dashes, process numbers, form focus</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #4a7c8e;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">--water</div>
+          <div class="swatch-hex">#4a7c8e</div>
+          <div class="swatch-use">Label tags, form labels, inline links</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #c8dbd5; border: 1px solid #b0c8c0;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">--mist</div>
+          <div class="swatch-hex">#c8dbd5</div>
+          <div class="swatch-use">Borders, dividers, card edges, stub badge border</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #f5f0e8; border: 1px solid #e0d8cc;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">--cream</div>
+          <div class="swatch-hex">#f5f0e8</div>
+          <div class="swatch-use">Page/body bg, nav bg, default section bg</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #c8864a;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">--amber</div>
+          <div class="swatch-hex">#c8864a</div>
+          <div class="swatch-use">Primary CTA buttons, nav CTA link, required field marker</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #e8f0ec; border: 1px solid #d0e0d8;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">--pale</div>
+          <div class="swatch-hex">#e8f0ec</div>
+          <div class="swatch-use">Alternate section bg (.bg-pale), stub badge bg, btn-ghost hover</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2. Typography ── -->
+  <div class="sg-section">
+    <p class="sg-section-label">2 — Typography</p>
+    <div class="type-grid">
+      <div class="type-item">
+        <p class="type-meta">.section-title — Playfair Display, clamp(1.6–2.4rem), --bark</p>
+        <h2 class="section-title">Section Title</h2>
+      </div>
+      <div class="type-item">
+        <p class="type-meta">.label-tag — Inter, 1rem, uppercase, 0.14em tracking, --water</p>
+        <p class="label-tag">Label Tag</p>
+      </div>
+      <div class="type-item">
+        <p class="type-meta">.section-lead — Inter, 1rem, #5a4a3a, 1.8 line-height</p>
+        <p class="section-lead">Section lead copy — supporting text below a title or label.</p>
+      </div>
+      <div class="type-item">
+        <p class="type-meta">nav-logo — Lora, 1.1rem, --bark</p>
+        <a class="nav-logo" href="#">Eco Mosaics</a>
+      </div>
+      <div class="type-item">
+        <p class="type-meta">Body — Inter, 1rem, --bark, 1.6 line-height</p>
+        <p>Body text used for general paragraph content across the site.</p>
+      </div>
+      <div class="type-item">
+        <p class="type-meta">.col-label — Inter, 1rem, uppercase, --water (content sections)</p>
+        <p class="col-label" style="margin-bottom:0;">Column Label</p>
+      </div>
+      <div class="type-item">
+        <p class="type-meta">.col-heading — Playfair Display, 1.2rem, --bark (content sections)</p>
+        <h3 class="col-heading" style="margin-bottom:0;">Column Heading</h3>
+      </div>
+      <div class="type-item" style="background: var(--bark);">
+        <p class="type-meta" style="color: rgba(255,255,255,0.35);">footer-tagline — Inter, 1rem, rgba(white, 0.45), on --bark</p>
+        <p class="footer-tagline">Land stewardship for a more resilient, biodiverse San Francisco Bay Area.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3. Buttons ── -->
+  <div class="sg-section">
+    <p class="sg-section-label">3 — Buttons (hover to see state)</p>
+    <div class="btn-grid">
+      <div class="btn-item" style="background: var(--cream);">
+        <p class="btn-meta" style="color: var(--bark);">.btn-primary</p>
+        <a href="#" class="btn btn-primary">Book a Consultation</a>
+        <p class="btn-context" style="color: var(--bark);">Amber fill — primary actions, hero &amp; service hero CTAs</p>
+      </div>
+      <div class="btn-item" style="background: var(--moss);">
+        <p class="btn-meta" style="color: rgba(255,255,255,0.5);">.btn-outline</p>
+        <a href="#" class="btn btn-outline">Submit a Support Request</a>
+        <p class="btn-context" style="color: rgba(255,255,255,0.45);">White outline — secondary CTA on moss (cta-band) background only</p>
+      </div>
+      <div class="btn-item" style="background: var(--cream);">
+        <p class="btn-meta" style="color: var(--bark);">.btn-moss</p>
+        <a href="#" class="btn btn-moss">Get in Touch</a>
+        <p class="btn-context" style="color: var(--bark);">Moss fill — secondary actions on light backgrounds</p>
+      </div>
+      <div class="btn-item" style="background: var(--cream);">
+        <p class="btn-meta" style="color: var(--bark);">.btn-ghost</p>
+        <a href="#" class="btn btn-ghost">Learn More</a>
+        <p class="btn-context" style="color: var(--bark);">Transparent, sage border — tertiary/low-emphasis actions</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 4. Links ── -->
+  <div class="sg-section">
+    <p class="sg-section-label">4 — Links (hover to see state)</p>
+    <div class="link-grid">
+      <div class="link-item" style="background: var(--cream);">
+        <p class="type-meta">Nav links — Inter, uppercase, --bark at 75% opacity</p>
+        <ul class="nav-links" style="position: static; display: flex; flex-direction: column; gap: 6px; background: transparent; border: none; box-shadow: none; padding: 0;">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Learn</a></li>
+          <li class="nav-cta"><a href="#">Book a Visit →</a></li>
+        </ul>
+      </div>
+      <div class="link-item" style="background: var(--cream);">
+        <p class="type-meta">Sub-nav links — Inter, uppercase, --moss at 75% opacity</p>
+        <div class="sub-nav" style="flex-direction: column; gap: 6px; margin-top: 0;">
+          <a href="#">Our Mission →</a>
+          <a href="#">The Team →</a>
+        </div>
+      </div>
+      <div class="link-item" style="background: var(--cream);">
+        <p class="type-meta">Inline link — --water, underline, 3px offset</p>
+        <p>Submit a request through the <a href="#" style="color: var(--water); text-decoration: underline; text-underline-offset: 3px;">California Beaver Help Desk</a> to get started.</p>
+      </div>
+      <div class="link-item" style="background: var(--bark);">
+        <p class="type-meta" style="color: rgba(255,255,255,0.35);">Footer links — rgba(white, 0.52), hover to white</p>
+        <ul class="footer-col" style="display: block;">
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
+            <li><a href="#" style="font-size:1rem; color: rgba(255,255,255,0.52); transition: color 0.15s;">Habitat Restoration</a></li>
+            <li><a href="#" style="font-size:1rem; color: rgba(255,255,255,0.52); transition: color 0.15s;">Beaver Coexistence</a></li>
+            <li><a href="#" style="font-size:1rem; color: rgba(255,255,255,0.52); transition: color 0.15s;">Consulting & Assessments</a></li>
+          </ul>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 5. Section Backgrounds ── -->
+  <div class="sg-section">
+    <p class="sg-section-label">5 — Section Backgrounds</p>
+    <div class="bg-grid">
+      <div class="bg-item" style="background: var(--cream);">
+        <p class="bg-label" style="color: var(--bark);">--cream</p>
+        <p class="bg-use" style="color: var(--bark);">Default page &amp; section background</p>
+      </div>
+      <div class="bg-item" style="background: var(--pale);">
+        <p class="bg-label" style="color: var(--bark);">--pale (.bg-pale)</p>
+        <p class="bg-use" style="color: var(--bark);">Alternate content section — subtle green tint</p>
+      </div>
+      <div class="bg-item" style="background: var(--moss);">
+        <p class="bg-label" style="color: rgba(255,255,255,0.8);">--moss (.cta-band)</p>
+        <p class="bg-use" style="color: rgba(255,255,255,0.55);">CTA band — high-emphasis callout sections</p>
+      </div>
+      <div class="bg-item" style="background: var(--bark);">
+        <p class="bg-label" style="color: rgba(255,255,255,0.8);">--bark (footer)</p>
+        <p class="bg-use" style="color: rgba(255,255,255,0.45);">Footer only</p>
+      </div>
+      <div class="bg-item" style="background: white; border: 1px solid var(--mist);">
+        <p class="bg-label" style="color: var(--bark);">white</p>
+        <p class="bg-use" style="color: var(--bark);">Cards (solution-card), form inputs</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 6. UI Components ── -->
+  <div class="sg-section">
+    <p class="sg-section-label">6 — UI Components</p>
+    <div class="comp-grid">
+
+      <div class="comp-item">
+        <p class="comp-label">Solution Card — white bg, --mist border, --radius</p>
+        <div class="comp-body comp-body-white">
+          <div class="solution-card" style="max-width: 100%;">
+            <h3>Pond Leveler</h3>
+            <p>A pipe system installed through a dam that manages pond water level, preventing it from rising above a set point.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-item">
+        <p class="comp-label">Feature List — --sage dashes, #5a4a3a text</p>
+        <div class="comp-body">
+          <ul class="feature-list">
+            <li>Slow water flow and reduce large-scale flood risk</li>
+            <li>Reduce sediment transport and improve water quality</li>
+            <li>Create and maintain biodiverse wetland areas</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="comp-item">
+        <p class="comp-label">Process List — Playfair nums in --sage, --mist dividers</p>
+        <div class="comp-body">
+          <ol class="process-list" style="max-width: 100%;">
+            <li>
+              <span class="process-num">1</span>
+              <div class="process-text"><strong>Submit a support request</strong>Fill out the intake form to initiate the process.</div>
+            </li>
+            <li>
+              <span class="process-num">2</span>
+              <div class="process-text"><strong>Initial contact</strong>We connect to learn about the situation remotely.</div>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="comp-item">
+        <p class="comp-label">Stub Badge — --pale bg, --water text, --mist border</p>
+        <div class="comp-body" style="display: flex; align-items: center; justify-content: center; min-height: 80px;">
+          <span class="stub-badge">Page in progress</span>
+        </div>
+      </div>
+
+      <div class="comp-item">
+        <p class="comp-label">Form Elements — white bg, --mist border, --water labels</p>
+        <div class="comp-body comp-body-white" style="padding: 20px;">
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label>Your Name <span class="form-required">*</span></label>
+            <input type="text" placeholder="Jane Smith">
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label>Service Type</label>
+            <select>
+              <option>Beaver Coexistence</option>
+              <option>Habitat Restoration</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-item">
+        <p class="comp-label">Label + Title + Lead stack — standard page header pattern</p>
+        <div class="comp-body" style="padding: 28px 24px;">
+          <p class="label-tag" style="margin-bottom: 10px;">Services — Beaver Coexistence</p>
+          <h2 class="section-title" style="margin-bottom: 12px;">Living with Ecosystem Engineers</h2>
+          <p class="section-lead" style="margin-top: 0;">Finding solutions that work for both beaver and human land needs.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
