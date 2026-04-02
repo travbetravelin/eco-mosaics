@@ -2,9 +2,9 @@
 layout: base.njk
 title: How to Build a Compost System | Eco Mosaics Restoration
 description: Step-by-step instructions for building a compost system from Eco Mosaics Restoration. Practical land stewardship for Bay Area properties.
+permalink: /posts/compost-build-instructions.html
 ---
 
-{% block head %}
 <style>
   .post-header {
     padding: 64px 0 40px;
@@ -105,9 +105,7 @@ description: Step-by-step instructions for building a compost system from Eco Mo
     .post-body th, .post-body td { padding: 6px 8px; }
   }
 </style>
-{% endblock %}
 
-{% block content %}
 <div class="post-header">
   <div class="container">
     <p class="label-tag">Build Documentation</p>
@@ -121,9 +119,7 @@ description: Step-by-step instructions for building a compost system from Eco Mo
     <p style="color: var(--water); font-size: 1rem;">Loading…</p>
   </div>
 </div>
-{% endblock %}
 
-{% block scripts %}
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
   fetch('/posts/compost-build-instructions.md')
@@ -139,4 +135,3 @@ description: Step-by-step instructions for building a compost system from Eco Mo
         '<p style="color:#c0504a;">Failed to load build instructions. Make sure you are serving this over HTTP, not opening the file directly.</p>';
     });
 </script>
-{% endblock %}

@@ -29,7 +29,7 @@
   </div>
 </nav>
 
-{% block content %}{% endblock %}
+{{ content | safe }}
 
 <!-- ── FOOTER ────────────────────────────────────────────────── -->
 <footer>
@@ -87,6 +87,5 @@
     navLinks.classList.remove('open');
   }));
 </script>
-{% block scripts %}{% endblock %}
 </body>
 </html>
