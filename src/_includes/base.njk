@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+  {% if description %}<meta name="description" content="{{ description }}">{% endif %}
+  {% if robots %}<meta name="robots" content="{{ robots }}">{% endif %}
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,600;1,400&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  {% block head %}{% endblock %}
+  <script defer src="https://umami-production-68ce.up.railway.app/script.js" data-website-id="03559110-789c-40ec-973f-51fe684cf85a"></script>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────────── -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">Eco Mosaics Restoration</a>
+      <ul class="nav-links">
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/services.html">Services</a></li>
+        <li><a href="/learn.html">Learn</a></li>
+        <li class="nav-cta"><a href="/contact.html">Get in Touch →</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Open navigation"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+<!-- ── FOOTER ────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="nav-logo">Eco Mosaics Restoration</a>
+        <p class="footer-tagline">Land stewardship for a more resilient, biodiverse San Francisco Bay Area.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/services/restoration.html">Habitat Restoration</a></li>
+          <li><a href="/services/invasives.html">Invasive Species Removal</a></li>
+          <li><a href="/services/coexistence.html">Beaver Coexistence</a></li>
+          <li><a href="/services/consulting.html">Consulting & Assessments</a></li>
+          <li><a href="/contact.html">Book a Site Visit</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="/learn/blog.html">Field Notes</a></li>
+          <li><a href="/learn/case-studies.html">Case Studies</a></li>
+          <li><a href="/learn/get-involved.html">Get Involved</a></li>
+          <li><a href="/learn/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about.html">About Us</a></li>
+          <li><a href="/about/mission.html">Our Mission</a></li>
+          <li><a href="/about/team.html">The Team</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Eco Mosaics Restoration LLC. All rights reserved.</span>
+      <span>San Francisco Bay Area.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks  = document.querySelector('.nav-links');
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navToggle.classList.remove('open');
+    navLinks.classList.remove('open');
+  }));
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>
