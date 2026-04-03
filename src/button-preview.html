@@ -13,7 +13,7 @@
       padding: 28px 36px;
     }
     .sg-header strong { color: white; font-size: 1.1rem; }
-    .sg-header p { font-size: 0.85rem; margin-top: 4px; }
+    .sg-header p { font-size: 1rem; margin-top: 4px; }
 
     .option-wrap {
       border-bottom: 3px solid var(--bark);
@@ -22,7 +22,7 @@
       background: var(--bark);
       color: rgba(255,255,255,0.55);
       padding: 10px 36px;
-      font-size: 0.72rem;
+      font-size: 1rem;
       font-family: 'Inter', monospace;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -30,66 +30,98 @@
       align-items: center;
       gap: 16px;
     }
-    .option-label-bar strong { color: white; font-size: 0.78rem; }
+    .option-label-bar strong { color: white; }
 
-    /* Replicate service-hero exactly */
     .preview-hero {
       padding: 80px 0 64px;
       border-bottom: 1px solid var(--mist);
       background: var(--cream);
     }
     .preview-hero .label-tag { margin-bottom: 14px; }
-    .preview-hero .section-title { margin-bottom: 20px; }
-    .preview-hero .section-lead { margin-bottom: 0; }
+    .preview-hero .section-title { margin-bottom: 16px; }
     .preview-hero .btn-wrap {
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
-      margin-top: 32px;
+      margin-top: 20px;
     }
 
-    /* Option 1: amber outline secondary */
+    /* Amber outline */
     .btn-amber-outline {
-      display: inline-block;
-      padding: 13px 28px;
-      border-radius: 6px;
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-      background: transparent;
-      color: var(--amber);
-      border: 1.5px solid var(--amber);
-      text-decoration: none;
+      display: inline-block; padding: 13px 28px; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 1rem; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; text-decoration: none;
+      transition: transform 0.15s ease, background 0.15s ease;
+      background: transparent; color: var(--amber); border: 1.5px solid var(--amber);
     }
     .btn-amber-outline:hover { background: rgba(200,134,74,0.08); transform: translateY(-2px); }
 
-    /* Option 4: bark/black outline secondary */
-    .btn-bark-outline {
-      display: inline-block;
-      padding: 13px 28px;
-      border-radius: 6px;
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-      background: transparent;
-      color: var(--bark);
-      border: 1.5px solid var(--bark);
-      text-decoration: none;
+    /* Sage fill */
+    .btn-sage {
+      display: inline-block; padding: 13px 28px; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 1rem; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; text-decoration: none;
+      transition: transform 0.15s ease, background 0.15s ease;
+      background: var(--sage); color: white; border: 1.5px solid var(--sage);
     }
-    .btn-bark-outline:hover { background: rgba(59,42,26,0.06); transform: translateY(-2px); }
+    .btn-sage:hover { background: #698d5e; transform: translateY(-2px); }
+
+    /* Sage outline */
+    .btn-sage-outline {
+      display: inline-block; padding: 13px 28px; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 1rem; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; text-decoration: none;
+      transition: transform 0.15s ease, background 0.15s ease;
+      background: transparent; color: var(--sage); border: 1.5px solid var(--sage);
+    }
+    .btn-sage-outline:hover { background: rgba(122,158,110,0.08); transform: translateY(-2px); }
+
+    /* Water fill */
+    .btn-water {
+      display: inline-block; padding: 13px 28px; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 1rem; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; text-decoration: none;
+      transition: transform 0.15s ease, background 0.15s ease;
+      background: var(--water); color: white; border: 1.5px solid var(--water);
+    }
+    .btn-water:hover { background: #3a6b7c; transform: translateY(-2px); }
+
+    /* Water outline */
+    .btn-water-outline {
+      display: inline-block; padding: 13px 28px; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 1rem; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; text-decoration: none;
+      transition: transform 0.15s ease, background 0.15s ease;
+      background: transparent; color: var(--water); border: 1.5px solid var(--water);
+    }
+    .btn-water-outline:hover { background: rgba(74,124,142,0.08); transform: translateY(-2px); }
+
+    /* Mist fill */
+    .btn-mist {
+      display: inline-block; padding: 13px 28px; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 1rem; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; text-decoration: none;
+      transition: transform 0.15s ease, background 0.15s ease;
+      background: var(--mist); color: var(--bark); border: 1.5px solid var(--mist);
+    }
+    .btn-mist:hover { background: #b8cfc9; transform: translateY(-2px); }
+
+    /* Mist outline */
+    .btn-mist-outline {
+      display: inline-block; padding: 13px 28px; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 1rem; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; text-decoration: none;
+      transition: transform 0.15s ease, background 0.15s ease;
+      background: transparent; color: var(--bark); border: 1.5px solid var(--mist);
+    }
+    .btn-mist-outline:hover { background: rgba(200,219,213,0.3); transform: translateY(-2px); }
   </style>
 </head>
 <body>
 
 <div class="sg-header">
   <strong>Coexistence Hero — Secondary CTA Options</strong>
-  <p>Full hero section at actual size. Primary button is always amber. Secondary CTA varies. Hover to see states.</p>
+  <p>Primary button is always amber. Each option shows fill + outline for that color. Hover to see states.</p>
 </div>
 
 <!-- Option 1 -->
@@ -101,11 +133,10 @@
     <div class="container">
       <p class="label-tag">Services — Beaver Coexistence</p>
       <h1 class="section-title">Living with Ecosystem Engineers</h1>
-      <p class="section-lead">Finding solutions that work for both beaver and human land needs — keeping beavers on the landscape as the keystone species they are, through flow devices, site modifications, and thoughtful stewardship strategies. Our work is led by a <a href="#" style="color: var(--water); text-decoration: underline; text-underline-offset: 3px;">Beaver Institute BeaverCorps Professional</a>.</p>
-      <p class="section-lead" style="margin-top: 1.5rem;">If you're dealing with flooding, a blocked culvert, property damage, or felled trees, the first step is submitting a request through the California Beaver Help Desk — this connects you to the state program and makes sure you're set up for financial assistance before anything else begins.</p>
+      <p class="section-lead">If beavers are flooding your property, blocking a culvert, or felling trees — we can help find a non-lethal solution that keeps them on the land. A remote assessment is the fastest way to get expert eyes on your situation: no site visit required to start.</p>
       <div class="btn-wrap">
-        <a href="#" class="btn btn-primary">Submit a Support Request</a>
-        <a href="#" class="btn-amber-outline">Schedule Remote Assessment</a>
+        <a href="#" class="btn btn-primary">Schedule Remote Assessment</a>
+        <a href="#" class="btn-amber-outline">Learn More</a>
       </div>
     </div>
   </section>
@@ -114,17 +145,17 @@
 <!-- Option 2 -->
 <div class="option-wrap">
   <div class="option-label-bar">
-    <strong>Option 2</strong> Primary: Amber &nbsp;·&nbsp; Secondary: Moss
+    <strong>Option 2</strong> Primary: Amber &nbsp;·&nbsp; Secondary: Sage Fill &amp; Sage Outline
   </div>
   <section class="preview-hero">
     <div class="container">
       <p class="label-tag">Services — Beaver Coexistence</p>
       <h1 class="section-title">Living with Ecosystem Engineers</h1>
-      <p class="section-lead">Finding solutions that work for both beaver and human land needs — keeping beavers on the landscape as the keystone species they are, through flow devices, site modifications, and thoughtful stewardship strategies. Our work is led by a <a href="#" style="color: var(--water); text-decoration: underline; text-underline-offset: 3px;">Beaver Institute BeaverCorps Professional</a>.</p>
-      <p class="section-lead" style="margin-top: 1.5rem;">If you're dealing with flooding, a blocked culvert, property damage, or felled trees, the first step is submitting a request through the California Beaver Help Desk — this connects you to the state program and makes sure you're set up for financial assistance before anything else begins.</p>
+      <p class="section-lead">If beavers are flooding your property, blocking a culvert, or felling trees — we can help find a non-lethal solution that keeps them on the land. A remote assessment is the fastest way to get expert eyes on your situation: no site visit required to start.</p>
       <div class="btn-wrap">
-        <a href="#" class="btn btn-primary">Submit a Support Request</a>
-        <a href="#" class="btn btn-moss">Schedule Remote Assessment</a>
+        <a href="#" class="btn btn-primary">Schedule Remote Assessment</a>
+        <a href="#" class="btn-sage">Sage Fill</a>
+        <a href="#" class="btn-sage-outline">Sage Outline</a>
       </div>
     </div>
   </section>
@@ -133,17 +164,17 @@
 <!-- Option 3 -->
 <div class="option-wrap">
   <div class="option-label-bar">
-    <strong>Option 3</strong> Primary: Amber &nbsp;·&nbsp; Secondary: Ghost (Moss Outline)
+    <strong>Option 3</strong> Primary: Amber &nbsp;·&nbsp; Secondary: Water Fill &amp; Water Outline
   </div>
   <section class="preview-hero">
     <div class="container">
       <p class="label-tag">Services — Beaver Coexistence</p>
       <h1 class="section-title">Living with Ecosystem Engineers</h1>
-      <p class="section-lead">Finding solutions that work for both beaver and human land needs — keeping beavers on the landscape as the keystone species they are, through flow devices, site modifications, and thoughtful stewardship strategies. Our work is led by a <a href="#" style="color: var(--water); text-decoration: underline; text-underline-offset: 3px;">Beaver Institute BeaverCorps Professional</a>.</p>
-      <p class="section-lead" style="margin-top: 1.5rem;">If you're dealing with flooding, a blocked culvert, property damage, or felled trees, the first step is submitting a request through the California Beaver Help Desk — this connects you to the state program and makes sure you're set up for financial assistance before anything else begins.</p>
+      <p class="section-lead">If beavers are flooding your property, blocking a culvert, or felling trees — we can help find a non-lethal solution that keeps them on the land. A remote assessment is the fastest way to get expert eyes on your situation: no site visit required to start.</p>
       <div class="btn-wrap">
-        <a href="#" class="btn btn-primary">Submit a Support Request</a>
-        <a href="#" class="btn btn-ghost">Schedule Remote Assessment</a>
+        <a href="#" class="btn btn-primary">Schedule Remote Assessment</a>
+        <a href="#" class="btn-water">Water Fill</a>
+        <a href="#" class="btn-water-outline">Water Outline</a>
       </div>
     </div>
   </section>
@@ -152,17 +183,17 @@
 <!-- Option 4 -->
 <div class="option-wrap">
   <div class="option-label-bar">
-    <strong>Option 4</strong> Primary: Amber &nbsp;·&nbsp; Secondary: Black Outline
+    <strong>Option 4</strong> Primary: Amber &nbsp;·&nbsp; Secondary: Mist Fill &amp; Mist Outline
   </div>
   <section class="preview-hero">
     <div class="container">
       <p class="label-tag">Services — Beaver Coexistence</p>
       <h1 class="section-title">Living with Ecosystem Engineers</h1>
-      <p class="section-lead">Finding solutions that work for both beaver and human land needs — keeping beavers on the landscape as the keystone species they are, through flow devices, site modifications, and thoughtful stewardship strategies. Our work is led by a <a href="#" style="color: var(--water); text-decoration: underline; text-underline-offset: 3px;">Beaver Institute BeaverCorps Professional</a>.</p>
-      <p class="section-lead" style="margin-top: 1.5rem;">If you're dealing with flooding, a blocked culvert, property damage, or felled trees, the first step is submitting a request through the California Beaver Help Desk — this connects you to the state program and makes sure you're set up for financial assistance before anything else begins.</p>
+      <p class="section-lead">If beavers are flooding your property, blocking a culvert, or felling trees — we can help find a non-lethal solution that keeps them on the land. A remote assessment is the fastest way to get expert eyes on your situation: no site visit required to start.</p>
       <div class="btn-wrap">
-        <a href="#" class="btn btn-primary">Submit a Support Request</a>
-        <a href="#" class="btn-bark-outline">Schedule Remote Assessment</a>
+        <a href="#" class="btn btn-primary">Schedule Remote Assessment</a>
+        <a href="#" class="btn-mist">Mist Fill</a>
+        <a href="#" class="btn-mist-outline">Mist Outline</a>
       </div>
     </div>
   </section>
