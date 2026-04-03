@@ -4,7 +4,7 @@
   "description": "Eco Mosaics Restoration static site",
   "scripts": {
     "build": "eleventy",
-    "start": "kill -9 $(lsof -ti:8080) 2>/dev/null; sleep 1 && rm -rf _site && eleventy --serve"
+    "start": "pkill -9 -f eleventy 2>/dev/null; sleep 2 && rm -rf _site && eleventy --serve --port 8080"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1"
