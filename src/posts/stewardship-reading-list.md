@@ -13,25 +13,25 @@ Below are some books I have enjoyed reading (partially or fully) and have influe
 
 ---
 
-## Tending the Wild
+## <a href="https://tendingthewild.com/tending-the-wild/" target="_blank" rel="noopener noreferrer">Tending the Wild</a>
 **M. Kat Anderson**
 
 ---
 
-## Braiding Sweetgrass
+## <a href="https://www.robinwallkimmerer.com/books#:~:text=Updated" target="_blank" rel="noopener noreferrer">Braiding Sweetgrass</a>
 **Robin Wall Kimmerer**
 
 ---
 
-## The Serviceberry
+## <a href="https://www.robinwallkimmerer.com/books#:~:text=As,-Indigenous" target="_blank" rel="noopener noreferrer">The Serviceberry</a>
 **Robin Wall Kimmerer**
 
 ---
 
-## Forgotten Fires: Native Americans and the Transient Wilderness
+## <a href="https://tendingthewild.com/forgotten-fires/" target="_blank" rel="noopener noreferrer">Forgotten Fires: Native Americans and the Transient Wilderness</a>
 **Omer C. Stewart**
 
 ---
 
-## Lentil Underground
+## <a href="https://www.lizcarlisle.com/#:~:text=Lentil%20Underground%3A%20Renegade%20Farmers%20and%20the%20Future%20of%20Food%20in%20America" target="_blank" rel="noopener noreferrer">Lentil Underground</a>
 **Liz Carlisle**
