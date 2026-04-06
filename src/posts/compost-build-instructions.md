@@ -128,7 +128,7 @@ Using a fence bracket as a reference, pre-drill holes in mid rails with a 1⁄8"
 
 ### Assembly
 
-![Sidewall Frame](step3_sidewall_frame.png)
+![Sidewall Frame](/posts/step3_sidewall_frame.png)
 
 **3.1 — Attach mid rail brackets to posts**
 
@@ -219,7 +219,7 @@ One strap per corner, one leg on post, one leg on rail or joist. Pre-drill and d
 
 ### Assembly
 
-![Sidewall Frame with Hardware Cloth](Sidewall_Frame_with_Hardware_Cloth.png)
+![Sidewall Frame with Hardware Cloth](/posts/Sidewall_Frame_with_Hardware_Cloth.png)
 
 **4.1 — Position frame**
 
