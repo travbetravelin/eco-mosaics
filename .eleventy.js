@@ -4,8 +4,6 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/CNAME");
   eleventyConfig.addPassthroughCopy("src/sitemap.xml");
   eleventyConfig.addPassthroughCopy("src/sitemap.html");
-  eleventyConfig.addPassthroughCopy({ "src/posts": "posts" });
-  eleventyConfig.addPassthroughCopy({ "posts/*.md": "posts" });
   eleventyConfig.addPassthroughCopy({ "posts/*.png": "posts" });
 
   return {
