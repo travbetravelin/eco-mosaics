@@ -5,7 +5,8 @@ subtitle: 12-bin system · 237" × 84" × 44.5"
 description: Step-by-step build instructions for a 12-bin compost system, including material list, hardware, and assembly notes.
 date: 2024-06-01
 category: Build Documentation
-tags: posts
+tags:
+  - posts
 permalink: /posts/compost-build-instructions/
 ---
 # Material List
