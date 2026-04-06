@@ -3,6 +3,7 @@ layout: post.njk
 title: Books on Land Stewardship & Restoration
 description: A reading list of books that have shaped my thinking on land stewardship, ecological restoration, and living well on the land.
 date: 2026-04-06
+author: Travis Wilson
 category: Reading List
 tags:
   - posts

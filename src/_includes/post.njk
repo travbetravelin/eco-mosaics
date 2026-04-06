@@ -116,6 +116,9 @@ layout: base.njk
     <p class="label-tag">{{ category if category else "Field Notes" }}</p>
     <h1>{{ title }}</h1>
     {% if subtitle %}<p class="post-meta">{{ subtitle }}</p>{% endif %}
+    <p class="post-meta">
+      {% if author %}{{ author }}{% endif %}{% if author and date %} &nbsp;·&nbsp; {% endif %}{% if date %}{{ date | date("MMMM D, YYYY") }}{% endif %}
+    </p>
   </div>
 </div>
 
