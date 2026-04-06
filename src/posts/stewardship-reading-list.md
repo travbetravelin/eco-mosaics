@@ -10,7 +10,7 @@ tags:
 permalink: /posts/stewardship-reading-list/
 ---
 
-Below are some books I have enjoyed reading (partially or fully) and have influenced my thinking, actions, and values with respect to land stewardship and restoration, as well as in my daily life. I strongly encourage picking up any number of these from your local library or a local bookstore to dive into!
+Below are some books I have enjoyed reading (partially or fully) that have influenced my thinking, actions, and values with respect to land stewardship and restoration, as well as in my daily life. I strongly encourage picking up any number of these from your local library or a local bookstore to dive into!
 
 ---
 
