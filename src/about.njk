@@ -1,18 +1,151 @@
 ---
 layout: base.njk
-title: About Eco Mosaics Restoration | Bay Area Land Stewards
-description: Eco Mosaics Restoration is a Bay Area land stewardship practice serving Marin, Sonoma, and San Mateo counties with restoration and coexistence services.
+title: About Travis Wilson | Eco Mosaics Restoration
+description: Travis Wilson is a Bay Area land steward and the founder of Eco Mosaics Restoration, working with landowners and conservation organizations across the San Francisco Bay Area.
 ---
 
-<section class="stub-section">
+<style>
+  .about-hero {
+    padding: 96px 0 72px;
+    border-bottom: 1px solid var(--mist);
+    background: var(--cream);
+  }
+  .about-hero .label-tag { margin-bottom: 14px; }
+  .about-hero .section-title { margin-bottom: 16px; }
+  .about-hero .section-lead { max-width: 640px; }
+
+  .about-body {
+    padding: 72px 0;
+    border-bottom: 1px solid var(--mist);
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .about-photo {
+    aspect-ratio: 3/4;
+    background: var(--mist);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8a7a6a;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.06em;
+  }
+  .about-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: var(--bark);
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+  .about-text p {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: #4a3a2a;
+    margin-bottom: 1.4em;
+  }
+  .about-text p:last-child { margin-bottom: 0; }
+
+  .about-details {
+    padding: 72px 0;
+    background: var(--pale);
+  }
+  .about-details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+  .about-detail-item h3 {
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--water);
+    margin-bottom: 12px;
+  }
+  .about-detail-item p, .about-detail-item li {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #5a4a3a;
+  }
+  .about-detail-item ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .about-detail-item li::before {
+    content: "— ";
+    color: var(--sage);
+  }
+
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-details-grid { grid-template-columns: 1fr; gap: 36px; }
+  }
+</style>
+
+<!-- ── HERO ──────────────────────────────────────────────── -->
+<section class="about-hero">
   <div class="container">
     <p class="label-tag">About</p>
-    <h1 class="section-title">Who We Are</h1>
-    <p class="section-lead">Our background, values, and approach to landscape-scale ecosystem stewardship in the San Francisco Bay Area.</p>
-    <div class="sub-nav">
-      <a href="/about/mission">Our Mission →</a>
-      <a href="/about/team">The Team →</a>
+    <h1 class="section-title">Rooted in Place,<br>Thinking in <em>Systems</em></h1>
+    <p class="section-lead">Eco Mosaics Restoration is a one-person practice founded on the belief that healthy land and healthy communities are inseparable — and that the people who live closest to the land are its best long-term stewards.</p>
+  </div>
+</section>
+
+<!-- ── BIO ───────────────────────────────────────────────── -->
+<section class="about-body">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-photo">Photo coming soon</div>
+      <div class="about-text">
+        <h2>Travis Wilson</h2>
+        <p>I came to land stewardship through an unlikely door. My background is in mechanical engineering — a decade spent in renewable energy, working on solar and battery systems. What engineering gave me wasn't just technical skill; it gave me a way of thinking. I tend to see landscapes the way I once saw energy systems: as interconnected networks where everything flows, nothing is isolated, and small interventions in the right places can shift the whole.</p>
+        <p>Three years ago I made a deliberate change. I wanted work that kept me outside, work that put my hands in the soil, and work that mattered beyond a quarterly report. I started learning regenerative agriculture and practicing fruit and vegetable farming in San Francisco. I got involved with the California Native Plant Society, working to restore native plant communities in grasslands, woodlands, and riparian corridors across the Bay Area. And I started traveling to the high desert outside Santa Fe — building rock and juniper structures to slow water, trap sediment, and begin healing incised channels and eroded gullies.</p>
+        <p>That work is ongoing. So is the learning.</p>
+        <p>I started Eco Mosaics Restoration because I kept meeting landowners who cared deeply about their land but didn't know where to start — and because I believe that communities engaged in the health of their land are more resilient, more connected, and more aware of where their food comes from and how the world around them actually works. That's the practice I'm building.</p>
+      </div>
     </div>
-    <span class="stub-badge">Page in progress</span>
+  </div>
+</section>
+
+<!-- ── DETAILS ────────────────────────────────────────────── -->
+<section class="about-details">
+  <div class="container">
+    <div class="about-details-grid">
+      <div class="about-detail-item">
+        <h3>Training & Affiliations</h3>
+        <ul>
+          <li>Beaver Institute BeaverCorps Professional</li>
+          <li>California Native Plant Society</li>
+          <li>BS, Mechanical Engineering</li>
+        </ul>
+      </div>
+      <div class="about-detail-item">
+        <h3>Works With</h3>
+        <ul>
+          <li>Private landowners</li>
+          <li>Conservation organizations</li>
+          <li>Public entities</li>
+        </ul>
+      </div>
+      <div class="about-detail-item">
+        <h3>Service Area</h3>
+        <ul>
+          <li>San Francisco</li>
+          <li>Marin</li>
+          <li>Sonoma</li>
+          <li>Alameda</li>
+          <li>San Mateo</li>
+          <li>Napa</li>
+          <li>Santa Clara</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
