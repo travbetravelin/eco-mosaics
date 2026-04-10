@@ -330,6 +330,10 @@ footer {
   background: transparent;
   max-width: 90vw;
   max-height: 90vh;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 #img-lightbox::backdrop { background: rgba(0,0,0,0.72); }
 #img-lightbox img {
