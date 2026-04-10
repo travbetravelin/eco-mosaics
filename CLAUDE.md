@@ -30,7 +30,7 @@ The minimum font size sitewide is **16px (1rem)**. Never set `font-size` smaller
 
 ## Stub Pages & Search Indexing
 The following pages are stubs (marked "Page in progress") and are currently excluded from `sitemap.xml`:
-- `about.html`, `about/mission.html`, `about/team.html`
+- `about/mission.html`, `about/team.html`
 - `learn.html`, `learn/blog.html`, `learn/case-studies.html`, `learn/faq.html`, `learn/get-involved.html`
 - `services.html`, `services/consulting.html`, `services/invasives.html`, `services/restoration.html`
 
