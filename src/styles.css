@@ -126,6 +126,7 @@ nav {
   text-transform: uppercase;
   color: var(--bark);
   opacity: 0.75;
+  text-decoration: none;
   transition: opacity 0.15s;
 }
 .nav-links a:hover { opacity: 1; }
@@ -186,6 +187,7 @@ nav {
   text-transform: uppercase;
   color: var(--moss);
   opacity: 0.75;
+  text-decoration: none;
   transition: opacity 0.15s;
 }
 .sub-nav a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
@@ -226,6 +228,7 @@ footer {
   font-size: 1rem;
   color: rgba(255,255,255,0.52);
   transition: color 0.15s;
+  text-decoration: none;
 }
 .footer-col a:hover { color: white; }
 .footer-bottom {
