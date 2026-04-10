@@ -308,6 +308,53 @@ footer {
   border: 1px solid var(--mist);
   border-radius: var(--radius);
   padding: 28px 24px;
+  overflow: hidden;
+}
+.solution-card-img {
+  display: block;
+  width: calc(100% + 48px);
+  margin: -28px -24px 20px;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  cursor: zoom-in;
+  transition: opacity 0.15s;
+  border-radius: 0;
+}
+.solution-card-img:hover { opacity: 0.85; }
+
+/* Lightbox */
+#img-lightbox {
+  border: none;
+  border-radius: 8px;
+  padding: 0;
+  background: transparent;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+#img-lightbox::backdrop { background: rgba(0,0,0,0.72); }
+#img-lightbox img {
+  display: block;
+  max-width: 85vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+#lightbox-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 .solution-card h3 {
   font-family: 'Playfair Display', serif;

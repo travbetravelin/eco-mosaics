@@ -51,22 +51,41 @@ description: Beavers flooding your property or damaging trees? Eco Mosaics Resto
     <h2 class="section-title">What Coexistence Looks Like</h2>
     <div class="solution-grid">
       <div class="solution-card">
+        <img src="/img/Pond Leveler.jpg" alt="Pond leveler installation" class="solution-card-img" onclick="openLightbox('/img/Pond Leveler.jpg', 'Pond Leveler')">
         <h3>Pond Leveler</h3>
         <p>A pipe system installed through a dam that manages pond water level, preventing it from rising above a set point under normal conditions — allowing beavers to remain while protecting infrastructure and land.</p>
       </div>
       <div class="solution-card">
+        <img src="/img/Fence and Pipe.jpg" alt="Culvert fence and pipe installation" class="solution-card-img" onclick="openLightbox('/img/Fence and Pipe.jpg', 'Pipe and Fence')">
         <h3>Pipe and Fence</h3>
         <p>Protective fencing installed around culverts or sensitive water crossings, paired with a flow pipe that maintains water passage while preventing beavers from damming at that location.</p>
       </div>
       <div class="solution-card">
+        <img src="/img/Tree Fencing.jpg" alt="Tree fencing to protect from beaver damage" class="solution-card-img" onclick="openLightbox('/img/Tree Fencing.jpg', 'Tree Fencing')">
         <h3>Tree Fencing</h3>
         <p>A simple, direct solution to protect individual trees a landowner needs to preserve — wire mesh wrapped around trunks prevents beaver access without displacing the animals from the site.</p>
       </div>
       <div class="solution-card">
+        <img src="/img/Starter Dam.jpg" alt="Starter decoy dam structure" class="solution-card-img" onclick="openLightbox('/img/Starter Dam.jpg', 'Decoy Dam')">
         <h3>Decoy Dam</h3>
         <p>A pre-built structure placed to attract beaver dam-building activity away from problem areas, redirecting natural behavior toward locations where it causes no conflict.</p>
       </div>
     </div>
+
+    <p style="margin-top: 16px; color: #8a7a6a;">Photos: <a href="https://www.beaverinstitute.org" target="_blank" rel="noopener noreferrer">The Beaver Institute</a></p>
+
+    <dialog id="img-lightbox" onclick="if(event.target===this)this.close()">
+      <button id="lightbox-close" onclick="document.getElementById('img-lightbox').close()">&#x2715;</button>
+      <img id="lightbox-img" src="" alt="">
+    </dialog>
+
+    <script>
+      function openLightbox(src, alt) {
+        document.getElementById('lightbox-img').src = src;
+        document.getElementById('lightbox-img').alt = alt;
+        document.getElementById('img-lightbox').showModal();
+      }
+    </script>
   </div>
 </section>
 
