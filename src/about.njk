@@ -25,16 +25,12 @@ description: Travis Wilson is a Bay Area land steward and the founder of Eco Mos
     align-items: start;
   }
   .about-photo {
+    width: 100%;
     aspect-ratio: 3/4;
-    background: var(--mist);
+    object-fit: cover;
+    object-position: center top;
     border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #8a7a6a;
-    font-size: 1rem;
-    font-family: 'Inter', sans-serif;
-    letter-spacing: 0.06em;
+    display: block;
   }
   .about-text h2 {
     font-family: 'Playfair Display', serif;
@@ -102,7 +98,7 @@ description: Travis Wilson is a Bay Area land steward and the founder of Eco Mos
 <section class="about-body">
   <div class="container">
     <div class="about-grid">
-      <div class="about-photo">Photo coming soon</div>
+      <img class="about-photo" src="/img/Travis.jpeg" alt="Travis Wilson with bison grazing on green hillside">
       <div class="about-text">
         <h2>Travis Wilson</h2>
         <p>After a decade of work in renewable energy, driving toward a future powered by solar and batteries, I decided to move in a different direction — changing my mission from energy generation to living, working systems. I have always enjoyed systems thinking, and the mindset I developed studying Mechanical Engineering is one I want to put to work shifting the way we participate in our ecosystems. I enjoy thinking and learning about landscapes as a system, with many sub-systems — a mosaic of ecosystems, biomes, and habitats.</p>

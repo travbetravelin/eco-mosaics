@@ -12,6 +12,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/sitemap.xml");
   eleventyConfig.addPassthroughCopy("src/sitemap.html");
   eleventyConfig.addPassthroughCopy({ "posts/*.png": "posts" });
+  eleventyConfig.addPassthroughCopy("src/img");
 
   return {
     dir: {
