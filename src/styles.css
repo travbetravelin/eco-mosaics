@@ -131,7 +131,7 @@ nav {
 }
 .nav-links a:hover { opacity: 1; }
 .nav-links .nav-cta a { opacity: 1; color: var(--amber); transition: color 0.15s; }
-.nav-links .nav-cta a:hover { color: #b5743a; }
+.nav-links .nav-cta a:hover { color: #b5743a; text-decoration: underline; text-underline-offset: 3px; }
 
 /* ── Mobile Nav Toggle ─────────────────────────────────── */
 .nav-toggle {
