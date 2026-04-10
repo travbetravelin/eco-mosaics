@@ -434,6 +434,10 @@ footer {
   .form-row { grid-template-columns: 1fr; }
   .form-row .form-group { margin-bottom: 20px; }
   .form-row .form-group:last-child { margin-bottom: 0; }
+  /* Section padding — mobile */
+  .stub-section { padding: 56px 0; }
+  .content-section { padding: 48px 0; }
+  .cta-band { padding: 48px 0; }
 }
 @media (max-width: 480px) {
   .solution-grid { grid-template-columns: 1fr; }

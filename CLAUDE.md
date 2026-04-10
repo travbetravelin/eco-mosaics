@@ -16,6 +16,12 @@ These are locked-in standards. Always apply them — do not use inline styles to
 | Section padding (emphasis) | **88px** | Feature sections |
 | Section padding (hero) | **96px** | `.stub-section`, top-level hero sections |
 
+### Mobile (max-width: 720px)
+| Element | Value |
+|---|---|
+| Section padding (standard) | **48px** |
+| Section padding (hero) | **56px** |
+
 ## Typography
 The minimum font size sitewide is **16px (1rem)**. Never set `font-size` smaller than `1rem` in any HTML or CSS. This applies to inline styles, utility classes, and stylesheet rules — including notes, asides, captions, and any other small text elements.
 
