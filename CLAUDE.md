@@ -25,6 +25,13 @@ These are locked-in standards. Always apply them — do not use inline styles to
 | Section padding (standard) | **48px** |
 | Section padding (hero) | **56px** |
 
+## Photo Credits
+Use consistent formatting for all photo credits sitewide:
+- Single image: `Photo: {attribution}`
+- Multiple images sharing one credit: `Photos: {attribution}`
+
+Never use "Photo by" — always use the colon format.
+
 ## Typography
 The minimum font size sitewide is **16px (1rem)**. Never set `font-size` smaller than `1rem` in any HTML or CSS. This applies to inline styles, utility classes, and stylesheet rules — including notes, asides, captions, and any other small text elements.
 

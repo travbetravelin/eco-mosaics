@@ -4,15 +4,102 @@ title: Land Stewardship Services | Eco Mosaics Restoration
 description: Tailored habitat stewardship for landowners, conservation organizations, and public entities across the San Francisco Bay Area.
 ---
 
-<section class="stub-section">
+<style>
+  .service-panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .service-panel {
+    background: white;
+    border: 1px solid var(--mist);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .service-panel-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    border-radius: 0;
+  }
+  .service-panel-photo-credit {
+    padding: 6px 12px;
+    font-size: 1rem;
+    color: #8a7a6a;
+    background: var(--pale);
+    border-top: 1px solid var(--mist);
+  }
+  .service-panel-img-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: var(--mist);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8a7a6a;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.06em;
+  }
+  .service-panel-body {
+    padding: 28px 28px 32px;
+  }
+  .service-panel-body .label-tag { margin-bottom: 14px; }
+  .service-panel-body h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    color: var(--bark);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .service-panel-body p {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: #4a3a2a;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 720px) {
+    .service-panels { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- ── HERO ── -->
+<section class="service-hero">
   <div class="container">
     <p class="label-tag">Land Stewardship Services</p>
     <h1 class="section-title">What We Do</h1>
-    <p class="section-lead">Tailored habitat stewardship for landowners, conservation organizations, and public entities — designed around what each landscape actually needs.</p>
-    <div class="sub-nav">
-      <a href="/services/invasives">Invasive Species Removal →</a>
-      <a href="/services/coexistence">Beaver Coexistence →</a>
+    <p class="section-lead">Tailored habitat stewardship for landowners, conservation organizations, and public entities — designed around what each landscape needs, and the people who depend on it.</p>
+  </div>
+</section>
+
+<!-- ── SERVICE PANELS ── -->
+<section class="content-section bg-pale">
+  <div class="container">
+    <div class="service-panels">
+
+      <div class="service-panel">
+        <img src="/img/oxalis.jpg" alt="Oxalis invasive species in a field of yellow flowers" class="service-panel-img">
+        <p class="service-panel-photo-credit">Photo: <a href="https://unsplash.com/@gildo_1993?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Gildo de Campos Correa</a></p>
+        <div class="service-panel-body">
+          <p class="label-tag">Invasive Species Removal</p>
+          <h2>Reclaiming Space for Native Communities</h2>
+          <p>Assessment, treatment, and follow-up monitoring to remove invasive plants that crowd out native species and degrade habitat structure. We focus on lasting removal, not just surface clearing.</p>
+          <a href="/services/invasives" class="btn btn-moss">Learn More</a>
+        </div>
+      </div>
+
+      <div class="service-panel">
+        <img src="/img/beaver.jpg" alt="Beaver swimming with branches in water" class="service-panel-img">
+        <p class="service-panel-photo-credit">Photo: <a href="https://unsplash.com/@derekotway?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Derek Otway</a></p>
+        <div class="service-panel-body">
+          <p class="label-tag">Beaver Coexistence</p>
+          <h2>Living with Ecosystem Engineers</h2>
+          <p>If beavers are flooding your property, blocking a culvert, or felling trees — non-lethal solutions exist that work for both you and the land. We find the right approach for your specific situation, ensuring infrastructure and other usage areas are protected while keeping beavers on the landscape as the ecosystem engineers they are.</p>
+          <a href="/services/coexistence" class="btn btn-moss">Learn More</a>
+        </div>
+      </div>
+
     </div>
-    <span class="stub-badge">Page in progress</span>
   </div>
 </section>

@@ -245,7 +245,7 @@ footer {
 
 /* ── Service Pages ─────────────────────────────────────── */
 .service-hero {
-  padding: 80px 0 64px;
+  padding: 96px 0 72px;
   border-bottom: 1px solid var(--mist);
 }
 .service-hero .section-lead { margin-bottom: 0; }
@@ -372,6 +372,36 @@ footer {
   color: #5a4a3a;
 }
 
+.callout-card {
+  background: white;
+  border: 1px solid var(--mist);
+  border-left: 3px solid var(--water);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.callout-card-icon {
+  flex-shrink: 0;
+  color: var(--water);
+  margin-top: 3px;
+}
+.callout-card strong {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: var(--bark);
+  margin-bottom: 8px;
+}
+.callout-card p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #4a3a2a;
+  margin: 0;
+}
+
 .process-list {
   list-style: none;
   max-width: 640px;
@@ -487,6 +517,7 @@ footer {
   .form-row .form-group:last-child { margin-bottom: 0; }
   /* Section padding — mobile */
   .stub-section { padding: 56px 0; }
+  .service-hero { padding: 56px 0 48px; }
   .content-section { padding: 48px 0; }
   .cta-band { padding: 48px 0; }
 }
