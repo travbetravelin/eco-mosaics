@@ -245,7 +245,7 @@ footer {
 
 /* ── Service Pages ─────────────────────────────────────── */
 .service-hero {
-  padding: 80px 0 64px;
+  padding: 96px 0 72px;
   border-bottom: 1px solid var(--mist);
 }
 .service-hero .section-lead { margin-bottom: 0; }
@@ -487,6 +487,7 @@ footer {
   .form-row .form-group:last-child { margin-bottom: 0; }
   /* Section padding — mobile */
   .stub-section { padding: 56px 0; }
+  .service-hero { padding: 56px 0 48px; }
   .content-section { padding: 48px 0; }
   .cta-band { padding: 48px 0; }
 }
