@@ -4,6 +4,54 @@ title: Land Stewardship Services | Eco Mosaics Restoration
 description: Tailored habitat stewardship for landowners, conservation organizations, and public entities across the San Francisco Bay Area.
 ---
 
+<style>
+  .service-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: center;
+  }
+  .service-row-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-radius: var(--radius);
+    display: block;
+  }
+  .service-row-img-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: var(--mist);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8a7a6a;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.06em;
+  }
+  .service-row-text .label-tag { margin-bottom: 14px; }
+  .service-row-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: var(--bark);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .service-row-text p {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: #4a3a2a;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 720px) {
+    .service-row { grid-template-columns: 1fr; gap: 32px; }
+    .service-row.reverse .service-row-img-placeholder,
+    .service-row.reverse .service-row-img { order: -1; }
+  }
+</style>
+
 <!-- ── HERO ── -->
 <section class="stub-section">
   <div class="container">
@@ -13,31 +61,32 @@ description: Tailored habitat stewardship for landowners, conservation organizat
   </div>
 </section>
 
-<!-- ── SERVICE CARDS ── -->
+<!-- ── INVASIVE SPECIES ── -->
+<section class="content-section">
+  <div class="container">
+    <div class="service-row">
+      <div class="service-row-img-placeholder">Invasive species photo coming soon</div>
+      <div class="service-row-text">
+        <p class="label-tag">Invasive Species Removal</p>
+        <h2>Reclaiming Space for Native Communities</h2>
+        <p>Assessment, treatment, and follow-up monitoring to remove invasive plants that crowd out native species and degrade habitat structure. We focus on lasting removal, not just surface clearing.</p>
+        <a href="/services/invasives" class="btn btn-moss">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BEAVER COEXISTENCE ── -->
 <section class="content-section bg-pale">
   <div class="container">
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">🌿</div>
-        <h3>Invasive Species Removal</h3>
-        <p>
-          Assessment, treatment, and follow-up monitoring to remove invasive
-          plants that crowd out native species and degrade habitat structure.
-          We focus on lasting removal, not just surface clearing.
-        </p>
-        <a href="/services/invasives" class="service-link">Learn more</a>
+    <div class="service-row reverse">
+      <div class="service-row-text">
+        <p class="label-tag">Beaver Coexistence</p>
+        <h2>Living with Ecosystem Engineers</h2>
+        <p>Understanding both beaver behavior and human land needs to find solutions that work for both. Mitigating conflict through flow devices, site modifications, and stewardship strategies that keep beavers on the landscape as the ecosystem engineers they are.</p>
+        <a href="/services/coexistence" class="btn btn-moss">Learn More</a>
       </div>
-      <div class="service-card">
-        <div class="service-icon">🦫</div>
-        <h3>Beaver Coexistence</h3>
-        <p>
-          Understanding both beaver behavior and human land needs to find
-          solutions that work for both. Mitigating conflict through flow
-          devices, site modifications, and stewardship strategies that keep
-          beavers on the landscape as the ecosystem engineers they are.
-        </p>
-        <a href="/services/coexistence" class="service-link">Learn more</a>
-      </div>
+      <div class="service-row-img-placeholder">Beaver photo coming soon</div>
     </div>
   </div>
 </section>
