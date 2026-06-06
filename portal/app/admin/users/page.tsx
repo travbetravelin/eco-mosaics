@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createServerSupabaseClient } from '@/lib/supabase-server'
 import Nav from '@/app/components/Nav'
 import EditUserForm from './EditUserForm'
+import NewUserForm from './NewUserForm'
 import { JOB_ROLE_ORDER } from '@/lib/payroll'
 
 export default async function ManageUsersPage() {
@@ -26,8 +27,14 @@ export default async function ManageUsersPage() {
     <>
       <Nav role={profile.role} name={profile.full_name} />
       <main className="page-wide">
-        <h1>Manage Employees</h1>
-        <p className="page-subtitle">Set app roles, job roles, and Paychex IDs.</p>
+        <div className="row" style={{ marginBottom: 24 }}>
+          <div>
+            <h1 style={{ margin: 0 }}>Manage Employees</h1>
+            <p className="page-subtitle" style={{ margin: 0, marginTop: 4 }}>Set app roles, job roles, and Paychex IDs.</p>
+          </div>
+          <div className="spacer" />
+          <NewUserForm />
+        </div>
 
         <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
           <table>
