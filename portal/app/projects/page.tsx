@@ -76,14 +76,13 @@ export default async function ProjectsPage({
 
   // Mileage: Mobe entries for the displayed employees and dates
   const employeeIds = employees.map(e => e.id)
-  const { data: mileageEntries } = dates.length && employeeIds.length
+  const { data: mileageEntries } = selectedProjectId && employeeIds.length
     ? await supabase
         .from('time_entries')
         .select('employee_id, drive_category, mileage')
         .eq('job_code', 'Mobe')
+        .eq('project_id', selectedProjectId)
         .not('mileage', 'is', null)
-        .in('employee_id', employeeIds)
-        .in('date', dates)
     : { data: [] }
 
   return (
