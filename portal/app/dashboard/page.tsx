@@ -16,14 +16,13 @@ export default async function DashboardPage() {
 
   const canLogForOthers = profile?.role === 'crew_lead' || profile?.role === 'admin'
 
-  const [{ data: projects }, { data: employees }, { data: recentEntries }] = await Promise.all([
-    supabase.from('projects').select('id, name').eq('active', true).order('name'),
+  const [{ data: employees }, { data: recentEntries }] = await Promise.all([
     canLogForOthers
       ? supabase.from('profiles').select('id, full_name').eq('active', true).order('full_name')
       : Promise.resolve({ data: [{ id: user.id, full_name: profile?.full_name ?? '' }] }),
     supabase
       .from('time_entries')
-      .select('id, date, hours, entry_type, status, notes, projects(name)')
+      .select('id, date, hours, entry_type, job_code, status, notes, projects(name)')
       .eq('employee_id', user.id)
       .order('date', { ascending: false })
       .limit(20),
@@ -37,12 +36,16 @@ export default async function DashboardPage() {
         <p className="page-subtitle">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</p>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 32 }}>
-          <LogHoursForm
-            projects={projects ?? []}
-            employees={employees ?? []}
-            currentUserId={user.id}
-            role={profile?.role ?? 'crew'}
-          />
+          <div className="stack">
+            <LogHoursForm
+              employees={employees ?? []}
+              currentUserId={user.id}
+              role={profile?.role ?? 'crew'}
+            />
+            <a href="/drive-time" className="btn btn-secondary" style={{ textAlign: 'center' }}>
+              Log Mobe / Extra Time
+            </a>
+          </div>
 
           <div>
             <h2>Recent entries</h2>
@@ -52,7 +55,7 @@ export default async function DashboardPage() {
                   <tr>
                     <th>Date</th>
                     <th>Type</th>
-                    <th>Project</th>
+                    <th>Job Code</th>
                     <th>Hours</th>
                     <th>Status</th>
                   </tr>
@@ -67,7 +70,7 @@ export default async function DashboardPage() {
                       <tr key={e.id}>
                         <td>{e.date}</td>
                         <td style={{ textTransform: 'capitalize' }}>{e.entry_type}</td>
-                        <td style={{ color: '#6b7280' }}>{(proj as { name: string } | null)?.name ?? '—'}</td>
+                        <td style={{ color: '#6b7280' }}>{e.job_code ?? (proj as { name: string } | null)?.name ?? '—'}</td>
                         <td>{e.hours}</td>
                         <td><span className={`badge badge-${e.status}`}>{e.status}</span></td>
                       </tr>

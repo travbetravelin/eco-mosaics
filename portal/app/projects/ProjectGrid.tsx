@@ -56,7 +56,7 @@ export default function ProjectGrid({ projectId, dates, employees, entries: init
     } else {
       const { data } = await supabase.from('time_entries').insert({
         employee_id: empId, date, hours: parsed,
-        entry_type: 'project', project_id: projectId, logged_by: currentUserId,
+        entry_type: 'project', project_id: projectId, job_code: 'Field', logged_by: currentUserId,
       }).select('id').single()
       if (data) setCells(prev => ({ ...prev, [key]: { id: data.id, hours: parsed } }))
     }

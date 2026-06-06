@@ -4,25 +4,22 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase'
 
-interface Project { id: string; name: string }
 interface Employee { id: string; full_name: string }
 
 interface Props {
-  projects: Project[]
   employees: Employee[]
   currentUserId: string
   role: string
 }
 
-export default function LogHoursForm({ projects, employees, currentUserId, role }: Props) {
+export default function LogHoursForm({ employees, currentUserId, role }: Props) {
   const router = useRouter()
   const canLogForOthers = role === 'crew_lead' || role === 'admin'
 
   const today = new Date().toISOString().split('T')[0]
   const [employeeId, setEmployeeId] = useState(currentUserId)
   const [date, setDate] = useState(today)
-  const [entryType, setEntryType] = useState<'project' | 'sick' | 'wellness'>('project')
-  const [projectId, setProjectId] = useState('')
+  const [entryType, setEntryType] = useState<'sick' | 'wellness'>('sick')
   const [hours, setHours] = useState('')
   const [notes, setNotes] = useState('')
   const [loading, setLoading] = useState(false)
@@ -41,7 +38,6 @@ export default function LogHoursForm({ projects, employees, currentUserId, role 
       date,
       hours: parseFloat(hours),
       entry_type: entryType,
-      project_id: entryType === 'project' ? projectId : null,
       notes: notes || null,
       logged_by: currentUserId,
     })
@@ -79,24 +75,11 @@ export default function LogHoursForm({ projects, employees, currentUserId, role 
 
         <div className="form-group">
           <label>Type</label>
-          <select value={entryType} onChange={e => setEntryType(e.target.value as typeof entryType)}>
-            <option value="project">Project</option>
+          <select value={entryType} onChange={e => setEntryType(e.target.value as 'sick' | 'wellness')}>
             <option value="sick">Sick</option>
             <option value="wellness">Wellness</option>
           </select>
         </div>
-
-        {entryType === 'project' && (
-          <div className="form-group">
-            <label>Project</label>
-            <select value={projectId} onChange={e => setProjectId(e.target.value)} required>
-              <option value="">Select project…</option>
-              {projects.map(p => (
-                <option key={p.id} value={p.id}>{p.name}</option>
-              ))}
-            </select>
-          </div>
-        )}
 
         <div className="form-group">
           <label>Hours</label>
@@ -114,12 +97,7 @@ export default function LogHoursForm({ projects, employees, currentUserId, role 
 
         <div className="form-group">
           <label>Notes</label>
-          <input
-            type="text"
-            value={notes}
-            onChange={e => setNotes(e.target.value)}
-            placeholder="Optional"
-          />
+          <input type="text" value={notes} onChange={e => setNotes(e.target.value)} placeholder="Optional" />
         </div>
 
         <button className="btn btn-primary" type="submit" disabled={loading}>
