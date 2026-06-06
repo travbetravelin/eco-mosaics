@@ -4,6 +4,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   Legend, ResponsiveContainer, Cell,
 } from 'recharts'
+// Cell kept for role-colored bars in the hours-by-role chart
 
 const ROLE_COLORS: Record<string, string> = {
   'CEO':            '#1b4332',
@@ -16,22 +17,6 @@ const ROLE_COLORS: Record<string, string> = {
   'Unassigned':     '#6b7280',
 }
 
-const CODE_COLORS: Record<string, string> = {
-  'Field':            '#16a34a',
-  'Mobe':             '#2563eb',
-  'Camp Set Up':      '#ca8a04',
-  'Camp Tear Down':   '#ea580c',
-  'Shopping':         '#9333ea',
-  'Camp Maintenance': '#0891b2',
-  'sick':             '#0284c7',
-  'wellness':         '#15803d',
-}
-
-const CATEGORY_COLORS: Record<string, string> = {
-  'To Hitch':   '#2563eb',
-  'On Hitch':   '#16a34a',
-  'From Hitch': '#9333ea',
-}
 
 function fmt(n: number) {
   return n % 1 === 0 ? String(n) : n.toFixed(1)
@@ -107,42 +92,35 @@ export default function OpsCharts({ hoursRoleData, hoursCodeData, roles, mileage
       {hasMileage && (
         <section>
           <h2 style={{ marginBottom: 20 }}>Mileage</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-
-            {/* Total miles */}
-            <div className="card" style={{ padding: 24 }}>
-              <h3 style={{ marginBottom: 16, fontSize: '1rem', fontWeight: 600, color: '#374151' }}>Total Miles</h3>
-              <ResponsiveContainer width="100%" height={220}>
-                <BarChart data={mileageStats} margin={{ left: 8, right: 16, top: 4, bottom: 4 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="category" tick={chartStyle} />
-                  <YAxis tick={chartStyle} tickFormatter={fmt} />
-                  <Tooltip formatter={(v) => [fmt(Number(v)), 'Miles']} />
-                  <Bar dataKey="total" radius={[4, 4, 0, 0]}>
-                    {mileageStats.map(s => (
-                      <Cell key={s.category} fill={CATEGORY_COLORS[s.category] ?? '#6b7280'} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-
-            {/* Avg vs Median */}
-            <div className="card" style={{ padding: 24 }}>
-              <h3 style={{ marginBottom: 16, fontSize: '1rem', fontWeight: 600, color: '#374151' }}>Avg vs Median Miles per Entry</h3>
-              <ResponsiveContainer width="100%" height={220}>
-                <BarChart data={mileageStats} margin={{ left: 8, right: 16, top: 4, bottom: 4 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="category" tick={chartStyle} />
-                  <YAxis tick={chartStyle} tickFormatter={fmt} />
-                  <Tooltip formatter={(v) => [fmt(Number(v)), 'Miles']} />
-                  <Legend wrapperStyle={chartStyle} />
-                  <Bar dataKey="avg" name="Average" fill="#2563eb" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="median" name="Median" fill="#9333ea" radius={[4, 4, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-
+          <div className="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  {mileageStats.map(s => <th key={s.category} style={{ textAlign: 'center' }}>{s.category}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style={{ fontWeight: 500 }}>Total Miles</td>
+                  {mileageStats.map(s => (
+                    <td key={s.category} style={{ textAlign: 'center' }}>{fmt(s.total)}</td>
+                  ))}
+                </tr>
+                <tr>
+                  <td style={{ fontWeight: 500 }}>Avg per Entry</td>
+                  {mileageStats.map(s => (
+                    <td key={s.category} style={{ textAlign: 'center' }}>{fmt(s.avg)}</td>
+                  ))}
+                </tr>
+                <tr>
+                  <td style={{ fontWeight: 500 }}>Median per Entry</td>
+                  {mileageStats.map(s => (
+                    <td key={s.category} style={{ textAlign: 'center' }}>{fmt(s.median)}</td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
           </div>
         </section>
       )}

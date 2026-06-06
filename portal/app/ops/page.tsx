@@ -37,7 +37,7 @@ export default async function OpsPage() {
   const [{ data: timeEntries }, { data: mileageEntries }] = await Promise.all([
     supabase
       .from('time_entries')
-      .select('job_role, job_code, entry_type, hours'),
+      .select('*'),
     supabase
       .from('time_entries')
       .select('drive_category, mileage')
