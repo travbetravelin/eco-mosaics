@@ -152,7 +152,7 @@ export default function PayrollTable({ employees, data, startDate }: Props) {
   )
 
   return (
-    <div style={{ overflowX: 'auto', marginTop: 16 }}>
+    <div className="grid-container" style={{ marginTop: 16 }}>
       <table className="grid-table payroll-table">
         <thead>
           {/* Group header row */}
@@ -174,7 +174,7 @@ export default function PayrollTable({ employees, data, startDate }: Props) {
           {/* Employee name row */}
           <tr>
             {ordered.map(emp => (
-              <th key={emp.id} style={{ whiteSpace: 'nowrap', minWidth: 80, fontWeight: 400, fontSize: '0.875rem' }}>
+              <th key={emp.id} style={{ whiteSpace: 'nowrap', minWidth: 80, fontWeight: 400 }}>
                 {emp.full_name}
               </th>
             ))}
