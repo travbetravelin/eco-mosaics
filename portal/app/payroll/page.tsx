@@ -3,15 +3,9 @@ import { createServerSupabaseClient } from '@/lib/supabase-server'
 import Nav from '@/app/components/Nav'
 import PayPeriodPicker from './PayPeriodPicker'
 import PayrollTable from './PayrollTable'
+import PayPeriodClose from './PayPeriodClose'
 import { buildPayrollData, addDays, type RawEntry } from '@/lib/payroll'
-
-function getMostRecentMonday(): string {
-  const today = new Date()
-  const day = today.getDay()
-  const diff = day === 0 ? -6 : 1 - day
-  today.setDate(today.getDate() + diff)
-  return today.toISOString().split('T')[0]
-}
+import { getCurrentPeriodStart, getPeriodStart, getPeriodEnd, formatPeriodLabel } from '@/lib/payPeriod'
 
 export default async function PayrollPage({
   searchParams,
@@ -30,19 +24,26 @@ export default async function PayrollPage({
 
   if (profile?.role !== 'admin') redirect('/dashboard')
 
-  const startDate = searchParams.start ?? getMostRecentMonday()
-  const endDate = addDays(startDate, 13)
+  // Snap to period boundary so the table always shows a real pay period
+  const startDate = searchParams.start
+    ? getPeriodStart(searchParams.start)
+    : getCurrentPeriodStart()
+  const endDate = getPeriodEnd(startDate)
 
-  const [{ data: activeEmployees }, { data: rawEntries }] = await Promise.all([
+  const [{ data: activeEmployees }, { data: rawEntries }, { data: periodRecord }] = await Promise.all([
     supabase.from('profiles').select('id, full_name, role, job_role').eq('active', true).order('full_name'),
     supabase
       .from('time_entries')
       .select('employee_id, date, hours, entry_type, project_id, projects(name)')
       .gte('date', startDate)
       .lte('date', endDate),
+    supabase
+      .from('pay_periods')
+      .select('closed_at')
+      .eq('start_date', startDate)
+      .maybeSingle(),
   ])
 
-  // Include inactive employees who have entries in this pay period
   const activeIds = new Set((activeEmployees ?? []).map(e => e.id))
   const inactiveIdsWithHours = [...new Set((rawEntries ?? []).map(e => e.employee_id))]
     .filter(id => !activeIds.has(id))
@@ -66,6 +67,7 @@ export default async function PayrollPage({
   })
 
   const payrollData = buildPayrollData(entries)
+  const isClosed = !!periodRecord?.closed_at
 
   return (
     <>
@@ -75,10 +77,11 @@ export default async function PayrollPage({
           <div>
             <h1 style={{ margin: 0 }}>Payroll Summary</h1>
             <div style={{ color: '#6b7280', marginTop: 4 }}>
-              {startDate} → {endDate}
+              {formatPeriodLabel(startDate, endDate)}
             </div>
           </div>
           <div className="spacer" />
+          <PayPeriodClose startDate={startDate} endDate={endDate} isClosed={isClosed} />
           <PayPeriodPicker value={startDate} />
         </div>
 

@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react'
 import { createClient } from '@/lib/supabase'
 import { groupEmployees, GROUP_COLORS, type Employee } from '@/lib/payroll'
+import { isDateLocked } from '@/lib/payPeriod'
 
 export const JOB_CODE_COLORS: Record<string, { bg: string; text: string; border: string }> = {
   'Field':            { bg: '#dcfce7', text: '#14532d', border: '#86efac' },
@@ -21,10 +22,12 @@ interface Props {
   employees: Employee[]
   entries: Entry[]
   canEdit: boolean
+  isAdmin: boolean
   currentUserId: string
+  closedPeriodStarts: string[]
 }
 
-export default function ProjectGrid({ projectId, dates, employees, entries: initial, canEdit, currentUserId }: Props) {
+export default function ProjectGrid({ projectId, dates, employees, entries: initial, canEdit, isAdmin, currentUserId, closedPeriodStarts }: Props) {
   const groups = groupEmployees(employees)
   const ordered = groups.flatMap(g => g.employees)
 
@@ -50,8 +53,14 @@ export default function ProjectGrid({ projectId, dates, employees, entries: init
 
   function cellKey(empId: string, date: string) { return `${empId}|${date}` }
 
+  function canEditDate(date: string): boolean {
+    if (!canEdit || !isEditMode) return false
+    if (isDateLocked(date, closedPeriodStarts)) return isAdmin
+    return true
+  }
+
   function startEdit(empId: string, date: string) {
-    if (!canEdit || !isEditMode) return
+    if (!canEditDate(date)) return
     const key = cellKey(empId, date)
     setEditing(key)
     setEditVal(String(cells[key]?.hours ?? ''))
@@ -191,6 +200,7 @@ export default function ProjectGrid({ projectId, dates, employees, entries: init
               const rt = rowTotal(date)
               const d = new Date(date + 'T00:00:00')
               const isToday = date === new Date().toISOString().split('T')[0]
+              const locked = isDateLocked(date, closedPeriodStarts) && !isAdmin
               const rowBg = isToday ? '#f0fdf4' : rowIdx % 2 === 0 ? 'white' : '#fcfcfc'
               return (
                 <tr key={date} style={{ background: rowBg }}>
@@ -203,6 +213,7 @@ export default function ProjectGrid({ projectId, dates, employees, entries: init
                     letterSpacing: '0.01em',
                   }}>
                     {isToday && <span style={{ marginRight: 5, fontSize: '1rem', background: '#15803d', color: 'white', borderRadius: 4, padding: '1px 5px', verticalAlign: 'middle' }}>Today</span>}
+                    {isDateLocked(date, closedPeriodStarts) && <span style={{ marginRight: 5, fontSize: '1rem', opacity: 0.5, verticalAlign: 'middle' }}>🔒</span>}
                     {d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
                   </td>
                   {ordered.map(emp => {
@@ -213,9 +224,9 @@ export default function ProjectGrid({ projectId, dates, employees, entries: init
                     return (
                       <td key={emp.id}
                         onClick={() => startEdit(emp.id, date)}
-                        title={cell ? `${cell.job_code} · ${cell.hours}h` : (canEdit && isEditMode) ? 'Click to add' : ''}
+                        title={cell ? `${cell.job_code} · ${cell.hours}h` : canEditDate(date) ? 'Click to add' : locked ? 'Period closed' : ''}
                         style={{
-                          cursor: (canEdit && isEditMode) ? 'pointer' : 'default',
+                          cursor: canEditDate(date) ? 'pointer' : 'default',
                           minWidth: 56,
                           textAlign: 'center',
                           transition: 'background 0.1s',

@@ -3,10 +3,7 @@ import { createServerSupabaseClient } from '@/lib/supabase-server'
 import Nav from '@/app/components/Nav'
 import ProjectGrid from './ProjectGrid'
 import ProjectPicker from './ProjectPicker'
-
-function getToday(): string {
-  return new Date().toISOString().split('T')[0]
-}
+import { getPeriodStart } from '@/lib/payPeriod'
 
 function getLastNDays(n: number): string[] {
   const today = new Date()
@@ -48,7 +45,7 @@ export default async function ProjectsPage({
 
   const selectedProjectId = searchParams.project ?? projects?.[0]?.id ?? null
 
-  const [{ data: activeEmployees }, { data: entries }] = await Promise.all([
+  const [{ data: activeEmployees }, { data: entries }, { data: closedPeriods }] = await Promise.all([
     supabase.from('profiles').select('id, full_name, role, job_role').eq('active', true).order('full_name'),
     selectedProjectId
       ? supabase
@@ -57,11 +54,14 @@ export default async function ProjectsPage({
           .eq('project_id', selectedProjectId)
           .eq('entry_type', 'project')
       : Promise.resolve({ data: [] }),
+    supabase
+      .from('pay_periods')
+      .select('start_date')
+      .not('closed_at', 'is', null),
   ])
 
   const dates = buildDateList((entries ?? []).map(e => e.date))
 
-  // Include inactive employees who have entries for this project in the date range
   const activeIds = new Set((activeEmployees ?? []).map(e => e.id))
   const inactiveIdsWithHours = [...new Set((entries ?? []).map(e => e.employee_id))]
     .filter(id => !activeIds.has(id))
@@ -71,8 +71,9 @@ export default async function ProjectsPage({
     : { data: [] }
 
   const employees = [...(activeEmployees ?? []), ...(inactiveWithHours ?? [])]
-
+  const closedPeriodStarts = (closedPeriods ?? []).map(p => p.start_date as string)
   const canEdit = profile.role === 'crew_lead' || profile.role === 'admin'
+  const isAdmin = profile.role === 'admin'
 
   return (
     <>
@@ -93,7 +94,9 @@ export default async function ProjectsPage({
             employees={employees}
             entries={(entries ?? []) as { id: string; employee_id: string; date: string; hours: number; job_code: string | null }[]}
             canEdit={canEdit}
+            isAdmin={isAdmin}
             currentUserId={user.id}
+            closedPeriodStarts={closedPeriodStarts}
           />
         )}
       </main>
