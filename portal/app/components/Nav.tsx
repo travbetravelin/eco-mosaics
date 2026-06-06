@@ -31,7 +31,7 @@ export default function Nav({ role, name }: NavProps) {
         {isAdmin && <a href="/payroll">Payroll</a>}
         {isAdmin && <a href="/admin/projects">Manage Projects</a>}
         {isAdmin && <a href="/admin/users">Manage Users</a>}
-        <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '1rem' }}>{name}</span>
+        <a href="/account" style={{ color: 'rgba(255,255,255,0.85)' }}>{name}</a>
         <button onClick={handleSignOut} className="btn btn-secondary btn-sm">
           Sign out
         </button>

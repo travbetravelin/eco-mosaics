@@ -19,7 +19,7 @@ export default async function DashboardPage() {
   const [{ data: projects }, { data: employees }, { data: recentEntries }] = await Promise.all([
     supabase.from('projects').select('id, name').eq('active', true).order('name'),
     canLogForOthers
-      ? supabase.from('profiles').select('id, full_name').order('full_name')
+      ? supabase.from('profiles').select('id, full_name').eq('active', true).order('full_name')
       : Promise.resolve({ data: [{ id: user.id, full_name: profile?.full_name ?? '' }] }),
     supabase
       .from('time_entries')

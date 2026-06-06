@@ -34,7 +34,7 @@ export default async function PayrollPage({
   const endDate = addDays(startDate, 13)
 
   const [{ data: employees }, { data: rawEntries }] = await Promise.all([
-    supabase.from('profiles').select('id, full_name, role, job_role').order('full_name'),
+    supabase.from('profiles').select('id, full_name, role, job_role').eq('active', true).order('full_name'),
     supabase
       .from('time_entries')
       .select('employee_id, date, hours, entry_type, project_id, projects(name)')

@@ -43,7 +43,7 @@ export default async function ProjectsPage({
   const dates = getLast30Days()
 
   const [{ data: employees }, { data: entries }] = await Promise.all([
-    supabase.from('profiles').select('id, full_name, role, job_role').order('full_name'),
+    supabase.from('profiles').select('id, full_name, role, job_role').eq('active', true).order('full_name'),
     selectedProjectId
       ? supabase
           .from('time_entries')
