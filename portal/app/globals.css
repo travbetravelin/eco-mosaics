@@ -27,6 +27,9 @@ a:hover { text-decoration: underline; }
 
 /* ── Layout ── */
 .portal-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   background: var(--green-dark);
   color: white;
   padding: 0 24px;
