@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createServerSupabaseClient } from '@/lib/supabase-server'
 import Nav from '@/app/components/Nav'
 import ProjectGrid from './ProjectGrid'
+import ProjectPicker from './ProjectPicker'
 
 function getLast30Days(): string[] {
   const days: string[] = []
@@ -62,23 +63,7 @@ export default async function ProjectsPage({
         <div className="row" style={{ marginBottom: 24 }}>
           <h1 style={{ margin: 0 }}>Project Hours</h1>
           <div className="spacer" />
-          <form method="GET">
-            <select
-              name="project"
-              defaultValue={selectedProjectId ?? ''}
-              onChange={e => {
-                const url = new URL(window.location.href)
-                url.searchParams.set('project', e.target.value)
-                window.location.href = url.toString()
-              }}
-              style={{ minWidth: 200 }}
-            >
-              <option value="">Select project…</option>
-              {projects?.map(p => (
-                <option key={p.id} value={p.id}>{p.name}</option>
-              ))}
-            </select>
-          </form>
+          <ProjectPicker projects={projects ?? []} selected={selectedProjectId ?? ''} />
         </div>
 
         {!selectedProjectId ? (
