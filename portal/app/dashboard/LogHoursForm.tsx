@@ -10,9 +10,10 @@ interface Props {
   employees: Employee[]
   currentUserId: string
   role: string
+  onSuccess?: () => void
 }
 
-export default function LogHoursForm({ employees, currentUserId, role }: Props) {
+export default function LogHoursForm({ employees, currentUserId, role, onSuccess }: Props) {
   const router = useRouter()
   const canLogForOthers = role === 'crew_lead' || role === 'admin'
 
@@ -48,11 +49,12 @@ export default function LogHoursForm({ employees, currentUserId, role }: Props) 
     setSuccess(true)
     setLoading(false)
     router.refresh()
+    onSuccess?.()
   }
 
   return (
     <div className="card">
-      <h2>Log hours</h2>
+      <h2>Log Sick / Wellness</h2>
       {error && <div className="alert alert-error">{error}</div>}
       {success && <div className="alert alert-success">Hours logged.</div>}
 

@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createServerSupabaseClient } from '@/lib/supabase-server'
 import Nav from '@/app/components/Nav'
-import LogHoursForm from './LogHoursForm'
+import DashboardActions from './DashboardActions'
 
 export default async function DashboardPage() {
   const supabase = await createServerSupabaseClient()
@@ -33,53 +33,46 @@ export default async function DashboardPage() {
       <Nav role={profile?.role ?? 'crew'} name={profile?.full_name ?? ''} />
       <main className="page">
         <h1>Welcome, {profile?.full_name?.split(' ')[0]}</h1>
-        <p className="page-subtitle">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</p>
+        <p className="page-subtitle">
+          {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+        </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 32 }}>
-          <div className="stack">
-            <LogHoursForm
-              employees={employees ?? []}
-              currentUserId={user.id}
-              role={profile?.role ?? 'crew'}
-            />
-            <a href="/drive-time" className="btn btn-secondary" style={{ textAlign: 'center' }}>
-              Log Mobe / Extra Time
-            </a>
-          </div>
+        <DashboardActions
+          employees={employees ?? []}
+          currentUserId={user.id}
+          role={profile?.role ?? 'crew'}
+        />
 
-          <div>
-            <h2>Recent entries</h2>
-            <div className="table-card">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Type</th>
-                    <th>Job Code</th>
-                    <th>Hours</th>
-                    <th>Status</th>
+        <h2 style={{ marginTop: 40 }}>Recent entries</h2>
+        <div className="table-card" style={{ overflowX: 'auto' }}>
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Job Code</th>
+                <th>Hours</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {!recentEntries?.length && (
+                <tr><td colSpan={5} style={{ color: '#6b7280', textAlign: 'center', padding: 20 }}>No entries yet.</td></tr>
+              )}
+              {recentEntries?.map(e => {
+                const proj = Array.isArray(e.projects) ? e.projects[0] : e.projects
+                return (
+                  <tr key={e.id}>
+                    <td style={{ whiteSpace: 'nowrap' }}>{e.date}</td>
+                    <td style={{ textTransform: 'capitalize', whiteSpace: 'nowrap' }}>{e.entry_type}</td>
+                    <td style={{ color: '#6b7280' }}>{e.job_code ?? (proj as { name: string } | null)?.name ?? '—'}</td>
+                    <td>{e.hours}</td>
+                    <td><span className={`badge badge-${e.status}`}>{e.status}</span></td>
                   </tr>
-                </thead>
-                <tbody>
-                  {!recentEntries?.length && (
-                    <tr><td colSpan={5} style={{ color: '#6b7280', textAlign: 'center', padding: 20 }}>No entries yet.</td></tr>
-                  )}
-                  {recentEntries?.map(e => {
-                    const proj = Array.isArray(e.projects) ? e.projects[0] : e.projects
-                    return (
-                      <tr key={e.id}>
-                        <td>{e.date}</td>
-                        <td style={{ textTransform: 'capitalize' }}>{e.entry_type}</td>
-                        <td style={{ color: '#6b7280' }}>{e.job_code ?? (proj as { name: string } | null)?.name ?? '—'}</td>
-                        <td>{e.hours}</td>
-                        <td><span className={`badge badge-${e.status}`}>{e.status}</span></td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </div>
+                )
+              })}
+            </tbody>
+          </table>
         </div>
       </main>
     </>
