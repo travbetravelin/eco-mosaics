@@ -4,15 +4,28 @@ import Nav from '@/app/components/Nav'
 import ProjectGrid from './ProjectGrid'
 import ProjectPicker from './ProjectPicker'
 
-function getLast30Days(): string[] {
-  const days: string[] = []
+function getToday(): string {
+  return new Date().toISOString().split('T')[0]
+}
+
+function getLastNDays(n: number): string[] {
   const today = new Date()
-  for (let i = 29; i >= 0; i--) {
+  return Array.from({ length: n }, (_, i) => {
     const d = new Date(today)
-    d.setDate(d.getDate() - i)
-    days.push(d.toISOString().split('T')[0])
+    d.setDate(d.getDate() - (n - 1 - i))
+    return d.toISOString().split('T')[0]
+  })
+}
+
+function buildDateList(entryDates: string[]): string[] {
+  const today = getToday()
+  const unique = new Set(entryDates)
+  unique.add(today)
+  // Fall back to last 7 days if no entries exist yet (only today was added)
+  if (unique.size === 1) {
+    getLastNDays(7).forEach(d => unique.add(d))
   }
-  return days
+  return [...unique].sort()
 }
 
 export default async function ProjectsPage({
@@ -40,8 +53,6 @@ export default async function ProjectsPage({
 
   const selectedProjectId = searchParams.project ?? projects?.[0]?.id ?? null
 
-  const dates = getLast30Days()
-
   const [{ data: activeEmployees }, { data: entries }] = await Promise.all([
     supabase.from('profiles').select('id, full_name, role, job_role').eq('active', true).order('full_name'),
     selectedProjectId
@@ -50,9 +61,10 @@ export default async function ProjectsPage({
           .select('id, employee_id, date, hours')
           .eq('project_id', selectedProjectId)
           .eq('entry_type', 'project')
-          .gte('date', dates[0])
       : Promise.resolve({ data: [] }),
   ])
+
+  const dates = buildDateList((entries ?? []).map(e => e.date))
 
   // Include inactive employees who have entries for this project in the date range
   const activeIds = new Set((activeEmployees ?? []).map(e => e.id))
