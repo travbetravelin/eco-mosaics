@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { formatPeriodLabel } from '@/lib/payPeriod'
 
@@ -15,7 +15,14 @@ export default function PayPeriodClose({ startDate, endDate, isClosed }: Props) 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const isFuture = startDate > new Date().toISOString().split('T')[0]
+  // Reset state when the viewed period changes
+  useEffect(() => {
+    setLoading(false)
+    setError('')
+  }, [startDate])
+
+  const today = new Date().toISOString().split('T')[0]
+  const periodEnded = endDate < today
 
   if (isClosed) {
     return <span className="badge badge-rejected">Closed</span>
@@ -46,8 +53,8 @@ export default function PayPeriodClose({ startDate, endDate, isClosed }: Props) 
       <button
         className="btn btn-danger btn-sm"
         onClick={handleClose}
-        disabled={loading || isFuture}
-        title={isFuture ? 'Cannot close a future pay period' : undefined}
+        disabled={loading || !periodEnded}
+        title={!periodEnded ? 'Period must end before it can be closed' : undefined}
       >
         {loading ? 'Closing…' : 'Close Period'}
       </button>
