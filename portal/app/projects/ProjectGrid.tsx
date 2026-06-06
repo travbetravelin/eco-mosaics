@@ -35,9 +35,15 @@ export default function ProjectGrid({ projectId, dates, employees, entries: init
     }
     return map
   })
+  const [isEditMode, setIsEditMode] = useState(false)
   const [editing, setEditing] = useState<string | null>(null)
   const [editVal, setEditVal] = useState('')
   const skipBlurRef = useRef(false)
+
+  function exitEditMode() {
+    setEditing(null)
+    setIsEditMode(false)
+  }
 
   // Flat list of all cell positions in tab order (left-to-right across each row)
   const allCellPositions = dates.flatMap(date => ordered.map(emp => ({ empId: emp.id, date })))
@@ -45,7 +51,7 @@ export default function ProjectGrid({ projectId, dates, employees, entries: init
   function cellKey(empId: string, date: string) { return `${empId}|${date}` }
 
   function startEdit(empId: string, date: string) {
-    if (!canEdit) return
+    if (!canEdit || !isEditMode) return
     const key = cellKey(empId, date)
     setEditing(key)
     setEditVal(String(cells[key]?.hours ?? ''))
@@ -124,28 +130,36 @@ export default function ProjectGrid({ projectId, dates, employees, entries: init
 
   return (
     <div>
-      {/* Legend */}
-      {legendEntries.length > 0 && (
-        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 16, alignItems: 'center' }}>
-          <span style={{ fontSize: '1rem', color: '#6b7280', fontWeight: 500 }}>Job codes:</span>
-          {legendEntries.map(([code, colors]) => (
-            <span key={code} style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              padding: '3px 10px', borderRadius: 999,
-              background: colors.bg, color: colors.text,
-              border: `1px solid ${colors.border}`,
-              fontSize: '1rem', fontWeight: 500,
-            }}>
-              {code}
-            </span>
-          ))}
-          {canEdit && (
-            <span style={{ fontSize: '1rem', color: '#9ca3af', marginLeft: 4 }}>
-              · Click a cell or Tab through to edit
-            </span>
-          )}
-        </div>
-      )}
+      {/* Toolbar */}
+      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 16, alignItems: 'center' }}>
+        {legendEntries.length > 0 && (
+          <>
+            <span style={{ fontSize: '1rem', color: '#6b7280', fontWeight: 500 }}>Job codes:</span>
+            {legendEntries.map(([code, colors]) => (
+              <span key={code} style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6,
+                padding: '3px 10px', borderRadius: 999,
+                background: colors.bg, color: colors.text,
+                border: `1px solid ${colors.border}`,
+                fontSize: '1rem', fontWeight: 500,
+              }}>
+                {code}
+              </span>
+            ))}
+          </>
+        )}
+        <div style={{ flex: 1 }} />
+        {canEdit && !isEditMode && (
+          <button className="btn btn-secondary btn-sm" onClick={() => setIsEditMode(true)}>
+            Edit Hours
+          </button>
+        )}
+        {canEdit && isEditMode && (
+          <button className="btn btn-primary btn-sm" onClick={exitEditMode}>
+            Done Editing
+          </button>
+        )}
+      </div>
 
       {/* Table */}
       <div style={{ overflowX: 'auto', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06)' }}>
@@ -199,9 +213,9 @@ export default function ProjectGrid({ projectId, dates, employees, entries: init
                     return (
                       <td key={emp.id}
                         onClick={() => startEdit(emp.id, date)}
-                        title={cell ? `${cell.job_code} · ${cell.hours}h` : canEdit ? 'Click to add' : ''}
+                        title={cell ? `${cell.job_code} · ${cell.hours}h` : (canEdit && isEditMode) ? 'Click to add' : ''}
                         style={{
-                          cursor: canEdit ? 'pointer' : 'default',
+                          cursor: (canEdit && isEditMode) ? 'pointer' : 'default',
                           minWidth: 56,
                           textAlign: 'center',
                           transition: 'background 0.1s',
