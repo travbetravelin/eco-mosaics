@@ -41,6 +41,45 @@ a:hover { text-decoration: underline; }
 .portal-header nav a { color: rgba(255,255,255,0.8); font-size: 1rem; transition: color 0.15s; }
 .portal-header nav a:hover { color: white; text-decoration: none; }
 
+/* Hamburger — hidden on desktop */
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+}
+
+/* Mobile drawer */
+.nav-drawer {
+  background: var(--green-dark);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+.nav-drawer-links {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+}
+.nav-drawer-links a {
+  color: rgba(255,255,255,0.85);
+  font-size: 1rem;
+  padding: 12px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  transition: background 0.1s;
+}
+.nav-drawer-links a:last-of-type { border-bottom: none; }
+.nav-drawer-links a:hover { background: rgba(255,255,255,0.08); text-decoration: none; color: white; }
+.nav-drawer-links .btn { margin: 12px 24px; width: calc(100% - 48px); justify-content: center; }
+
+@media (max-width: 720px) {
+  .nav-desktop { display: none; }
+  .nav-hamburger { display: block; }
+}
+
 .page { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
 .page-wide { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
 
