@@ -3,6 +3,7 @@ import { createServerSupabaseClient } from '@/lib/supabase-server'
 import Nav from '@/app/components/Nav'
 import ProjectGrid from './ProjectGrid'
 import ProjectPicker from './ProjectPicker'
+import MileageSummary from './MileageSummary'
 import { getPeriodStart } from '@/lib/payPeriod'
 
 function getLastNDays(n: number): string[] {
@@ -55,10 +56,7 @@ export default async function ProjectsPage({
           .eq('project_id', selectedProjectId)
           .eq('entry_type', 'project')
       : Promise.resolve({ data: [] }),
-    supabase
-      .from('pay_periods')
-      .select('start_date')
-      .not('closed_at', 'is', null),
+    supabase.from('pay_periods').select('start_date').not('closed_at', 'is', null),
   ])
 
   const dates = buildDateList((entries ?? []).map(e => e.date))
@@ -75,6 +73,18 @@ export default async function ProjectsPage({
   const closedPeriodStarts = (closedPeriods ?? []).map(p => p.start_date as string)
   const canEdit = profile.role === 'crew_lead' || profile.role === 'admin'
   const isAdmin = profile.role === 'admin'
+
+  // Mileage: Mobe entries for the displayed employees and dates
+  const employeeIds = employees.map(e => e.id)
+  const { data: mileageEntries } = dates.length && employeeIds.length
+    ? await supabase
+        .from('time_entries')
+        .select('employee_id, drive_category, mileage')
+        .eq('job_code', 'Mobe')
+        .not('mileage', 'is', null)
+        .in('employee_id', employeeIds)
+        .in('date', dates)
+    : { data: [] }
 
   return (
     <>
@@ -101,16 +111,22 @@ export default async function ProjectsPage({
         {!selectedProjectId ? (
           <div className="card" style={{ color: '#6b7280' }}>Select a project to view hours.</div>
         ) : (
-          <ProjectGrid
-            projectId={selectedProjectId}
-            dates={dates}
-            employees={employees}
-            entries={(entries ?? []) as { id: string; employee_id: string; date: string; hours: number; job_code: string | null }[]}
-            canEdit={canEdit}
-            isAdmin={isAdmin}
-            currentUserId={user.id}
-            closedPeriodStarts={closedPeriodStarts}
-          />
+          <>
+            <ProjectGrid
+              projectId={selectedProjectId}
+              dates={dates}
+              employees={employees}
+              entries={(entries ?? []) as { id: string; employee_id: string; date: string; hours: number; job_code: string | null }[]}
+              canEdit={canEdit}
+              isAdmin={isAdmin}
+              currentUserId={user.id}
+              closedPeriodStarts={closedPeriodStarts}
+            />
+            <MileageSummary
+              employees={employees}
+              mileageEntries={(mileageEntries ?? []) as { employee_id: string; drive_category: string | null; mileage: number }[]}
+            />
+          </>
         )}
       </main>
     </>
