@@ -48,7 +48,7 @@ export default async function ManageUsersPage({
           {!showInactive && <NewUserForm />}
         </div>
 
-        <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+        <div className="table-card">
           <table>
             <thead>
               <tr>

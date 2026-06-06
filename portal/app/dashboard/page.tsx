@@ -49,7 +49,7 @@ export default async function DashboardPage() {
 
           <div>
             <h2>Recent entries</h2>
-            <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div className="table-card">
               <table>
                 <thead>
                   <tr>

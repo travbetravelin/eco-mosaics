@@ -29,7 +29,7 @@ export default async function ManageProjectsPage() {
         <p className="page-subtitle">Create and archive projects used for time tracking.</p>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 32, alignItems: 'start' }}>
-          <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+          <div className="table-card">
             <table>
               <thead>
                 <tr>

@@ -33,7 +33,7 @@ export default async function TimesheetsPage() {
         <h1>Timesheets</h1>
         <p className="page-subtitle">Review and approve employee hour entries.</p>
 
-        <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+        <div className="table-card">
           <table>
             <thead>
               <tr>
