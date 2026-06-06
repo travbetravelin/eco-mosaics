@@ -76,7 +76,7 @@ a:hover { text-decoration: underline; }
 .nav-drawer-links .btn { margin: 12px 24px; width: calc(100% - 48px); justify-content: center; }
 
 @media (max-width: 720px) {
-  .nav-desktop { display: none; }
+  .portal-header .nav-desktop { display: none; }
   .nav-hamburger { display: block; }
 }
 
