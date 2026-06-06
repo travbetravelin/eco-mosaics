@@ -28,6 +28,7 @@ export default function Nav({ role, name }: NavProps) {
       <a href="/dashboard" onClick={() => setMenuOpen(false)}>Dashboard</a>
       {isLead && <a href="/projects" onClick={() => setMenuOpen(false)}>Projects</a>}
       {isLead && <a href="/admin/timesheets" onClick={() => setMenuOpen(false)}>Timesheets</a>}
+      {isLead && <a href="/ops" onClick={() => setMenuOpen(false)}>Ops</a>}
       {isAdmin && <a href="/payroll" onClick={() => setMenuOpen(false)}>Payroll</a>}
       {isAdmin && <a href="/admin/projects" onClick={() => setMenuOpen(false)}>Manage Projects</a>}
       {isAdmin && <a href="/admin/users" onClick={() => setMenuOpen(false)}>Manage Users</a>}
