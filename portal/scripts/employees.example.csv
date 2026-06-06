@@ -1,0 +1,4 @@
+full_name,email,password,job_role,app_role,paychex_id
+Jane Smith,jane@ecomosaicsrestoration.com,TempPass123,Key Crew,crew,EMP001
+John Doe,john@ecomosaicsrestoration.com,TempPass123,General Crew 1,crew,EMP002
+Maria Garcia,maria@ecomosaicsrestoration.com,TempPass123,Crew Lead,crew_lead,EMP003
