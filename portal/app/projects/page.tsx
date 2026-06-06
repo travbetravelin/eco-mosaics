@@ -39,11 +39,12 @@ export default async function ProjectsPage({
 
   const { data: projects } = await supabase
     .from('projects')
-    .select('id, name')
+    .select('id, name, lat, lng')
     .eq('active', true)
     .order('name')
 
   const selectedProjectId = searchParams.project ?? projects?.[0]?.id ?? null
+  const selectedProject = projects?.find(p => p.id === selectedProjectId)
 
   const [{ data: activeEmployees }, { data: entries }, { data: closedPeriods }] = await Promise.all([
     supabase.from('profiles').select('id, full_name, role, job_role').eq('active', true).order('full_name'),
@@ -80,7 +81,19 @@ export default async function ProjectsPage({
       <Nav role={profile.role} name={profile.full_name} />
       <main className="page-wide">
         <div className="row" style={{ marginBottom: 24 }}>
-          <h1 style={{ margin: 0 }}>Project Hours</h1>
+          <div>
+            <h1 style={{ margin: 0 }}>Project Hours</h1>
+            {selectedProject?.lat != null && selectedProject?.lng != null && (
+              <a
+                href={`https://www.google.com/maps?q=${selectedProject.lat},${selectedProject.lng}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: '1rem', color: '#6b7280' }}
+              >
+                📍 View on map
+              </a>
+            )}
+          </div>
           <div className="spacer" />
           <ProjectPicker projects={projects ?? []} selected={selectedProjectId ?? ''} />
         </div>

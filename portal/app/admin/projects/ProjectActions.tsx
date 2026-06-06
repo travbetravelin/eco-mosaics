@@ -11,6 +11,8 @@ type Props = CreateProps | RowProps
 export default function ProjectActions(props: Props) {
   const router = useRouter()
   const [name, setName] = useState('')
+  const [lat, setLat] = useState('')
+  const [lng, setLng] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
@@ -20,9 +22,15 @@ export default function ProjectActions(props: Props) {
     setLoading(true)
     setError('')
     const supabase = createClient()
-    const { error } = await supabase.from('projects').insert({ name: name.trim() })
+    const { error } = await supabase.from('projects').insert({
+      name: name.trim(),
+      lat: lat ? parseFloat(lat) : null,
+      lng: lng ? parseFloat(lng) : null,
+    })
     if (error) { setError(error.message); setLoading(false); return }
     setName('')
+    setLat('')
+    setLng('')
     setSuccess(true)
     setLoading(false)
     router.refresh()
@@ -53,6 +61,18 @@ export default function ProjectActions(props: Props) {
               placeholder="e.g. Crane Valley Restoration"
               required
             />
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <div className="form-group" style={{ marginBottom: 0, flex: 1 }}>
+              <label>Latitude <span style={{ color: '#9ca3af', fontWeight: 400 }}>(optional)</span></label>
+              <input type="number" step="any" value={lat}
+                onChange={e => setLat(e.target.value)} placeholder="e.g. 44.0521" />
+            </div>
+            <div className="form-group" style={{ marginBottom: 0, flex: 1 }}>
+              <label>Longitude <span style={{ color: '#9ca3af', fontWeight: 400 }}>(optional)</span></label>
+              <input type="number" step="any" value={lng}
+                onChange={e => setLng(e.target.value)} placeholder="e.g. -121.3153" />
+            </div>
           </div>
           <button className="btn btn-primary" type="submit" disabled={loading}>
             {loading ? 'Creating…' : 'Create project'}
