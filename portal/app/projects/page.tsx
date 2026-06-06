@@ -18,13 +18,8 @@ function getLastNDays(n: number): string[] {
 }
 
 function buildDateList(entryDates: string[]): string[] {
-  const today = getToday()
   const unique = new Set(entryDates)
-  unique.add(today)
-  // Fall back to last 7 days if no entries exist yet (only today was added)
-  if (unique.size === 1) {
-    getLastNDays(7).forEach(d => unique.add(d))
-  }
+  getLastNDays(7).forEach(d => unique.add(d))
   return [...unique].sort()
 }
 
