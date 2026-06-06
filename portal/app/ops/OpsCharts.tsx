@@ -52,110 +52,106 @@ export default function OpsCharts({ hoursRoleData, hoursCodeData, roles, mileage
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-      {/* Hours by Role + Hours by Job Code — side by side */}
+      {/* Hours — 2-column: chart on top, table below */}
       {(hasHours || hasCodeData) && (
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, alignItems: 'start' }}>
 
           {/* Hours by Role */}
           {hasHours && (
-            <section>
-              <h2 style={{ marginBottom: 12 }}>Hours by Job Role</h2>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, alignItems: 'start' }}>
-                <div className="card" style={{ padding: 16 }}>
-                  <ResponsiveContainer width="100%" height={Math.max(140, hoursRoleData.length * 32)}>
-                    <BarChart data={hoursRoleData} layout="vertical" margin={{ left: 8, right: 24, top: 4, bottom: 4 }}>
-                      <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-                      <XAxis type="number" tick={chartStyle} tickFormatter={fmt} />
-                      <YAxis type="category" dataKey="role" width={110} tick={chartStyle} />
-                      <Tooltip formatter={(v) => [fmt(Number(v)), 'Hours']} />
-                      <Bar dataKey="hours" radius={[0, 4, 4, 0]}>
-                        {hoursRoleData.map(row => (
-                          <Cell key={row.role} fill={ROLE_COLORS[row.role] ?? '#6b7280'} />
-                        ))}
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-                <div className="table-card">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th style={thStyle}>Role</th>
-                        <th style={{ ...thStyle, textAlign: 'right' }}>Hrs</th>
-                        <th style={{ ...thStyle, textAlign: 'right' }}>%</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+            <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <h2 style={{ marginBottom: 0 }}>Hours by Job Role</h2>
+              <div className="card" style={{ padding: 16 }}>
+                <ResponsiveContainer width="100%" height={Math.max(180, hoursRoleData.length * 36)}>
+                  <BarChart data={hoursRoleData} layout="vertical" margin={{ left: 8, right: 24, top: 4, bottom: 4 }}>
+                    <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+                    <XAxis type="number" tick={chartStyle} tickFormatter={fmt} />
+                    <YAxis type="category" dataKey="role" width={110} tick={chartStyle} />
+                    <Tooltip formatter={(v) => [fmt(Number(v)), 'Hours']} />
+                    <Bar dataKey="hours" radius={[0, 4, 4, 0]}>
                       {hoursRoleData.map(row => (
-                        <tr key={row.role}>
-                          <td style={tdStyle}>{row.role}</td>
-                          <td style={{ ...tdStyle, textAlign: 'right' }}>{fmt(row.hours)}</td>
-                          <td style={{ ...tdStyle, textAlign: 'right', color: '#6b7280' }}>{(row.hours / roleTotalHours * 100).toFixed(1)}%</td>
-                        </tr>
+                        <Cell key={row.role} fill={ROLE_COLORS[row.role] ?? '#6b7280'} />
                       ))}
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <td style={tdStyle}>Total</td>
-                        <td style={{ ...tdStyle, textAlign: 'right' }}>{fmt(roleTotalHours)}</td>
-                        <td style={{ ...tdStyle, textAlign: 'right' }}>100%</td>
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="table-card">
+                <table>
+                  <thead>
+                    <tr>
+                      <th style={thStyle}>Role</th>
+                      <th style={{ ...thStyle, textAlign: 'right' }}>Hours</th>
+                      <th style={{ ...thStyle, textAlign: 'right' }}>%</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {hoursRoleData.map(row => (
+                      <tr key={row.role}>
+                        <td style={tdStyle}>{row.role}</td>
+                        <td style={{ ...tdStyle, textAlign: 'right' }}>{fmt(row.hours)}</td>
+                        <td style={{ ...tdStyle, textAlign: 'right', color: '#6b7280' }}>{(row.hours / roleTotalHours * 100).toFixed(1)}%</td>
                       </tr>
-                    </tfoot>
-                  </table>
-                </div>
+                    ))}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td style={tdStyle}>Total</td>
+                      <td style={{ ...tdStyle, textAlign: 'right' }}>{fmt(roleTotalHours)}</td>
+                      <td style={{ ...tdStyle, textAlign: 'right' }}>100%</td>
+                    </tr>
+                  </tfoot>
+                </table>
               </div>
             </section>
           )}
 
           {/* Hours by Job Code */}
           {hasCodeData && (
-            <section>
-              <h2 style={{ marginBottom: 12 }}>Hours by Job Code</h2>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, alignItems: 'start' }}>
-                <div className="card" style={{ padding: 16 }}>
-                  <ResponsiveContainer width="100%" height={Math.max(140, hoursRoleData.length * 32)}>
-                    <BarChart data={hoursCodeData} margin={{ left: 4, right: 12, top: 4, bottom: 28 }}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                      <XAxis dataKey="code" tick={chartStyle} angle={-20} textAnchor="end" interval={0} />
-                      <YAxis tick={chartStyle} tickFormatter={fmt} width={32} />
-                      <Tooltip formatter={(v) => [fmt(Number(v)), 'Hours']} />
-                      <Legend wrapperStyle={chartStyle} />
-                      {roles.map(role => (
-                        <Bar key={role} dataKey={role} stackId="a"
-                          fill={ROLE_COLORS[role] ?? '#6b7280'}
-                          radius={roles.indexOf(role) === roles.length - 1 ? [4, 4, 0, 0] : [0, 0, 0, 0]}
-                        />
-                      ))}
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-                <div className="table-card">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th style={thStyle}>Code</th>
-                        <th style={{ ...thStyle, textAlign: 'right' }}>Hrs</th>
-                        <th style={{ ...thStyle, textAlign: 'right' }}>%</th>
+            <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <h2 style={{ marginBottom: 0 }}>Hours by Job Code</h2>
+              <div className="card" style={{ padding: 16 }}>
+                <ResponsiveContainer width="100%" height={Math.max(180, hoursRoleData.length * 36)}>
+                  <BarChart data={hoursCodeData} margin={{ left: 4, right: 12, top: 4, bottom: 28 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                    <XAxis dataKey="code" tick={chartStyle} angle={-20} textAnchor="end" interval={0} />
+                    <YAxis tick={chartStyle} tickFormatter={fmt} width={32} />
+                    <Tooltip formatter={(v) => [fmt(Number(v)), 'Hours']} />
+                    <Legend wrapperStyle={chartStyle} />
+                    {roles.map(role => (
+                      <Bar key={role} dataKey={role} stackId="a"
+                        fill={ROLE_COLORS[role] ?? '#6b7280'}
+                        radius={roles.indexOf(role) === roles.length - 1 ? [4, 4, 0, 0] : [0, 0, 0, 0]}
+                      />
+                    ))}
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="table-card">
+                <table>
+                  <thead>
+                    <tr>
+                      <th style={thStyle}>Job Code</th>
+                      <th style={{ ...thStyle, textAlign: 'right' }}>Hours</th>
+                      <th style={{ ...thStyle, textAlign: 'right' }}>%</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {codeTotals.map(row => (
+                      <tr key={row.code}>
+                        <td style={tdStyle}>{row.code}</td>
+                        <td style={{ ...tdStyle, textAlign: 'right' }}>{fmt(row.hours)}</td>
+                        <td style={{ ...tdStyle, textAlign: 'right', color: '#6b7280' }}>{(row.hours / codeTotalHours * 100).toFixed(1)}%</td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {codeTotals.map(row => (
-                        <tr key={row.code}>
-                          <td style={tdStyle}>{row.code}</td>
-                          <td style={{ ...tdStyle, textAlign: 'right' }}>{fmt(row.hours)}</td>
-                          <td style={{ ...tdStyle, textAlign: 'right', color: '#6b7280' }}>{(row.hours / codeTotalHours * 100).toFixed(1)}%</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <td style={tdStyle}>Total</td>
-                        <td style={{ ...tdStyle, textAlign: 'right' }}>{fmt(codeTotalHours)}</td>
-                        <td style={{ ...tdStyle, textAlign: 'right' }}>100%</td>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
+                    ))}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td style={tdStyle}>Total</td>
+                      <td style={{ ...tdStyle, textAlign: 'right' }}>{fmt(codeTotalHours)}</td>
+                      <td style={{ ...tdStyle, textAlign: 'right' }}>100%</td>
+                    </tr>
+                  </tfoot>
+                </table>
               </div>
             </section>
           )}
