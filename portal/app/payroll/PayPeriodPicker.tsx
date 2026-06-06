@@ -6,7 +6,7 @@ export default function PayPeriodPicker({ value }: { value: string }) {
   const router = useRouter()
   return (
     <div className="row">
-      <label style={{ fontWeight: 500 }}>Pay period start:</label>
+      <label style={{ fontWeight: 500 }}>Jump to date:</label>
       <input
         type="date"
         defaultValue={value}
