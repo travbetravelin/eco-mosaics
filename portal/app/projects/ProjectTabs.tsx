@@ -40,7 +40,8 @@ export default function ProjectTabs({ hoursTab, mileageTab, hasMileage }: Props)
           </button>
         ))}
       </div>
-      {tab === 'hours' ? hoursTab : mileageTab}
+      <div style={{ display: tab === 'hours' ? 'block' : 'none' }}>{hoursTab}</div>
+      <div style={{ display: tab === 'mileage' ? 'block' : 'none' }}>{mileageTab}</div>
     </div>
   )
 }
