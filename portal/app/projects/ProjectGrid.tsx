@@ -191,14 +191,14 @@ export default function ProjectGrid({ projectId, dates, employees, entries: init
               const rt = rowTotal(date)
               const d = new Date(date + 'T00:00:00')
               const isToday = date === new Date().toISOString().split('T')[0]
-              const isWeekend = d.getDay() === 0 || d.getDay() === 6
+              const rowBg = isToday ? '#f0fdf4' : rowIdx % 2 === 0 ? 'white' : '#fcfcfc'
               return (
-                <tr key={date} style={{ background: isToday ? '#f0fdf4' : isWeekend ? '#fafafa' : rowIdx % 2 === 0 ? 'white' : '#fcfcfc' }}>
+                <tr key={date} style={{ background: rowBg }}>
                   <td className="sticky-col" style={{
                     fontWeight: isToday ? 700 : 500,
                     whiteSpace: 'nowrap',
-                    color: isToday ? '#15803d' : isWeekend ? '#9ca3af' : '#374151',
-                    background: isToday ? '#f0fdf4' : isWeekend ? '#fafafa' : rowIdx % 2 === 0 ? 'white' : '#fcfcfc',
+                    color: isToday ? '#15803d' : '#374151',
+                    background: rowBg,
                     fontSize: '1rem',
                     letterSpacing: '0.01em',
                   }}>
