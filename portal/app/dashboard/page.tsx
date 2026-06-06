@@ -16,7 +16,7 @@ export default async function DashboardPage() {
 
   const canLogForOthers = profile?.role === 'crew_lead' || profile?.role === 'admin'
 
-  const [{ data: employees }, { data: recentEntries }] = await Promise.all([
+  const [{ data: employees }, { data: recentEntries }, { data: projects }] = await Promise.all([
     canLogForOthers
       ? supabase.from('profiles').select('id, full_name').eq('active', true).order('full_name')
       : Promise.resolve({ data: [{ id: user.id, full_name: profile?.full_name ?? '' }] }),
@@ -26,6 +26,7 @@ export default async function DashboardPage() {
       .eq('employee_id', user.id)
       .order('date', { ascending: false })
       .limit(20),
+    supabase.from('projects').select('id, name').eq('active', true).order('name'),
   ])
 
   return (
@@ -39,6 +40,7 @@ export default async function DashboardPage() {
 
         <DashboardActions
           employees={employees ?? []}
+          projects={projects ?? []}
           currentUserId={user.id}
           role={profile?.role ?? 'crew'}
         />

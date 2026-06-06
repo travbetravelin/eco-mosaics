@@ -11,9 +11,10 @@ interface Props {
   currentUserId: string
   role: string
   onSuccess?: () => void
+  onCancel?: () => void
 }
 
-export default function LogHoursForm({ employees, currentUserId, role, onSuccess }: Props) {
+export default function LogHoursForm({ employees, currentUserId, role, onSuccess, onCancel }: Props) {
   const router = useRouter()
   const canLogForOthers = role === 'crew_lead' || role === 'admin'
 
@@ -102,9 +103,14 @@ export default function LogHoursForm({ employees, currentUserId, role, onSuccess
           <input type="text" value={notes} onChange={e => setNotes(e.target.value)} placeholder="Optional" />
         </div>
 
-        <button className="btn btn-primary" type="submit" disabled={loading}>
-          {loading ? 'Saving…' : 'Log hours'}
-        </button>
+        <div className="row">
+          <button className="btn btn-primary" type="submit" disabled={loading}>
+            {loading ? 'Saving…' : 'Submit'}
+          </button>
+          {onCancel && (
+            <button type="button" className="btn btn-secondary" onClick={onCancel}>Cancel</button>
+          )}
+        </div>
       </form>
     </div>
   )

@@ -19,9 +19,11 @@ interface Project { id: string; name: string }
 interface Props {
   projects: Project[]
   currentUserId: string
+  onSuccess?: () => void
+  onCancel?: () => void
 }
 
-export default function DriveTimeForm({ projects, currentUserId }: Props) {
+export default function DriveTimeForm({ projects, currentUserId, onSuccess, onCancel }: Props) {
   const router = useRouter()
   const today = new Date().toISOString().split('T')[0]
 
@@ -82,11 +84,12 @@ export default function DriveTimeForm({ projects, currentUserId }: Props) {
     setSuccess(true)
     setLoading(false)
     router.refresh()
+    onSuccess?.()
   }
 
   return (
     <div className="card" style={{ maxWidth: 520 }}>
-      <h2>Log Mobe / Extra Time</h2>
+      <h2>Log {jobCode}</h2>
       {error && <div className="alert alert-error">{error}</div>}
       {success && <div className="alert alert-success">Entry logged.</div>}
 
@@ -116,7 +119,7 @@ export default function DriveTimeForm({ projects, currentUserId }: Props) {
         </div>
 
         <div className="form-group">
-          <label>Mobe hours</label>
+          <label>Hours</label>
           <input
             type="number"
             step="0.25"
@@ -200,7 +203,10 @@ export default function DriveTimeForm({ projects, currentUserId }: Props) {
           <button className="btn btn-primary" type="submit" disabled={loading}>
             {loading ? 'Saving…' : 'Submit'}
           </button>
-          <a href="/dashboard" className="btn btn-secondary">Cancel</a>
+          {onCancel
+            ? <button type="button" className="btn btn-secondary" onClick={onCancel}>Cancel</button>
+            : <a href="/dashboard" className="btn btn-secondary">Cancel</a>
+          }
         </div>
       </form>
     </div>
