@@ -2,6 +2,9 @@ import {
   type Employee,
   type PayrollData,
   type DayBreakdown,
+  groupEmployees,
+  sortedEmployees,
+  GROUP_COLORS,
   fmt,
   formatDisplayDate,
   dateRange,
@@ -20,7 +23,7 @@ const ROW_BG: Record<string, string> = {
   Wellness: '#f0fdf4',
 }
 
-function cell(day: DayBreakdown | undefined, type: string): string {
+function cellVal(day: DayBreakdown | undefined, type: string): string {
   if (!day) return ''
   switch (type) {
     case 'Total':    return fmt(day.projectHours)
@@ -34,12 +37,7 @@ function cell(day: DayBreakdown | undefined, type: string): string {
   }
 }
 
-function weekSum(
-  data: PayrollData,
-  empId: string,
-  dates: string[],
-  type: string
-): string {
+function weekSum(data: PayrollData, empId: string, dates: string[], type: string): string {
   let sum = 0
   for (const date of dates) {
     const day = data[date]?.[empId]
@@ -57,7 +55,7 @@ function weekSum(
   return fmt(sum)
 }
 
-function rowGrandTotal(data: PayrollData, employees: Employee[], dates: string[], type: string): string {
+function grandTotal(data: PayrollData, employees: Employee[], dates: string[], type: string): string {
   let sum = 0
   for (const emp of employees) {
     const v = parseFloat(weekSum(data, emp.id, dates, type))
@@ -66,10 +64,10 @@ function rowGrandTotal(data: PayrollData, employees: Employee[], dates: string[]
   return fmt(sum)
 }
 
-function dayGrandTotal(data: PayrollData, employees: Employee[], date: string, type: string): string {
+function dayTotal(data: PayrollData, employees: Employee[], date: string, type: string): string {
   let sum = 0
   for (const emp of employees) {
-    const v = parseFloat(cell(data[date]?.[emp.id], type))
+    const v = parseFloat(cellVal(data[date]?.[emp.id], type))
     if (!isNaN(v)) sum += v
   }
   return fmt(sum)
@@ -82,19 +80,21 @@ interface Props {
 }
 
 export default function PayrollTable({ employees, data, startDate }: Props) {
+  const groups = groupEmployees(employees)
+  const ordered = sortedEmployees(employees)
   const week1 = dateRange(startDate, 7)
   const week2 = dateRange(startDate, 14).slice(7)
 
+  const colCount = ordered.length + 4 // Date + Project + Type + Total
+
   const renderWeek = (dates: string[], weekLabel: string) => (
     <>
-      {/* Week header */}
       <tr style={{ background: '#2d6a4f', color: 'white' }}>
-        <td colSpan={3 + employees.length + 1} style={{ fontWeight: 700, padding: '6px 12px' }}>
+        <td colSpan={colCount} style={{ fontWeight: 700, padding: '6px 12px' }}>
           {weekLabel}
         </td>
       </tr>
 
-      {/* Daily rows */}
       {dates.flatMap(date => {
         const dayData = data[date]
         const projects = Object.values(dayData ?? {}).flatMap(d => d.projects)
@@ -104,46 +104,47 @@ export default function PayrollTable({ employees, data, startDate }: Props) {
           <tr key={`${date}-${type}`} style={{ background: ROW_BG[type] }}>
             {i === 0 && (
               <>
-                <td rowSpan={5} className="sticky-col" style={{ fontWeight: 600, verticalAlign: 'middle', whiteSpace: 'nowrap' }}>
+                <td rowSpan={5} className="sticky-col"
+                  style={{ fontWeight: 600, verticalAlign: 'middle', whiteSpace: 'nowrap' }}>
                   {formatDisplayDate(date)}
                 </td>
-                <td rowSpan={5} style={{ verticalAlign: 'middle', color: '#6b7280', fontSize: '1rem' }}>
+                <td rowSpan={5} style={{ verticalAlign: 'middle', color: '#6b7280' }}>
                   {uniqueProjects.join(', ') || ''}
                 </td>
               </>
             )}
             <td style={{ fontWeight: 500, paddingLeft: 12, whiteSpace: 'nowrap' }}>{type}</td>
-            {employees.map(emp => (
+            {ordered.map(emp => (
               <td key={emp.id} style={{ textAlign: 'center' }}>
-                {cell(dayData?.[emp.id], type)}
+                {cellVal(dayData?.[emp.id], type)}
               </td>
             ))}
             <td style={{ textAlign: 'center', fontWeight: 600, background: '#f9fafb' }}>
-              {dayGrandTotal(data, employees, date, type)}
+              {dayTotal(data, ordered, date, type)}
             </td>
           </tr>
         ))
       })}
 
-      {/* Week total */}
       {[...ROW_TYPES, ...WEEK_EXTRA].map((type, i) => (
-        <tr key={`week-total-${type}`} style={{ background: i < ROW_TYPES.length ? ROW_BG[type] : ROW_BG[type], fontWeight: 600 }}>
+        <tr key={`${weekLabel}-total-${type}`} style={{ background: ROW_BG[type], fontWeight: 600 }}>
           {i === 0 && (
             <>
-              <td rowSpan={ROW_TYPES.length + WEEK_EXTRA.length} className="sticky-col" style={{ verticalAlign: 'middle', fontWeight: 700, background: '#e8f4ef' }}>
+              <td rowSpan={ROW_TYPES.length + WEEK_EXTRA.length} className="sticky-col"
+                style={{ verticalAlign: 'middle', fontWeight: 700, background: '#e8f4ef' }}>
                 {weekLabel} Total
               </td>
               <td rowSpan={ROW_TYPES.length + WEEK_EXTRA.length} style={{ background: '#e8f4ef' }} />
             </>
           )}
           <td style={{ paddingLeft: 12 }}>{type}</td>
-          {employees.map(emp => (
+          {ordered.map(emp => (
             <td key={emp.id} style={{ textAlign: 'center' }}>
               {weekSum(data, emp.id, dates, type)}
             </td>
           ))}
           <td style={{ textAlign: 'center', background: '#e8f4ef' }}>
-            {rowGrandTotal(data, employees, dates, type)}
+            {grandTotal(data, ordered, dates, type)}
           </td>
         </tr>
       ))}
@@ -154,16 +155,29 @@ export default function PayrollTable({ employees, data, startDate }: Props) {
     <div style={{ overflowX: 'auto', marginTop: 16 }}>
       <table className="grid-table payroll-table">
         <thead>
+          {/* Group header row */}
           <tr style={{ background: '#1b4332', color: 'white' }}>
-            <th className="sticky-col">Date</th>
-            <th>Project</th>
-            <th>Type</th>
-            {employees.map(emp => (
-              <th key={emp.id} style={{ whiteSpace: 'nowrap', minWidth: 80 }}>
+            <th className="sticky-col" rowSpan={2}>Date</th>
+            <th rowSpan={2}>Project</th>
+            <th rowSpan={2}>Type</th>
+            {groups.map(g => {
+              const c = GROUP_COLORS[g.role] ?? GROUP_COLORS['Unassigned']
+              return (
+                <th key={g.role} colSpan={g.employees.length}
+                  style={{ background: c.bg, color: c.text, textAlign: 'center', borderBottom: '2px solid rgba(255,255,255,0.2)' }}>
+                  {g.role}
+                </th>
+              )
+            })}
+            <th rowSpan={2}>Total</th>
+          </tr>
+          {/* Employee name row */}
+          <tr>
+            {ordered.map(emp => (
+              <th key={emp.id} style={{ whiteSpace: 'nowrap', minWidth: 80, fontWeight: 400, fontSize: '0.875rem' }}>
                 {emp.full_name}
               </th>
             ))}
-            <th>Total</th>
           </tr>
         </thead>
         <tbody>
