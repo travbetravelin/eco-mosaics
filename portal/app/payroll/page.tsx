@@ -33,7 +33,7 @@ export default async function PayrollPage({
   const startDate = searchParams.start ?? getMostRecentMonday()
   const endDate = addDays(startDate, 13)
 
-  const [{ data: employees }, { data: rawEntries }] = await Promise.all([
+  const [{ data: activeEmployees }, { data: rawEntries }] = await Promise.all([
     supabase.from('profiles').select('id, full_name, role, job_role').eq('active', true).order('full_name'),
     supabase
       .from('time_entries')
@@ -41,6 +41,17 @@ export default async function PayrollPage({
       .gte('date', startDate)
       .lte('date', endDate),
   ])
+
+  // Include inactive employees who have entries in this pay period
+  const activeIds = new Set((activeEmployees ?? []).map(e => e.id))
+  const inactiveIdsWithHours = [...new Set((rawEntries ?? []).map(e => e.employee_id))]
+    .filter(id => !activeIds.has(id))
+
+  const { data: inactiveWithHours } = inactiveIdsWithHours.length
+    ? await supabase.from('profiles').select('id, full_name, role, job_role').in('id', inactiveIdsWithHours)
+    : { data: [] }
+
+  const employees = [...(activeEmployees ?? []), ...(inactiveWithHours ?? [])]
 
   const entries: RawEntry[] = (rawEntries ?? []).map(e => {
     const proj = Array.isArray(e.projects) ? e.projects[0] : e.projects
@@ -72,7 +83,7 @@ export default async function PayrollPage({
         </div>
 
         <PayrollTable
-          employees={employees ?? []}
+          employees={employees}
           data={payrollData}
           startDate={startDate}
         />

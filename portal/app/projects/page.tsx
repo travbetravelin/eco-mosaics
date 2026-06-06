@@ -42,7 +42,7 @@ export default async function ProjectsPage({
 
   const dates = getLast30Days()
 
-  const [{ data: employees }, { data: entries }] = await Promise.all([
+  const [{ data: activeEmployees }, { data: entries }] = await Promise.all([
     supabase.from('profiles').select('id, full_name, role, job_role').eq('active', true).order('full_name'),
     selectedProjectId
       ? supabase
@@ -53,6 +53,17 @@ export default async function ProjectsPage({
           .gte('date', dates[0])
       : Promise.resolve({ data: [] }),
   ])
+
+  // Include inactive employees who have entries for this project in the date range
+  const activeIds = new Set((activeEmployees ?? []).map(e => e.id))
+  const inactiveIdsWithHours = [...new Set((entries ?? []).map(e => e.employee_id))]
+    .filter(id => !activeIds.has(id))
+
+  const { data: inactiveWithHours } = inactiveIdsWithHours.length
+    ? await supabase.from('profiles').select('id, full_name, role, job_role').in('id', inactiveIdsWithHours)
+    : { data: [] }
+
+  const employees = [...(activeEmployees ?? []), ...(inactiveWithHours ?? [])]
 
   const canEdit = profile.role === 'crew_lead' || profile.role === 'admin'
 
@@ -72,7 +83,7 @@ export default async function ProjectsPage({
           <ProjectGrid
             projectId={selectedProjectId}
             dates={dates}
-            employees={employees ?? []}
+            employees={employees}
             entries={(entries ?? []) as { id: string; employee_id: string; date: string; hours: number }[]}
             canEdit={canEdit}
             currentUserId={user.id}
