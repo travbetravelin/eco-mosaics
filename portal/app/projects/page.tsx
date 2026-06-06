@@ -4,6 +4,8 @@ import Nav from '@/app/components/Nav'
 import ProjectGrid from './ProjectGrid'
 import ProjectPicker from './ProjectPicker'
 import MileageSummary from './MileageSummary'
+import ProjectSummary from './ProjectSummary'
+import ProjectTabs from './ProjectTabs'
 import { getPeriodStart } from '@/lib/payPeriod'
 
 function getLastNDays(n: number): string[] {
@@ -52,7 +54,7 @@ export default async function ProjectsPage({
     selectedProjectId
       ? supabase
           .from('time_entries')
-          .select('id, employee_id, date, hours, job_code')
+          .select('id, employee_id, date, hours, job_code, job_role')
           .eq('project_id', selectedProjectId)
           .eq('entry_type', 'project')
       : Promise.resolve({ data: [] }),
@@ -111,19 +113,30 @@ export default async function ProjectsPage({
           <div className="card" style={{ color: '#6b7280' }}>Select a project to view hours.</div>
         ) : (
           <>
-            <ProjectGrid
-              projectId={selectedProjectId}
-              dates={dates}
-              employees={employees}
-              entries={(entries ?? []) as { id: string; employee_id: string; date: string; hours: number; job_code: string | null }[]}
-              canEdit={canEdit}
-              isAdmin={isAdmin}
-              currentUserId={user.id}
-              closedPeriodStarts={closedPeriodStarts}
+            <ProjectSummary
+              entries={(entries ?? []) as { hours: number; job_code: string | null; job_role?: string | null }[]}
+              mileageEntries={(mileageEntries ?? []) as { drive_category: string | null; mileage: number }[]}
             />
-            <MileageSummary
-              employees={employees}
-              mileageEntries={(mileageEntries ?? []) as { employee_id: string; drive_category: string | null; mileage: number }[]}
+            <ProjectTabs
+              hasMileage={(mileageEntries ?? []).length > 0}
+              hoursTab={
+                <ProjectGrid
+                  projectId={selectedProjectId}
+                  dates={dates}
+                  employees={employees}
+                  entries={(entries ?? []) as { id: string; employee_id: string; date: string; hours: number; job_code: string | null }[]}
+                  canEdit={canEdit}
+                  isAdmin={isAdmin}
+                  currentUserId={user.id}
+                  closedPeriodStarts={closedPeriodStarts}
+                />
+              }
+              mileageTab={
+                <MileageSummary
+                  employees={employees}
+                  mileageEntries={(mileageEntries ?? []) as { employee_id: string; drive_category: string | null; mileage: number }[]}
+                />
+              }
             />
           </>
         )}
