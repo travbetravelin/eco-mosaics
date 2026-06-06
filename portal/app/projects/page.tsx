@@ -1,0 +1,99 @@
+import { redirect } from 'next/navigation'
+import { createServerSupabaseClient } from '@/lib/supabase-server'
+import Nav from '@/app/components/Nav'
+import ProjectGrid from './ProjectGrid'
+
+function getLast30Days(): string[] {
+  const days: string[] = []
+  const today = new Date()
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(today)
+    d.setDate(d.getDate() - i)
+    days.push(d.toISOString().split('T')[0])
+  }
+  return days
+}
+
+export default async function ProjectsPage({
+  searchParams,
+}: {
+  searchParams: { project?: string }
+}) {
+  const supabase = await createServerSupabaseClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('full_name, role')
+    .eq('id', user.id)
+    .single()
+
+  if (!profile || !['crew_lead', 'admin'].includes(profile.role)) redirect('/dashboard')
+
+  const { data: projects } = await supabase
+    .from('projects')
+    .select('id, name')
+    .eq('active', true)
+    .order('name')
+
+  const selectedProjectId = searchParams.project ?? projects?.[0]?.id ?? null
+
+  const dates = getLast30Days()
+
+  const [{ data: employees }, { data: entries }] = await Promise.all([
+    supabase.from('profiles').select('id, full_name').order('full_name'),
+    selectedProjectId
+      ? supabase
+          .from('time_entries')
+          .select('id, employee_id, date, hours')
+          .eq('project_id', selectedProjectId)
+          .eq('entry_type', 'project')
+          .gte('date', dates[0])
+      : Promise.resolve({ data: [] }),
+  ])
+
+  const canEdit = profile.role === 'crew_lead' || profile.role === 'admin'
+
+  return (
+    <>
+      <Nav role={profile.role} name={profile.full_name} />
+      <main className="page-wide">
+        <div className="row" style={{ marginBottom: 24 }}>
+          <h1 style={{ margin: 0 }}>Project Hours</h1>
+          <div className="spacer" />
+          <form method="GET">
+            <select
+              name="project"
+              defaultValue={selectedProjectId ?? ''}
+              onChange={e => {
+                const url = new URL(window.location.href)
+                url.searchParams.set('project', e.target.value)
+                window.location.href = url.toString()
+              }}
+              style={{ minWidth: 200 }}
+            >
+              <option value="">Select project…</option>
+              {projects?.map(p => (
+                <option key={p.id} value={p.id}>{p.name}</option>
+              ))}
+            </select>
+          </form>
+        </div>
+
+        {!selectedProjectId ? (
+          <div className="card" style={{ color: '#6b7280' }}>Select a project to view hours.</div>
+        ) : (
+          <ProjectGrid
+            projectId={selectedProjectId}
+            dates={dates}
+            employees={employees ?? []}
+            entries={(entries ?? []) as { id: string; employee_id: string; date: string; hours: number }[]}
+            canEdit={canEdit}
+            currentUserId={user.id}
+          />
+        )}
+      </main>
+    </>
+  )
+}

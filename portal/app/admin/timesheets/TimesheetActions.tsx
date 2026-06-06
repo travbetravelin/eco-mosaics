@@ -8,23 +8,24 @@ interface Props {
   entryId: string
   status: string
   reviewerId: string
+  currentHours: number
 }
 
-export default function TimesheetActions({ entryId, status, reviewerId }: Props) {
+export default function TimesheetActions({ entryId, status, reviewerId, currentHours }: Props) {
   const router = useRouter()
   const [loading, setLoading] = useState<string | null>(null)
   const [editing, setEditing] = useState(false)
-  const [clockIn, setClockIn] = useState('')
-  const [clockOut, setClockOut] = useState('')
+  const [hours, setHours] = useState(String(currentHours))
   const [adminNotes, setAdminNotes] = useState('')
 
   async function updateStatus(newStatus: 'approved' | 'rejected') {
     setLoading(newStatus)
     const supabase = createClient()
-    await supabase
-      .from('time_entries')
-      .update({ status: newStatus, reviewed_by: reviewerId, reviewed_at: new Date().toISOString() })
-      .eq('id', entryId)
+    await supabase.from('time_entries').update({
+      status: newStatus,
+      reviewed_by: reviewerId,
+      reviewed_at: new Date().toISOString(),
+    }).eq('id', entryId)
     setLoading(null)
     router.refresh()
   }
@@ -33,16 +34,12 @@ export default function TimesheetActions({ entryId, status, reviewerId }: Props)
     e.preventDefault()
     setLoading('edit')
     const supabase = createClient()
-    await supabase
-      .from('time_entries')
-      .update({
-        clocked_in_at: clockIn || undefined,
-        clocked_out_at: clockOut || undefined,
-        admin_notes: adminNotes || undefined,
-        reviewed_by: reviewerId,
-        reviewed_at: new Date().toISOString(),
-      })
-      .eq('id', entryId)
+    await supabase.from('time_entries').update({
+      hours: parseFloat(hours),
+      admin_notes: adminNotes || null,
+      reviewed_by: reviewerId,
+      reviewed_at: new Date().toISOString(),
+    }).eq('id', entryId)
     setLoading(null)
     setEditing(false)
     router.refresh()
@@ -50,11 +47,10 @@ export default function TimesheetActions({ entryId, status, reviewerId }: Props)
 
   if (editing) {
     return (
-      <form onSubmit={saveEdit} style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 240 }}>
-        <input type="datetime-local" value={clockIn} onChange={e => setClockIn(e.target.value)} placeholder="Clock in" />
-        <input type="datetime-local" value={clockOut} onChange={e => setClockOut(e.target.value)} placeholder="Clock out" />
-        <input type="text" value={adminNotes} onChange={e => setAdminNotes(e.target.value)} placeholder="Admin notes" />
-        <div className="row">
+      <form onSubmit={saveEdit} style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 180 }}>
+        <input type="number" step="0.25" value={hours} onChange={e => setHours(e.target.value)} />
+        <input type="text" placeholder="Admin notes" value={adminNotes} onChange={e => setAdminNotes(e.target.value)} />
+        <div className="row" style={{ gap: 6 }}>
           <button className="btn btn-primary btn-sm" type="submit" disabled={loading === 'edit'}>Save</button>
           <button className="btn btn-secondary btn-sm" type="button" onClick={() => setEditing(false)}>Cancel</button>
         </div>
