@@ -142,7 +142,15 @@ h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 16px; }
 }
 .grid-table thead th.sticky-col { background: #1b4332; }
 
-.editable-cell:hover { background: #f0f7f4; }
+.editable-cell:hover { filter: brightness(0.96); }
+
+/* Modern grid overrides */
+.modern-grid { border-radius: 12px; overflow: hidden; border: none; }
+.modern-grid th, .modern-grid td { border: 1px solid #f0f0f0; padding: 7px 10px; }
+.modern-grid thead th { border-bottom: 2px solid rgba(255,255,255,0.15); }
+.modern-grid tbody tr { transition: filter 0.1s; }
+.modern-grid tbody tr:hover { filter: brightness(0.97); }
+.modern-grid tfoot td { border-top: 2px solid #b7d9c8; }
 
 /* Payroll table row type labels */
 .payroll-table td:first-child { font-weight: 500; min-width: 90px; }

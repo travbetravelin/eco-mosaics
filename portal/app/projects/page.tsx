@@ -53,7 +53,7 @@ export default async function ProjectsPage({
     selectedProjectId
       ? supabase
           .from('time_entries')
-          .select('id, employee_id, date, hours')
+          .select('id, employee_id, date, hours, job_code')
           .eq('project_id', selectedProjectId)
           .eq('entry_type', 'project')
       : Promise.resolve({ data: [] }),
@@ -91,7 +91,7 @@ export default async function ProjectsPage({
             projectId={selectedProjectId}
             dates={dates}
             employees={employees}
-            entries={(entries ?? []) as { id: string; employee_id: string; date: string; hours: number }[]}
+            entries={(entries ?? []) as { id: string; employee_id: string; date: string; hours: number; job_code: string | null }[]}
             canEdit={canEdit}
             currentUserId={user.id}
           />

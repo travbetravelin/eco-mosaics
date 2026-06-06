@@ -4,7 +4,16 @@ import { useState, useCallback } from 'react'
 import { createClient } from '@/lib/supabase'
 import { groupEmployees, GROUP_COLORS, type Employee } from '@/lib/payroll'
 
-interface Entry { employee_id: string; date: string; hours: number; id: string }
+export const JOB_CODE_COLORS: Record<string, { bg: string; text: string; border: string }> = {
+  'Field':            { bg: '#dcfce7', text: '#14532d', border: '#86efac' },
+  'Mobe':             { bg: '#dbeafe', text: '#1e3a8a', border: '#93c5fd' },
+  'Camp Set Up':      { bg: '#fef9c3', text: '#713f12', border: '#fde047' },
+  'Camp Tear Down':   { bg: '#ffedd5', text: '#7c2d12', border: '#fdba74' },
+  'Shopping':         { bg: '#f3e8ff', text: '#581c87', border: '#d8b4fe' },
+  'Camp Maintenance': { bg: '#e0f2fe', text: '#0c4a6e', border: '#7dd3fc' },
+}
+
+interface Entry { employee_id: string; date: string; hours: number; id: string; job_code: string | null }
 
 interface Props {
   projectId: string
@@ -19,9 +28,11 @@ export default function ProjectGrid({ projectId, dates, employees, entries: init
   const groups = groupEmployees(employees)
   const ordered = groups.flatMap(g => g.employees)
 
-  const [cells, setCells] = useState<Record<string, { id: string | null; hours: number }>>(() => {
-    const map: Record<string, { id: string | null; hours: number }> = {}
-    for (const e of initial) map[`${e.employee_id}|${e.date}`] = { id: e.id, hours: e.hours }
+  const [cells, setCells] = useState<Record<string, { id: string | null; hours: number; job_code: string }>>(() => {
+    const map: Record<string, { id: string | null; hours: number; job_code: string }> = {}
+    for (const e of initial) {
+      map[`${e.employee_id}|${e.date}`] = { id: e.id, hours: e.hours, job_code: e.job_code ?? 'Field' }
+    }
     return map
   })
   const [editing, setEditing] = useState<string | null>(null)
@@ -58,91 +69,154 @@ export default function ProjectGrid({ projectId, dates, employees, entries: init
         employee_id: empId, date, hours: parsed,
         entry_type: 'project', project_id: projectId, job_code: 'Field', logged_by: currentUserId,
       }).select('id').single()
-      if (data) setCells(prev => ({ ...prev, [key]: { id: data.id, hours: parsed } }))
+      if (data) setCells(prev => ({ ...prev, [key]: { id: data.id, hours: parsed, job_code: 'Field' } }))
     }
   }, [editVal, cells, projectId, currentUserId])
 
   const colTotal = (empId: string) =>
     dates.reduce((sum, d) => sum + (cells[cellKey(empId, d)]?.hours ?? 0), 0)
-
   const rowTotal = (date: string) =>
     ordered.reduce((sum, e) => sum + (cells[cellKey(e.id, date)]?.hours ?? 0), 0)
-
   const grandTotal = ordered.reduce((sum, e) => sum + colTotal(e.id), 0)
 
+  // Only show legend entries for job codes present in the data
+  const presentCodes = [...new Set(Object.values(cells).map(c => c.job_code))]
+  const legendEntries = Object.entries(JOB_CODE_COLORS).filter(([code]) => presentCodes.includes(code))
+
   return (
-    <div style={{ overflowX: 'auto' }}>
-      <table className="grid-table">
-        <thead>
-          <tr>
-            <th className="sticky-col" rowSpan={2}>Date</th>
-            {groups.map(g => {
-              const c = GROUP_COLORS[g.role] ?? GROUP_COLORS['Unassigned']
-              return (
-                <th key={g.role} colSpan={g.employees.length}
-                  style={{ background: c.bg, color: c.text, textAlign: 'center' }}>
-                  {g.role}
+    <div>
+      {/* Legend */}
+      {legendEntries.length > 0 && (
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 16, alignItems: 'center' }}>
+          <span style={{ fontSize: '0.875rem', color: '#6b7280', fontWeight: 500 }}>Job codes:</span>
+          {legendEntries.map(([code, colors]) => (
+            <span key={code} style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              padding: '3px 10px', borderRadius: 999,
+              background: colors.bg, color: colors.text,
+              border: `1px solid ${colors.border}`,
+              fontSize: '0.875rem', fontWeight: 500,
+            }}>
+              {code}
+            </span>
+          ))}
+          {canEdit && (
+            <span style={{ fontSize: '0.8rem', color: '#9ca3af', marginLeft: 4 }}>
+              · Click any cell to edit
+            </span>
+          )}
+        </div>
+      )}
+
+      {/* Table */}
+      <div style={{ overflowX: 'auto', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06)' }}>
+        <table className="grid-table modern-grid">
+          <thead>
+            <tr>
+              <th className="sticky-col" rowSpan={2} style={{ minWidth: 120 }}>Date</th>
+              {groups.map(g => {
+                const c = GROUP_COLORS[g.role] ?? GROUP_COLORS['Unassigned']
+                return (
+                  <th key={g.role} colSpan={g.employees.length}
+                    style={{ background: c.bg, color: c.text, textAlign: 'center', letterSpacing: '0.02em' }}>
+                    {g.role}
+                  </th>
+                )
+              })}
+              <th rowSpan={2} style={{ minWidth: 64 }}>Total</th>
+            </tr>
+            <tr>
+              {ordered.map(emp => (
+                <th key={emp.id} style={{ fontWeight: 500, fontSize: '0.8rem', whiteSpace: 'nowrap', letterSpacing: '0.01em', opacity: 0.9 }}>
+                  {emp.full_name}
                 </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {dates.map((date, rowIdx) => {
+              const rt = rowTotal(date)
+              const d = new Date(date + 'T00:00:00')
+              const isToday = date === new Date().toISOString().split('T')[0]
+              const isWeekend = d.getDay() === 0 || d.getDay() === 6
+              return (
+                <tr key={date} style={{ background: isToday ? '#f0fdf4' : isWeekend ? '#fafafa' : rowIdx % 2 === 0 ? 'white' : '#fcfcfc' }}>
+                  <td className="sticky-col" style={{
+                    fontWeight: isToday ? 700 : 500,
+                    whiteSpace: 'nowrap',
+                    color: isToday ? '#15803d' : isWeekend ? '#9ca3af' : '#374151',
+                    background: isToday ? '#f0fdf4' : isWeekend ? '#fafafa' : rowIdx % 2 === 0 ? 'white' : '#fcfcfc',
+                    fontSize: '0.875rem',
+                    letterSpacing: '0.01em',
+                  }}>
+                    {isToday && <span style={{ marginRight: 5, fontSize: '0.7rem', background: '#15803d', color: 'white', borderRadius: 4, padding: '1px 5px', verticalAlign: 'middle' }}>Today</span>}
+                    {d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+                  </td>
+                  {ordered.map(emp => {
+                    const key = cellKey(emp.id, date)
+                    const cell = cells[key]
+                    const isEditing = editing === key
+                    const colors = cell ? (JOB_CODE_COLORS[cell.job_code] ?? JOB_CODE_COLORS['Field']) : null
+                    return (
+                      <td key={emp.id}
+                        onClick={() => startEdit(emp.id, date)}
+                        title={cell ? `${cell.job_code} · ${cell.hours}h` : canEdit ? 'Click to add' : ''}
+                        style={{
+                          cursor: canEdit ? 'pointer' : 'default',
+                          minWidth: 56,
+                          textAlign: 'center',
+                          transition: 'background 0.1s',
+                          background: colors ? colors.bg : 'transparent',
+                          color: colors ? colors.text : undefined,
+                          fontWeight: cell ? 600 : 400,
+                          borderLeft: colors ? `3px solid ${colors.border}` : undefined,
+                        }}>
+                        {isEditing ? (
+                          <input autoFocus type="number" step="0.25" value={editVal}
+                            onChange={e => setEditVal(e.target.value)}
+                            onBlur={() => save(emp.id, date)}
+                            onKeyDown={e => { if (e.key === 'Enter') save(emp.id, date) }}
+                            style={{ width: 52, textAlign: 'center', fontSize: '0.9rem', padding: '2px 4px', borderRadius: 4 }} />
+                        ) : cell ? (
+                          String(cell.hours)
+                        ) : (
+                          <span style={{ color: '#e5e7eb', fontSize: '0.75rem' }}>·</span>
+                        )}
+                      </td>
+                    )
+                  })}
+                  <td style={{
+                    fontWeight: 700, textAlign: 'center',
+                    color: rt > 0 ? '#1b4332' : '#d1d5db',
+                    background: rt > 0 ? '#f0f7f4' : 'transparent',
+                    fontSize: '0.9rem',
+                  }}>
+                    {rt > 0 ? rt : ''}
+                  </td>
+                </tr>
               )
             })}
-            <th rowSpan={2}>Total</th>
-          </tr>
-          <tr>
-            {ordered.map(emp => (
-              <th key={emp.id} style={{ fontWeight: 400, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
-                {emp.full_name}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {dates.map(date => {
-            const rt = rowTotal(date)
-            return (
-              <tr key={date}>
-                <td className="sticky-col" style={{ fontWeight: 500, whiteSpace: 'nowrap' }}>
-                  {new Date(date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', weekday: 'short' })}
-                </td>
-                {ordered.map(emp => {
-                  const key = cellKey(emp.id, date)
-                  const val = cells[key]?.hours
-                  const isEditing = editing === key
-                  return (
-                    <td key={emp.id}
-                      onClick={() => startEdit(emp.id, date)}
-                      style={{ cursor: canEdit ? 'pointer' : 'default', minWidth: 60, textAlign: 'center' }}
-                      className={canEdit ? 'editable-cell' : ''}>
-                      {isEditing ? (
-                        <input autoFocus type="number" step="0.25" value={editVal}
-                          onChange={e => setEditVal(e.target.value)}
-                          onBlur={() => save(emp.id, date)}
-                          onKeyDown={e => { if (e.key === 'Enter') save(emp.id, date) }}
-                          style={{ width: 60, textAlign: 'center', fontSize: '1rem', padding: '2px 4px' }} />
-                      ) : (
-                        val ? String(val) : <span style={{ color: '#d1d5db' }}>—</span>
-                      )}
-                    </td>
-                  )
-                })}
-                <td style={{ fontWeight: 600, textAlign: 'center', background: '#f9fafb' }}>
-                  {rt > 0 ? rt : ''}
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-        <tfoot>
-          <tr style={{ background: '#f0f7f4', fontWeight: 600 }}>
-            <td className="sticky-col">Total</td>
-            {ordered.map(e => (
-              <td key={e.id} style={{ textAlign: 'center' }}>
-                {colTotal(e.id) > 0 ? colTotal(e.id) : ''}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td className="sticky-col" style={{ fontWeight: 700, fontSize: '0.875rem', letterSpacing: '0.02em', color: '#1b4332', background: '#e8f4ef' }}>
+                TOTAL
               </td>
-            ))}
-            <td style={{ textAlign: 'center' }}>{grandTotal > 0 ? grandTotal : ''}</td>
-          </tr>
-        </tfoot>
-      </table>
+              {ordered.map(e => (
+                <td key={e.id} style={{
+                  textAlign: 'center', fontWeight: 700, fontSize: '0.9rem',
+                  background: '#e8f4ef', color: colTotal(e.id) > 0 ? '#1b4332' : '#d1d5db',
+                }}>
+                  {colTotal(e.id) > 0 ? colTotal(e.id) : ''}
+                </td>
+              ))}
+              <td style={{ textAlign: 'center', fontWeight: 700, background: '#c8e8d8', color: '#1b4332', fontSize: '1rem' }}>
+                {grandTotal > 0 ? grandTotal : ''}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
     </div>
   )
 }
