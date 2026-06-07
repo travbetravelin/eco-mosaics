@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Eco Mosaics Portal',
+  title: 'Employee Portal',
   viewport: 'width=device-width, initial-scale=1',
 }
 

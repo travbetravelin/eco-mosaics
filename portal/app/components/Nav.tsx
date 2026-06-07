@@ -40,7 +40,7 @@ export default function Nav({ role, name }: NavProps) {
   return (
     <>
       <header className="portal-header">
-        <span className="brand">Eco Mosaics Portal</span>
+        <span className="brand">Employee Portal</span>
 
         {/* Desktop nav */}
         <nav className="nav-desktop">{navLinks}</nav>
