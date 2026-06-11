@@ -26,6 +26,7 @@ export default function Nav({ role, name }: NavProps) {
   const navLinks = (
     <>
       <a href="/dashboard" onClick={() => setMenuOpen(false)}>Dashboard</a>
+      <a href="/schedule" onClick={() => setMenuOpen(false)}>Schedule</a>
       {isLead && <a href="/projects" onClick={() => setMenuOpen(false)}>Projects</a>}
       {isLead && <a href="/admin/timesheets" onClick={() => setMenuOpen(false)}>Timesheets</a>}
       {isLead && <a href="/ops" onClick={() => setMenuOpen(false)}>Ops</a>}
