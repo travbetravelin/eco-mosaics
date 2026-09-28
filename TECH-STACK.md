@@ -27,8 +27,11 @@
 - **Status:** Live
 
 ## Payments
-- **Tool:** Stripe Invoicing — invoices created in the Stripe dashboard with a set amount; Stripe emails the client a hosted pay link
-- **Site integration:** None (no payment pages, backend, or API keys in this repo)
+- **Tool:** Stripe Checkout — embedded payment form (`ui_mode: form`) on `/pay` (`src/pay.njk`)
+- **Server:** Supabase Edge Function `create-checkout-session` (`supabase/functions/`), project "Eco Mosaics Restoration" (`ktkdxgpsdwzuhsdkdzir`)
+- **Secrets:** `STRIPE_SECRET_KEY`, `SITE_URL` set via `supabase secrets` — never in repo
+- **Return page:** `/payment-received/`
+- **Setup status:** see `STRIPE_INTEGRATION_TODO.md`
 
 ## Services & Integrations
 | Service | Purpose | Plan |
@@ -39,4 +42,5 @@
 | Railway | Umami app hosting | Free tier |
 | Supabase | Umami database | Free tier |
 | Umami | Privacy-first analytics | Self-hosted |
-| Stripe | Invoicing for project invoices / deposits | Pay-per-transaction + invoicing fee |
+| Stripe | Embedded Checkout payments | Pay-per-transaction |
+| Supabase Edge Functions | Stripe Checkout Session endpoint | Free tier |

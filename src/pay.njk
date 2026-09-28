@@ -1,0 +1,60 @@
+---
+layout: base.njk
+title: Pay an Invoice — Eco Mosaics Restoration
+description: Pay an Eco Mosaics Restoration invoice or project deposit securely through Stripe.
+robots: noindex, nofollow
+stripeJs: true
+stripePublishableKey: pk_test_...
+checkoutEndpoint: https://ktkdxgpsdwzuhsdkdzir.supabase.co/functions/v1/create-checkout-session
+---
+
+<section class="stub-section">
+  <div class="container" style="max-width: 560px; margin-inline: auto;">
+    <p class="label-tag">Payments</p>
+    <h1 class="section-title">Pay an Invoice or Deposit</h1>
+    <p class="section-lead">Payments are processed securely by Stripe. Card and bank details never touch this site.</p>
+    <div id="checkout-form"></div>
+  </div>
+</section>
+
+<script>
+(async () => {
+  const stripe = Stripe('{{ stripePublishableKey }}', { betas: ['custom_checkout_payment_form_1'] });
+
+  const appearance = {
+    theme: 'stripe',
+    labels: 'auto',
+    inputs: 'spaced',
+    variables: {
+      borderRadius: '4px',
+      colorBackground: '#feffff',
+      colorDanger: '#df1b41',
+      colorPrimary: '#008f51',
+      colorSuccess: '#00c853',
+      colorText: '#30313d',
+      fontFamily: 'default',
+      fontSizeBase: '16px',
+      spacingUnit: '4px'
+    }
+  };
+
+  const clientSecret = fetch('{{ checkoutEndpoint }}', { method: 'POST' })
+    .then((response) => response.json())
+    .then((json) => json.client_secret);
+  const checkout = stripe.initCheckoutFormSdk({ clientSecret, appearance });
+
+  const form = checkout.createForm({ layout: 'expanded' });
+  form.mount('#checkout-form');
+
+  const loadActionsResult = await checkout.loadActions();
+  if (loadActionsResult.type === 'success') {
+    form.on('confirm', async (event) => {
+      try {
+        await loadActionsResult.actions.confirm({ formConfirmEvent: event });
+      } catch (error) {
+        console.error('Payment confirmation error:', error);
+      }
+    });
+  }
+})();
+</script>
