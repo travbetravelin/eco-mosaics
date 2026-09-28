@@ -26,6 +26,13 @@
 - **Instance URL:** https://umami-production-68ce.up.railway.app
 - **Status:** Live
 
+## Payments
+- **Tool:** Stripe Payment Link (Stripe-hosted checkout; no backend or API keys in this repo)
+- **Page:** `/pay` (`src/pay.njk`) — link URL set in front matter `stripePaymentLink`
+- **Pricing mode:** Customer enters amount (invoices / deposits)
+- **Post-payment redirect:** `/payment-received/` (`src/payment-received.njk`)
+- **Indexing:** Both pages `noindex`, not in `sitemap.xml`
+
 ## Services & Integrations
 | Service | Purpose | Plan |
 |---|---|---|
@@ -35,3 +42,4 @@
 | Railway | Umami app hosting | Free tier |
 | Supabase | Umami database | Free tier |
 | Umami | Privacy-first analytics | Self-hosted |
+| Stripe | Invoice / deposit payments via Payment Link | Pay-per-transaction |
