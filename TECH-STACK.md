@@ -25,6 +25,7 @@
 - **Database:** Supabase (PostgreSQL, session mode pooler)
 - **Instance URL:** https://umami-production-68ce.up.railway.app
 - **Status:** Live
+- **Umami Cloud:** https://cloud.umami.is (website ID `fe83fc74-56f5-40de-a2ab-f0adda85353e`) — tracking script runs alongside the self-hosted one
 
 ## Services & Integrations
 | Service | Purpose | Plan |
@@ -35,3 +36,4 @@
 | Railway | Umami app hosting | Free tier |
 | Supabase | Umami database | Free tier |
 | Umami | Privacy-first analytics | Self-hosted |
+| Umami Cloud | Privacy-first analytics (hosted) | Cloud |
