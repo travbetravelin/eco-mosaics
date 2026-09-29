@@ -20,12 +20,11 @@
 - **Branching:** Claude uses worktrees for changes; merged to `main` when approved
 
 ## Analytics
-- **Tool:** Umami (self-hosted, open source)
-- **App hosting:** Railway (v2 branch of umami-software/umami fork)
-- **Database:** Supabase (PostgreSQL, session mode pooler)
-- **Instance URL:** https://umami-production-68ce.up.railway.app
+- **Tool:** Umami Cloud (hosted)
+- **Instance URL:** https://cloud.umami.is
+- **Website ID:** `fe83fc74-56f5-40de-a2ab-f0adda85353e`
 - **Status:** Live
-- **Umami Cloud:** https://cloud.umami.is (website ID `fe83fc74-56f5-40de-a2ab-f0adda85353e`) — tracking script runs alongside the self-hosted one
+- **Previous setup (retired):** self-hosted Umami on Railway with Supabase database — tracking script removed from site
 
 ## Services & Integrations
 | Service | Purpose | Plan |
@@ -33,7 +32,4 @@
 | GitHub Pages | Site hosting | Free |
 | GitHub Actions | CI/CD — build & deploy | Free |
 | Eleventy (11ty) | Static site generator | Open source |
-| Railway | Umami app hosting | Free tier |
-| Supabase | Umami database | Free tier |
-| Umami | Privacy-first analytics | Self-hosted |
-| Umami Cloud | Privacy-first analytics (hosted) | Cloud |
+| Umami Cloud | Privacy-first analytics | Cloud |
